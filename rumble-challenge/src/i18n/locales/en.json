@@ -100,6 +100,53 @@
         "multipleCharactersDrawn": "Team Drawn",
         "oneCharacterDefined": "Your character has been selected",
         "multipleCharactersDefined": "Your team has been selected"
+      },
+      "about": {
+        "title": "About Rumble Challenge",
+        "description": "A tool created to facilitate and make character team draws more fun, offering different configurations, bans, and game modes.",
+        "close": "Close",
+        "featuresTitle": "Features",
+        "featuresDescription": "Discover the main features available.",
+        "github": "View on GitHub",
+        "footer": "Independent project developed for the community.",
+        "howItWorks": {
+          "title": "How it works?",
+          "description": "Configure the number of characters, choose the desired bans, and press the draw button. The system will automatically select a valid team respecting all configurations."
+        },
+        "challenge": {
+          "title": "Challenge Mode",
+          "description": "In Challenge Mode, the drawn characters are added to the global bans after each draw. In this way, the following teams must use different characters."
+        },
+        "features": {
+          "draw": {
+            "title": "Team Draws",
+            "description": "Generate random teams automatically among the available characters."
+          },
+          "drawSettings": {
+            "title": "Draw Settings",
+            "description": "Choose the number of characters and the speed of the draw animation."
+          },
+          "globalBans": {
+            "title": "Global Bans",
+            "description": "Remove specific characters from all draws."
+          },
+          "individualBans": {
+            "title": "Individual Bans",
+            "description": "Define which characters cannot occupy certain positions in the team."
+          },
+          "challengeMode": {
+            "title": "Challenge Mode",
+            "description": "Avoid repeating characters between consecutive draws by automatically adding the drawn characters to the bans."
+          },
+          "history": {
+            "title": "Draw History",
+            "description": "Check the teams that were drawn previously."
+          },
+          "languages": {
+            "title": "Multiple Languages",
+            "description": "Use the application in different languages through the language selector."
+          }
+        }
       }
     }
   }

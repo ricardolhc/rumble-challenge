@@ -1,30 +1,41 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+
 import { useTranslation } from "react-i18next";
+
+import { AboutModal } from "./components/AboutModal";
+import { HelpButton } from "./components/HelpButton";
+import { LanguageSelector } from "./components/LanguageSelector";
 import { CharacterGrid } from "./components/selection/CharacterGrid";
 import { DrawButton } from "./components/selection/DrawButton";
 import { SelectionHeader } from "./components/selection/SelectionHeader";
 import { SettingsButton } from "./components/selection/SettingsButton";
-import { LanguageSelector } from "./components/LanguageSelector";
 import { SettingsModal } from "./components/settings/SettingsModal";
+import type { DrawLog } from "./components/settings/settings.types";
 import { TeamModal } from "./components/TeamModal";
+import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
 import type { CharacterType } from "./selection.types";
 import { getCharacterKey } from "./utils/selection.utils";
-import type { DrawLog } from "./components/settings/settings.types";
-import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
+
 export type { CharacterType } from "./selection.types";
+
 export { getCharacterKey } from "./utils/selection.utils";
 
 const CHARACTERS_URL = "https://api.npoint.io/ac031218a4837bc1162c";
 
 export function SelectionPage() {
   const { t } = useTranslation();
+
   const [characters, setCharacters] = useState<CharacterType[]>([]);
   const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
   const [charactersError, setCharactersError] = useState<string | null>(null);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+
   const [drawLogs, setDrawLogs] = useState<DrawLog[]>(() => getDrawLogs());
+
   const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
 
   const {
@@ -126,6 +137,16 @@ export function SelectionPage() {
     setDrawLogs(updatedLogs);
   }, [selectedTeam]);
 
+  function openSettings() {
+    setIsAboutOpen(false);
+    setIsSettingsOpen(true);
+  }
+
+  function openAbout() {
+    setIsSettingsOpen(false);
+    setIsAboutOpen(true);
+  }
+
   return (
     <>
       <main
@@ -139,7 +160,12 @@ export function SelectionPage() {
       >
         <SettingsButton
           disabled={isSelecting || isLoadingCharacters}
-          onClick={() => setIsSettingsOpen(true)}
+          onClick={openSettings}
+        />
+
+        <HelpButton
+          disabled={isSelecting || isLoadingCharacters}
+          onClick={openAbout}
         />
 
         <LanguageSelector disabled={isSelecting} />
@@ -208,6 +234,8 @@ export function SelectionPage() {
           drawLogs={drawLogs}
         />
       )}
+
+      {isAboutOpen && <AboutModal onClose={() => setIsAboutOpen(false)} />}
 
       {selectedTeam && <TeamModal team={selectedTeam} onClose={closeTeam} />}
     </>

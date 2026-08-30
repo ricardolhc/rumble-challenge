@@ -100,6 +100,53 @@
         "multipleCharactersDrawn": "Gezogenes Team",
         "oneCharacterDefined": "Dein Charakter wurde ausgewählt",
         "multipleCharactersDefined": "Dein Team wurde ausgewählt"
+      },
+      "about": {
+        "title": "Über Rumble Challenge",
+        "description": "Ein Tool, das erstellt wurde, um das Zeichnen von Charakterteams zu erleichtern und es spaßiger zu machen, mit verschiedenen Konfigurationen, Sperren und Spielmodi.",
+        "close": "Schließen",
+        "featuresTitle": "Funktionen",
+        "featuresDescription": "Entdecke die wichtigsten verfügbaren Funktionen.",
+        "github": "Auf GitHub ansehen",
+        "footer": "Unabhängiges Projekt, das für die Community entwickelt wurde.",
+        "howItWorks": {
+          "title": "Wie funktioniert es?",
+          "description": "Konfiguriere die Anzahl der Charaktere, wähle die gewünschten Sperren aus und drücke die Ziehungstaste. Das System wählt automatisch ein gültiges Team aus, das alle Konfigurationen respektiert."
+        },
+        "challenge": {
+          "title": "Herausforderungsmodus",
+          "description": "Im Herausforderungsmodus werden die gezogenen Charaktere nach jeder Ziehung zu den globalen Sperren hinzugefügt. Auf diese Weise müssen die folgenden Teams unterschiedliche Charaktere verwenden."
+        },
+        "features": {
+          "draw": {
+            "title": "Team-Ziehungen",
+            "description": "Erstelle automatisch zufällige Teams aus den verfügbaren Charakteren."
+          },
+          "drawSettings": {
+            "title": "Ziehungs-Einstellungen",
+            "description": "Wähle die Anzahl der Charaktere und die Geschwindigkeit der Ziehungsanimation."
+          },
+          "globalBans": {
+            "title": "Globale Sperren",
+            "description": "Entferne bestimmte Charaktere aus allen Ziehungen."
+          },
+          "individualBans": {
+            "title": "Individuelle Sperren",
+            "description": "Definiere, welche Charaktere bestimmte Positionen in der Mannschaft nicht einnehmen dürfen."
+          },
+          "challengeMode": {
+            "title": "Herausforderungsmodus",
+            "description": "Vermeide das Wiederholen von Charakteren zwischen aufeinanderfolgenden Ziehungen, indem die gezogenen Charaktere automatisch zu den Sperren hinzugefügt werden."
+          },
+          "history": {
+            "title": "Ziehungs-Historie",
+            "description": "Prüfe die zuvor gezogenen Teams."
+          },
+          "languages": {
+            "title": "Mehrere Sprachen",
+            "description": "Verwende die Anwendung in verschiedenen Sprachen über den Sprachauswahldialog."
+          }
+        }
       }
     }
   }

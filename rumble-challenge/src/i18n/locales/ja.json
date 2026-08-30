@@ -100,6 +100,53 @@
         "multipleCharactersDrawn": "抽選されたチーム",
         "oneCharacterDefined": "キャラクターが決定しました",
         "multipleCharactersDefined": "チームが決定しました"
+      },
+      "about": {
+        "title": "Rumble Challenge",
+        "description": "Rumble Challengeは、ランダムにチームを抽選するためのシンプルなツールです。キャラクターの数を設定し、使用禁止のキャラクターを選択して、抽選ボタンを押すだけで、すべての設定を尊重した有効なチームが自動的に選ばれます。",
+        "close": "閉じる",
+        "featuresTitle": "主な機能",
+        "featuresDescription": "主要な機能を確認してください。",
+        "github": "GitHubで表示",
+        "footer": "コミュニティのために開発された独立したプロジェクトです。",
+        "howItWorks": {
+          "title": "どのように動作しますか？",
+          "description": "キャラクターの数を設定し、希望する禁止キャラクターを選択して、抽選ボタンを押してください。システムはすべての設定を尊重した有効なチームを自動的に選択します。"
+        },
+        "challenge": {
+          "title": "チャレンジモード",
+          "description": "チャレンジモードでは、各抽選後に抽選されたキャラクターがグローバル Bans に追加されます。このため、次のチームは異なるキャラクターを使用する必要があります。"
+        },
+        "features": {
+          "draw": {
+            "title": "自動チーム抽選",
+            "description": "キャラクターの数を設定し、希望する禁止キャラクターを選択して、抽選ボタンを押してください。システムはすべての設定を尊重した有効なチームを自動的に選択します。"
+          },
+          "drawSettings": {
+            "title": "抽選設定",
+            "description": "キャラクターの数と抽選アニメーションの速度を選択してください。"
+          },
+          "globalBans": {
+            "title": "グローバルな禁止",
+            "description": "すべての抽選から特定のキャラクターを除外します。"
+          },
+          "individualBans": {
+            "title": "個別使用禁止",
+            "description": "特定のキャラクターがチームの特定の位置を占めることを防ぎます。"
+          },
+          "challengeMode": {
+            "title": "チャレンジモード",
+            "description": "連続する抽選間でキャラクターを繰り返さないように、自動的に抽選されたキャラクターを禁止リストに追加します。"
+          },
+          "history": {
+            "title": "抽選履歴",
+            "description": "以前に抽選されたチームを確認してください。"
+          },
+          "languages": {
+            "title": "複数の言語",
+            "description": "言語セレクターを使用して、異なる言語でアプリケーションを使用してください。"
+          }
+        }
       }
     }
   }

@@ -31,6 +31,20 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
     };
   }, []);
 
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   function handleClose() {
     if (!isVisible) {
       return;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MouseEvent } from "react";
 import type { CharacterType } from "../../selection.types";
 import { DrawSettings } from "./DrawSettings";
@@ -52,6 +52,20 @@ export function SettingsModal({
 
   const totalIndividualBans =
     individualBans[1].size + individualBans[2].size + individualBans[3].size;
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
 
   return (
     <div

@@ -100,6 +100,53 @@
         "multipleCharactersDrawn": "Equipo sorteado",
         "oneCharacterDefined": "Tu personaje ha sido definido",
         "multipleCharactersDefined": "Tu equipo ha sido definido"
+      },
+      "about": {
+        "title": "Acerca de Rumble Challenge",
+        "description": "Una herramienta creada para facilitar y hacer más divertidos los sorteos de equipos de personajes, ofreciendo diferentes configuraciones, bloqueos y modos de juego.",
+        "close": "Cerrar",
+        "featuresTitle": "Características",
+        "featuresDescription": "Descubre las principales características disponibles.",
+        "github": "Ver en GitHub",
+        "footer": "Proyecto independiente desarrollado para la comunidad.",
+        "howItWorks": {
+          "title": "¿Cómo funciona?",
+          "description": "Configura la cantidad de personajes, elige los bloqueos deseados y presiona el botón de sorteo. El sistema seleccionará automáticamente un equipo válido respetando todas las configuraciones."
+        },
+        "challenge": {
+          "title": "Modo Desafío",
+          "description": "En el Modo Desafío, los personajes sorteados se añaden a los banimientos globales después de cada sorteo. De esta forma, los equipos siguientes deben utilizar personajes diferentes."
+        },
+        "features": {
+          "draw": {
+            "title": "Sorteo de equipos",
+            "description": "Genera automáticamente equipos aleatorios entre los personajes disponibles."
+          },
+          "drawSettings": {
+            "title": "Configuración de sorteos",
+            "description": "Configura la cantidad de personajes y la velocidad de la animación del sorteo."
+          },
+          "globalBans": {
+            "title": "Bloqueos globales",
+            "description": "Elimina personajes específicos de todos los sorteos."
+          },
+          "individualBans": {
+            "title": "Bloqueos individuales",
+            "description": "Define qué personajes no pueden ocupar determinadas posiciones de la equipo."
+          },
+          "challengeMode": {
+            "title": "Modo Desafío",
+            "description": "Evite repetir personajes entre sorteos consecutivos adicionando automaticamente los sorteados a los banimientos."
+          },
+          "history": {
+            "title": "Histórico de sorteos",
+            "description": "Consulte las equipes que fueron sorteadas anteriormente."
+          },
+          "languages": {
+            "title": "Múltiples idiomas",
+            "description": "Utilice la aplicación en diferentes idiomas a través del selector de idioma."
+          }
+        }
       }
     }
   }

@@ -100,6 +100,53 @@
         "multipleCharactersDrawn": "Équipe tirée",
         "oneCharacterDefined": "Votre personnage a été sélectionné",
         "multipleCharactersDefined": "Votre équipe a été sélectionnée"
+      },
+      "about": {
+        "title": "À propos de Rumble Challenge",
+        "description": "Une tool créée pour faciliter et rendre plus amusants les tirages de équipes de personnages, en offrant différentes configurations, bannissements et modes de jeu.",
+        "close": "Fermer",
+        "featuresTitle": "Fonctionnalités",
+        "featuresDescription": "Découvrez les principales fonctionnalités disponibles.",
+        "github": "Voir sur GitHub",
+        "footer": "Projet indépendant développé pour la communauté.",
+        "howItWorks": {
+          "title": "Comment ça marche ?",
+          "description": "Configurez la quantité de personnages, choisissez les bannissements souhaités et appuyez sur le bouton de tirage. Le système sélectionnera automatiquement une équipe valide en respectant toutes les configurations."
+        },
+        "challenge": {
+          "title": "Mode Défi",
+          "description": "Dans le Mode Défi, les personnages sortis sont ajoutés aux bannissements globaux après chaque tirage. De cette façon, les équipes suivantes doivent utiliser des personnages différents."
+        },
+        "features": {
+          "draw": {
+            "title": "Tirage d'équipes",
+            "description": "Générez automatiquement des équipes aléatoires parmi les personnages disponibles."
+          },
+          "drawSettings": {
+            "title": "Paramètres de tirage",
+            "description": "Choisissez la quantité de personnages et la vitesse de l'animation du tirage."
+          },
+          "globalBans": {
+            "title": "Banishments globaux",
+            "description": "Retirez des personnages spécifiques de tous les tirages."
+          },
+          "individualBans": {
+            "title": "Banishments individuels",
+            "description": "Définissez quels personnages ne peuvent pas occuper certaines positions de l'équipe."
+          },
+          "challengeMode": {
+            "title": "Mode Défi",
+            "description": "Évitez de répéter les personnages entre les tirages consécutifs en ajoutant automatiquement les personnages sortis aux bannissements."
+          },
+          "history": {
+            "title": "Historique des tirages",
+            "description": "Consultez les équipes qui ont été tirées précédemment."
+          },
+          "languages": {
+            "title": "Multilinguisme",
+            "description": "Utilisez l'application dans différentes langues grâce au sélecteur de langue."
+          }
+        }
       }
     }
   }
