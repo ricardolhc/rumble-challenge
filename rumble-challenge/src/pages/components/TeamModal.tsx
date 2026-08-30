@@ -206,6 +206,7 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
                 background={personagem.background}
                 imageWidthTeam={personagem.imageWidthTeam}
                 imageHeightTeam={personagem.imageHeightTeam}
+                isNew={personagem.isNew}
               />
             </div>
           ))}
