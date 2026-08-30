@@ -75,7 +75,10 @@
           "configurationDescription": "Passe die Ziehung an",
           "bans": "Sperren",
           "individualBans": "Individuelle Sperren",
-          "draws": "Ziehungen"
+          "draws": "Ziehungen",
+          "development": "Entwicklung",
+          "repository": "Repository",
+          "issues": "Probleme"
         }
       },
       "teamModal": {

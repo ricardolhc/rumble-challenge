@@ -75,7 +75,10 @@
           "configurationDescription": "抽選をカスタマイズ",
           "bans": "使用禁止",
           "individualBans": "個別使用禁止",
-          "draws": "抽選"
+          "draws": "抽選",
+          "development": "開発",
+          "repository": "リポジトリ",
+          "issues": "問題"
         }
       },
       "teamModal": {

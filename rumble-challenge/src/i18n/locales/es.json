@@ -75,7 +75,10 @@
           "configurationDescription": "Personaliza el sorteo",
           "bans": "Bloqueos",
           "individualBans": "Bloqueos individuales",
-          "draws": "Sorteos"
+          "draws": "Sorteos",
+          "development": "Desarrollo",
+          "repository": "Repositorio",
+          "issues": "Problemas"
         }
       },
       "teamModal": {

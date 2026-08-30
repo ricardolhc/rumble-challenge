@@ -75,7 +75,10 @@
           "configurationDescription": "Personnalisez le tirage",
           "bans": "Bannissements",
           "individualBans": "Bannissements individuels",
-          "draws": "Tirages"
+          "draws": "Tirages",
+          "development": "Développement",
+          "repository": "Référentiel",
+          "issues": "Problèmes"
         }
       },
       "teamModal": {

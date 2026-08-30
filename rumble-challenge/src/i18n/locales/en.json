@@ -75,7 +75,10 @@
           "configurationDescription": "Customize the draw",
           "bans": "Bans",
           "individualBans": "Individual Bans",
-          "draws": "Draws"
+          "draws": "Draws",
+          "development": "Development",
+          "repository": "Repository",
+          "issues": "Issues"
         }
       },
       "teamModal": {

@@ -80,7 +80,10 @@
           "configurationDescription": "Personalize o sorteio",
           "bans": "Banimentos",
           "individualBans": "Banimentos Individuais",
-          "draws": "Sorteios"
+          "draws": "Sorteios",
+          "development": "Desenvolvimento",
+          "repository": "Repositório",
+          "issues": "Problemas"
         }
       },
       "teamModal": {
