@@ -196,6 +196,7 @@ export function SelectionPage() {
               availableCharactersCount={availableCharactersCount}
               drawCount={drawCount}
               bannedCharactersCount={bannedCharacters.size}
+              challengeMode={challengeMode}
             />
 
             <div className="mx-auto mb-4 h-px w-full max-w-[1600px] bg-slate-700/50" />

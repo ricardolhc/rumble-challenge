@@ -13,7 +13,8 @@
           "oneCharacterPerDraw": "personnage par tirage",
           "multipleCharactersPerDraw": "personnages par tirage",
           "oneCharacterBanned": "banni",
-          "multipleCharactersBanned": "bannis"
+          "multipleCharactersBanned": "bannis",
+          "challengeModeEnabled": "Mode Défi Actif"
         },
         "drawButton": {
           "selecting": "Tirage en cours...",

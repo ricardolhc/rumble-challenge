@@ -13,7 +13,8 @@
           "oneCharacterPerDraw": "Charakter pro Ziehung",
           "multipleCharactersPerDraw": "Charaktere pro Ziehung",
           "oneCharacterBanned": "gesperrt",
-          "multipleCharactersBanned": "gesperrt"
+          "multipleCharactersBanned": "gesperrt",
+          "challengeModeEnabled": "Herausforderungsmodus aktiv"
         },
         "drawButton": {
           "selecting": "Wird ausgelost...",

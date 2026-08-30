@@ -13,7 +13,8 @@
           "oneCharacterPerDraw": "回の抽選につき1キャラクター",
           "multipleCharactersPerDraw": "回の抽選につきキャラクター",
           "oneCharacterBanned": "使用禁止",
-          "multipleCharactersBanned": "使用禁止"
+          "multipleCharactersBanned": "使用禁止",
+          "challengeModeEnabled": "チャレンジモード有効"
         },
         "drawButton": {
           "selecting": "抽選中...",

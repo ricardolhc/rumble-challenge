@@ -13,7 +13,8 @@
           "oneCharacterPerDraw": "personaje por sorteo",
           "multipleCharactersPerDraw": "personajes por sorteo",
           "oneCharacterBanned": "bloqueado",
-          "multipleCharactersBanned": "bloqueados"
+          "multipleCharactersBanned": "bloqueados",
+          "challengeModeEnabled": "Modo Desafío Activo"
         },
         "drawButton": {
           "selecting": "Sorteando...",

@@ -13,7 +13,8 @@
           "oneCharacterPerDraw": "character per draw",
           "multipleCharactersPerDraw": "characters per draw",
           "oneCharacterBanned": "banned",
-          "multipleCharactersBanned": "banned"
+          "multipleCharactersBanned": "banned",
+          "challengeModeEnabled": "Challenge Mode Active"
         },
         "drawButton": {
           "selecting": "Drawing...",
