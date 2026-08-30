@@ -31,7 +31,6 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
 
     return () => {
       cancelAnimationFrame(frame);
-
       window.removeEventListener("keydown", handleKeyDown);
 
       if (closeTimeoutRef.current) {
@@ -58,6 +57,8 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
         items-center
         justify-center
         bg-black/80
+        px-4
+        py-8
         backdrop-blur-sm
         transition-opacity
         duration-[250ms]
@@ -72,6 +73,14 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
       <div
         className={`
           relative
+          w-full
+          max-w-[1000px]
+          overflow-hidden
+          rounded-3xl
+          border
+          border-slate-700/80
+          bg-slate-950/95
+          shadow-[0_30px_100px_rgba(0,0,0,0.65)]
           transition-all
           duration-[250ms]
           ease-out
@@ -82,15 +91,31 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
           }
         `}
       >
-        {/* Fechar */}
+        {/* Glow superior */}
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-1/2
+            top-0
+            h-[180px]
+            w-[600px]
+            -translate-x-1/2
+            rounded-full
+            bg-emerald-500/10
+            blur-[100px]
+          "
+        />
+
+        {/* Botão fechar */}
         <button
           type="button"
           onClick={handleClose}
           title="Fechar"
           className="
             absolute
-            -right-4
-            -top-4
+            right-5
+            top-5
             z-[120]
             flex
             h-10
@@ -125,14 +150,157 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
           </svg>
         </button>
 
-        <TeamCharacter
-          name={character.name}
-          image={character.image}
-          symbol={character.symbol}
-          background={character.background}
-          imageWidthTeam={character.imageWidthTeam}
-          imageHeightTeam={character.imageHeightTeam}
-        />
+        <div className="relative z-10 px-8 pb-10 pt-8 md:px-12">
+          {/* Nome */}
+          <header className="mb-9 text-center">
+            <h1
+              className="
+                text-3xl
+                font-black
+                uppercase
+                tracking-[0.08em]
+                text-white
+                sm:text-4xl
+                md:text-5xl
+              "
+            >
+              {character.name}
+            </h1>
+
+            <div
+              className="
+                mx-auto
+                mt-4
+                h-[3px]
+                w-24
+                rounded-full
+                bg-emerald-400
+                shadow-[0_0_18px_rgba(52,211,153,0.5)]
+              "
+            />
+          </header>
+
+          {/* Conteúdo principal */}
+          <div
+            className="
+              grid
+              grid-cols-1
+              items-start
+              gap-10
+              lg:grid-cols-[auto_1fr]
+              lg:gap-14
+            "
+          >
+            {/* Card */}
+            <div className="flex justify-center lg:justify-start">
+              <TeamCharacter
+                name={character.name}
+                image={character.image}
+                symbol={character.symbol}
+                background={character.background}
+                imageWidthTeam={character.imageWidthTeam}
+                imageHeightTeam={character.imageHeightTeam}
+                showName={false}
+              />
+            </div>
+
+            {/* Informações */}
+            <section className="flex flex-col">
+              {/* Título */}
+              <div className="mb-5 flex items-center gap-3">
+                <div className="h-8 w-1 rounded-full bg-emerald-400" />
+
+                <h2
+                  className="
+                    text-xl
+                    font-extrabold
+                    uppercase
+                    tracking-wider
+                    text-emerald-400
+                    sm:text-2xl
+                  "
+                >
+                  Sobre o personagem
+                </h2>
+              </div>
+
+              {/* Descrição */}
+              <p
+                className="
+                  max-w-[600px]
+                  text-base
+                  font-medium
+                  leading-7
+                  text-slate-300
+                  sm:text-lg
+                  sm:leading-8
+                "
+              >
+                {character.description ||
+                  "A descrição deste personagem ainda não está disponível."}
+              </p>
+
+              <div className="my-7 h-px w-full bg-slate-800" />
+
+              {/* Informações adicionais */}
+              <div className="flex flex-wrap gap-3">
+                <div
+                  className="
+                    rounded-lg
+                    border
+                    border-slate-700
+                    bg-slate-900/80
+                    px-4
+                    py-2
+                  "
+                >
+                  <span
+                    className="
+                      text-xs
+                      font-bold
+                      uppercase
+                      tracking-widest
+                      text-slate-500
+                    "
+                  >
+                    Universo
+                  </span>
+
+                  <p className="mt-0.5 font-bold text-slate-200">
+                    My Hero Academia
+                  </p>
+                </div>
+
+                <div
+                  className="
+                    rounded-lg
+                    border
+                    border-slate-700
+                    bg-slate-900/80
+                    px-4
+                    py-2
+                  "
+                >
+                  <span
+                    className="
+                      text-xs
+                      font-bold
+                      uppercase
+                      tracking-widest
+                      text-slate-500
+                    "
+                  >
+                    Tipo
+                  </span>
+
+                  <p className="mt-0.5 font-bold capitalize text-slate-200">
+                    {character.type}
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
       </div>
     </div>
   );

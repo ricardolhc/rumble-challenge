@@ -5,7 +5,7 @@ interface TeamCharacterProps {
   background: string;
   imageWidthTeam: number;
   imageHeightTeam: number;
-  isNew?: boolean;
+  showName?: boolean;
 }
 
 export function TeamCharacter({
@@ -15,7 +15,7 @@ export function TeamCharacter({
   background,
   imageWidthTeam,
   imageHeightTeam,
-  isNew = false,
+  showName = true,
 }: TeamCharacterProps) {
   return (
     <div
@@ -38,49 +38,26 @@ export function TeamCharacter({
       <img
         src={symbol}
         alt=""
-        draggable={false}
         className="
           absolute
-          top-1
-          left-1
-          z-30
-          h-[50px]
-          w-[50px]
+          left-2
+          top-2
+          z-20
+          h-12
+          w-12
           object-contain
+          drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
         "
       />
-
-      {/* NEW */}
-      {isNew && (
-        <img
-          src="https://ultrarumble.com/assets/icons/newicon.png"
-          alt="New"
-          draggable={false}
-          className="
-            pointer-events-none
-            absolute
-            right-3
-            top-3
-            z-40
-            h-[26px]
-            w-[62px]
-            select-none
-            object-contain
-            animate-[isNewBounce_1s_ease-in-out_infinite]
-          "
-        />
-      )}
 
       {/* Personagem */}
       <img
         src={image}
         alt={name}
-        draggable={false}
         className="
           absolute
           bottom-0
           left-1/2
-          z-10
           max-w-none
           -translate-x-1/2
           object-contain
@@ -91,57 +68,31 @@ export function TeamCharacter({
         }}
       />
 
-      {/* Gradiente */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-x-0
-          bottom-0
-          z-20
-          h-[80px]
-          bg-gradient-to-t
-          from-black/75
-          via-black/20
-          to-transparent
-        "
-      />
-
       {/* Nome */}
-      <div
-        className="
-          absolute
-          right-0
-          bottom-0
-          left-0
-          z-30
-          flex
-          justify-center
-          px-3
-          pb-3
-        "
-      >
-        <h3
+      {showName && (
+        <div
           className="
+            absolute
+            bottom-3
+            left-1/2
+            z-30
+            -translate-x-1/2
+            whitespace-nowrap
+            rounded-lg
+            bg-black/75
+            px-4
+            py-1.5
             text-center
             text-xl
             font-black
-            tracking-tight
             text-white
+            shadow-lg
+            backdrop-blur-sm
           "
-          style={{
-            textShadow: `
-              -1px -1px 0 #000,
-              1px -1px 0 #000,
-              -1px 1px 0 #000,
-              1px 1px 0 #000,
-              0 2px 3px rgba(0,0,0,1)
-            `,
-          }}
         >
           {name}
-        </h3>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
