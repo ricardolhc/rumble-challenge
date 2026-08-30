@@ -78,7 +78,15 @@
           "draws": "Tirages",
           "development": "Développement",
           "repository": "Référentiel",
-          "issues": "Problèmes"
+          "issues": "Problèmes",
+          "logs": "Journaux"
+        },
+        "logsSettings": {
+          "emptyTitle": "Aucun journal de tirage trouvé",
+          "emptyDescription": "Les journaux de tirage seront affichés ici lorsque vous effectuerez des tirages. Ils sont stockés localement dans votre navigateur et ne sont pas partagés avec personne.",
+          "draw": "Tirage",
+          "character": "Personnage",
+          "characters": "Personnages"
         }
       },
       "teamModal": {

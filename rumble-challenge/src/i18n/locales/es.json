@@ -78,7 +78,15 @@
           "draws": "Sorteos",
           "development": "Desarrollo",
           "repository": "Repositorio",
-          "issues": "Problemas"
+          "issues": "Problemas",
+          "logs": "Registros"
+        },
+        "logsSettings": {
+          "emptyTitle": "No se encontraron registros de sorteos",
+          "emptyDescription": "Los registros de sorteos se mostrarán aquí cuando realices sorteos. Se almacenan localmente en tu navegador y no se comparten con nadie.",
+          "draw": "Sorteo",
+          "character": "Personaje",
+          "characters": "Personajes"
         }
       },
       "teamModal": {

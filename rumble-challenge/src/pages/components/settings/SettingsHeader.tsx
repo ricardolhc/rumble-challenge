@@ -1,5 +1,6 @@
-import type { SettingsSection } from "./settings.types";
 import { useTranslation } from "react-i18next";
+
+import type { SettingsSection } from "./settings.types";
 
 interface SettingsHeaderProps {
   selectedSection: SettingsSection;
@@ -12,45 +13,58 @@ export function SettingsHeader({
 }: SettingsHeaderProps) {
   const { t } = useTranslation();
 
-  const sectionContent: Record<
-    SettingsSection,
-    { title: string; description: string }
-  > = {
-    bans: {
-      title: t("selection.components.settings.settingsHeader.bans.title"),
-      description: t(
-        "selection.components.settings.settingsHeader.bans.description",
-      ),
-    },
-    "individual-bans": {
-      title: t(
-        "selection.components.settings.settingsHeader.individualBans.title",
-      ),
-      description: t(
-        "selection.components.settings.settingsHeader.individualBans.description",
-      ),
-    },
-    draws: {
-      title: t("selection.components.settings.settingsHeader.draws.title"),
-      description: t(
-        "selection.components.settings.settingsHeader.draws.description",
-      ),
-    },
+  const titles: Record<SettingsSection, string> = {
+    bans: t("selection.components.settings.settingsHeader.bans.title"),
+
+    "individual-bans": t(
+      "selection.components.settings.settingsHeader.individualBans.title",
+    ),
+
+    draws: t("selection.components.settings.settingsHeader.draws.title"),
+
+    logs: t("selection.components.settings.settingsHeader.logs.title"),
   };
 
-  const content = sectionContent[selectedSection];
+  const descriptions: Record<SettingsSection, string> = {
+    bans: t("selection.components.settings.settingsHeader.bans.description"),
+
+    "individual-bans": t(
+      "selection.components.settings.settingsHeader.individualBans.description",
+    ),
+
+    draws: t("selection.components.settings.settingsHeader.draws.description"),
+
+    logs: t("selection.components.settings.settingsHeader.logs.description"),
+  };
 
   return (
     <header className="flex items-center justify-between border-b border-slate-700 px-6 py-4">
       <div>
-        <h3 className="text-lg font-bold text-white">{content.title}</h3>
-        <p className="mt-1 text-sm text-slate-400">{content.description}</p>
+        <h3 className="text-lg font-bold text-white">
+          {titles[selectedSection]}
+        </h3>
+
+        <p className="mt-1 text-sm text-slate-400">
+          {descriptions[selectedSection]}
+        </p>
       </div>
 
       <button
         type="button"
         onClick={onClose}
-        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
+        className="
+          flex
+          h-9
+          w-9
+          cursor-pointer
+          items-center
+          justify-center
+          rounded-lg
+          text-slate-400
+          transition-colors
+          hover:bg-slate-800
+          hover:text-white
+        "
       >
         <svg
           viewBox="0 0 24 24"

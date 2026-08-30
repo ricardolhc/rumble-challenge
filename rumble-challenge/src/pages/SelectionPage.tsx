@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CharacterGrid } from "./components/selection/CharacterGrid";
 import { DrawButton } from "./components/selection/DrawButton";
@@ -11,6 +11,8 @@ import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
 import type { CharacterType } from "./selection.types";
 import { getCharacterKey } from "./utils/selection.utils";
+import type { DrawLog } from "./components/settings/settings.types";
+import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
 export type { CharacterType } from "./selection.types";
 export { getCharacterKey } from "./utils/selection.utils";
 
@@ -22,6 +24,8 @@ export function SelectionPage() {
   const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
   const [charactersError, setCharactersError] = useState<string | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [drawLogs, setDrawLogs] = useState<DrawLog[]>(() => getDrawLogs());
+  const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
 
   const {
     drawCount,
@@ -106,6 +110,22 @@ export function SelectionPage() {
     [characters, bannedCharacters],
   );
 
+  useEffect(() => {
+    if (!selectedTeam) {
+      return;
+    }
+
+    if (lastLoggedTeamRef.current === selectedTeam) {
+      return;
+    }
+
+    lastLoggedTeamRef.current = selectedTeam;
+
+    const updatedLogs = addDrawLog(selectedTeam);
+
+    setDrawLogs(updatedLogs);
+  }, [selectedTeam]);
+
   return (
     <>
       <main
@@ -185,6 +205,7 @@ export function SelectionPage() {
           onDrawSpeedChange={setDrawSpeed}
           onChallengeModeChange={setChallengeMode}
           onClose={() => setIsSettingsOpen(false)}
+          drawLogs={drawLogs}
         />
       )}
 

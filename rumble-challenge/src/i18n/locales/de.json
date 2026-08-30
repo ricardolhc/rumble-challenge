@@ -78,7 +78,15 @@
           "draws": "Ziehungen",
           "development": "Entwicklung",
           "repository": "Repository",
-          "issues": "Probleme"
+          "issues": "Probleme",
+          "logs": "Protokolle"
+        },
+        "logsSettings": {
+          "emptyTitle": "Keine Ziehungsprotokolle gefunden",
+          "emptyDescription": "Ziehungsprotokolle werden hier angezeigt, wenn du Ziehungen durchführst. Sie werden lokal in deinem Browser gespeichert und nicht mit anderen geteilt.",
+          "draw": "Ziehung",
+          "character": "Charakter",
+          "characters": "Charaktere"
         }
       },
       "teamModal": {

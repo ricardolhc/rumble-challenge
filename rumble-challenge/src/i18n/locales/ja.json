@@ -78,7 +78,15 @@
           "draws": "抽選",
           "development": "開発",
           "repository": "リポジトリ",
-          "issues": "問題"
+          "issues": "問題",
+          "logs": "ログ"
+        },
+        "logsSettings": {
+          "emptyTitle": "抽選ログが見つかりません",
+          "emptyDescription": "抽選ログは、抽選を実行した際にここに表示されます。これらのログは、お使いのブラウザにローカルに保存され、誰とも共有されません。",
+          "draw": "抽選",
+          "character": "キャラクター",
+          "characters": "キャラクター"
         }
       },
       "teamModal": {

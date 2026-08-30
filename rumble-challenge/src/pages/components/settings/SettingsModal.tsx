@@ -7,11 +7,13 @@ import { IndividualBansSettings } from "./IndividualBansSettings";
 import { SettingsHeader } from "./SettingsHeader";
 import { SettingsSidebar } from "./SettingsSidebar";
 import type {
+  DrawLog,
   DrawCount,
   DrawSpeed,
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
+import { LogsSettings } from "../LogsSettings";
 export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 
 interface SettingsModalProps {
@@ -27,6 +29,7 @@ interface SettingsModalProps {
   onClose: () => void;
   onToggleBan: (character: CharacterType) => void;
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
+  drawLogs: DrawLog[];
 }
 
 export function SettingsModal({
@@ -42,6 +45,7 @@ export function SettingsModal({
   onToggleBan,
   onToggleIndividualBan,
   onClose,
+  drawLogs,
 }: SettingsModalProps) {
   const [selectedSection, setSelectedSection] =
     useState<SettingsSection>("bans");
@@ -66,6 +70,7 @@ export function SettingsModal({
           globalBansCount={bannedCharacters.size}
           individualBansCount={totalIndividualBans}
           drawCount={drawCount}
+          logsCount={drawLogs.length}
         />
 
         <section className="flex min-w-0 flex-1 flex-col">
@@ -98,6 +103,8 @@ export function SettingsModal({
               onChallengeModeChange={onChallengeModeChange}
             />
           )}
+
+          {selectedSection === "logs" && <LogsSettings logs={drawLogs} />}
         </section>
       </div>
     </div>

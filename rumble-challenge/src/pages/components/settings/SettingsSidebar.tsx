@@ -4,13 +4,20 @@ import type { DrawCount, SettingsSection } from "./settings.types";
 
 interface SettingsSidebarProps {
   selectedSection: SettingsSection;
+
   onSectionChange: (section: SettingsSection) => void;
+
   globalBansCount: number;
+
   individualBansCount: number;
+
   drawCount: DrawCount;
+
+  logsCount: number;
 }
 
 const REPOSITORY_URL = "https://github.com/ricardolhc/rumble-challenge";
+
 const ISSUES_URL = `${REPOSITORY_URL}/issues`;
 
 export function SettingsSidebar({
@@ -19,6 +26,7 @@ export function SettingsSidebar({
   globalBansCount,
   individualBansCount,
   drawCount,
+  logsCount,
 }: SettingsSidebarProps) {
   const { t } = useTranslation();
 
@@ -128,6 +136,33 @@ export function SettingsSidebar({
             {drawCount}
           </span>
         </button>
+
+        <button
+          type="button"
+          onClick={() => onSectionChange("logs")}
+          className={itemClass("logs")}
+        >
+          <HistoryIcon />
+
+          {t("selection.components.settings.settingsSidebar.logs")}
+
+          {logsCount > 0 && (
+            <span
+              className="
+                ml-auto
+                rounded-full
+                bg-slate-700
+                px-2
+                py-0.5
+                text-[10px]
+                font-bold
+                text-slate-300
+              "
+            >
+              {logsCount}
+            </span>
+          )}
+        </button>
       </nav>
 
       <div className="mt-auto border-t border-slate-800 pt-4">
@@ -172,6 +207,24 @@ export function SettingsSidebar({
         </div>
       </div>
     </aside>
+  );
+}
+
+function HistoryIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4 shrink-0"
+    >
+      <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+      <path d="M3 3v5h5" />
+      <path d="M12 7v5l3 2" />
+    </svg>
   );
 }
 

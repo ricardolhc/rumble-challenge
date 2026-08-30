@@ -78,7 +78,15 @@
           "draws": "Draws",
           "development": "Development",
           "repository": "Repository",
-          "issues": "Issues"
+          "issues": "Issues",
+          "logs": "Logs"
+        },
+        "logsSettings": {
+          "emptyTitle": "No draw logs found",
+          "emptyDescription": "Draw logs will be displayed here when you perform draws. They are stored locally in your browser and not shared with anyone.",
+          "draw": "Draw",
+          "character": "Character",
+          "characters": "Characters"
         }
       },
       "teamModal": {

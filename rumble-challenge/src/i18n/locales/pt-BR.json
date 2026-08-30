@@ -73,6 +73,10 @@
           "draws": {
             "title": "Sorteios",
             "description": "Defina quantos personagens serão sorteados"
+          },
+          "logs": {
+            "title": "Logs",
+            "description": "Veja os logs de sorteios anteriores"
           }
         },
         "settingsSidebar": {
@@ -83,7 +87,15 @@
           "draws": "Sorteios",
           "development": "Desenvolvimento",
           "repository": "Repositório",
-          "issues": "Problemas"
+          "issues": "Problemas",
+          "logs": "Logs"
+        },
+        "logsSettings": {
+          "emptyTitle": "Nenhum log de sorteio encontrado",
+          "emptyDescription": "Os logs de sorteio serão exibidos aqui quando você realizar sorteios. Eles são armazenados localmente no seu navegador e não são compartilhados com ninguém",
+          "draw": "Sorteio",
+          "character": "Personagem",
+          "characters": "Personagens"
         }
       },
       "teamModal": {
