@@ -120,6 +120,7 @@ export function Character({
             font-bold
             leading-none
             text-white
+            character-name
             drop-shadow-[0_1px_2px_rgba(0,0,0,1)]
           "
           title={name}

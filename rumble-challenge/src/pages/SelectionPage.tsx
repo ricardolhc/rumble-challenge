@@ -553,7 +553,7 @@ export function SelectionPage() {
 
             return (
               <div
-                key={personagem.name}
+                key={getCharacterKey(personagem)}
                 className={`
                     relative
                     transition-all

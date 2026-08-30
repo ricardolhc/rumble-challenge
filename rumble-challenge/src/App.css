@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "BarlowCondensed-Medium";
+  src: url("/fonts/BarlowCondensed-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MHURFont";
+  src: url("/fonts/byk_VsAcademy.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MHURBasicFont";
+  src: url("/fonts/byk_font.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "MHURMediumFont";
+  src: url("/fonts/DIN_Next_W10_Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MHURRegularFont";
+  src: url("/fonts/DIN_Next_W01_Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "MHURNameplates";
+  src: url("/fonts/byk-Name-Plate.otf") format("opentype");
+}
+
+/* Fonte padrão do site */
+html,
+body,
+#root {
+  font-family: "MHURFont", sans-serif;
+}
+
+/* Somente nomes dos personagens */
+.character-name {
+  font-family: "BarlowCondensed-Medium", sans-serif;
+}
