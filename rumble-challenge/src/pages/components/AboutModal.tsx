@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { useTranslation } from "react-i18next";
 
 interface AboutModalProps {
@@ -7,30 +8,58 @@ interface AboutModalProps {
 
 const REPOSITORY_URL = "https://github.com/ricardolhc/rumble-challenge";
 
+const FADE_DURATION = 250;
+
 export function AboutModal({ onClose }: AboutModalProps) {
   const { t } = useTranslation();
 
+  const [isVisible, setIsVisible] = useState(false);
+
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      setIsVisible(true);
+    });
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        onClose();
+        handleClose();
       }
     }
 
     document.addEventListener("keydown", handleKeyDown);
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     return () => {
+      cancelAnimationFrame(frame);
+
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
+
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
     };
-  }, [onClose]);
+  }, []);
+
+  function handleClose() {
+    if (!isVisible) {
+      return;
+    }
+
+    setIsVisible(false);
+
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+
+    closeTimeoutRef.current = setTimeout(() => {
+      onClose();
+    }, FADE_DURATION);
+  }
 
   function handleBackdropClick(event: React.MouseEvent<HTMLDivElement>) {
     if (event.target === event.currentTarget) {
-      onClose();
+      handleClose();
     }
   }
 
@@ -72,6 +101,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
             strokeLinejoin="round"
             d="M12 3v18M3 12h18"
           />
+
           <circle cx="12" cy="12" r="8" />
         </svg>
       ),
@@ -87,6 +117,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
           className="h-6 w-6"
         >
           <circle cx="12" cy="12" r="9" />
+
           <path d="m5.6 5.6 12.8 12.8" />
         </svg>
       ),
@@ -102,6 +133,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
           className="h-6 w-6"
         >
           <circle cx="9" cy="8" r="3" />
+
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -125,6 +157,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
             strokeLinejoin="round"
             d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"
           />
+
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -148,6 +181,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
             strokeLinejoin="round"
             d="M3 12a9 9 0 1 0 3-6.7"
           />
+
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -167,6 +201,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
           className="h-6 w-6"
         >
           <circle cx="12" cy="12" r="9" />
+
           <path d="M3 12h18M12 3c2.5 2.7 4 5.8 4 9s-1.5 6.3-4 9c-2.5-2.7-4-5.8-4-9s1.5-6.3 4-9Z" />
         </svg>
       ),
@@ -176,7 +211,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
   return (
     <div
       onMouseDown={handleBackdropClick}
-      className="
+      className={`
         fixed
         inset-0
         z-[100]
@@ -187,13 +222,17 @@ export function AboutModal({ onClose }: AboutModalProps) {
         px-4
         py-8
         backdrop-blur-sm
-      "
+        transition-opacity
+        duration-[250ms]
+        ease-out
+        ${isVisible ? "opacity-100" : "opacity-0"}
+      `}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="about-modal-title"
-        className="
+        className={`
           relative
           flex
           max-h-[90vh]
@@ -206,7 +245,23 @@ export function AboutModal({ onClose }: AboutModalProps) {
           border-slate-700/80
           bg-[#161b24]
           shadow-[0_25px_80px_rgba(0,0,0,0.6)]
-        "
+          transition-all
+          duration-[250ms]
+          ease-out
+          ${
+            isVisible
+              ? `
+                  translate-y-0
+                  scale-100
+                  opacity-100
+                `
+              : `
+                  translate-y-3
+                  scale-[0.98]
+                  opacity-0
+                `
+          }
+        `}
       >
         {/* Header */}
         <div className="relative border-b border-slate-700/70 px-6 py-5 sm:px-8">
@@ -246,7 +301,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             title={t("selection.components.about.close")}
             aria-label={t("selection.components.about.close")}
             className="
@@ -394,6 +449,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
                       strokeLinejoin="round"
                       d="M12 17v-6M12 7h.01"
                     />
+
                     <circle cx="12" cy="12" r="9" />
                   </svg>
                 </div>
@@ -448,6 +504,7 @@ export function AboutModal({ onClose }: AboutModalProps) {
                       strokeLinejoin="round"
                       d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"
                     />
+
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
