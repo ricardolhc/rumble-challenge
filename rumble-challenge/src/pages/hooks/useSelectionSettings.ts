@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 
+import type { CharacterType } from "../selection.types";
+
 import type {
   DrawCount,
   DrawSpeed,
   MemberSlot,
 } from "../components/settings/settings.types";
-import type { CharacterType } from "../selection.types";
+
 import { getCharacterKey } from "../utils/selection.utils";
 
 interface SavedSettings {
@@ -13,6 +15,7 @@ interface SavedSettings {
   drawSpeed: DrawSpeed;
   bannedCharacters: string[];
   individualBans: Record<MemberSlot, string[]>;
+  challengeMode: boolean;
 }
 
 const SETTINGS_STORAGE_KEY = "rumble-challenge-settings";
@@ -20,7 +23,12 @@ const SETTINGS_STORAGE_KEY = "rumble-challenge-settings";
 function loadSavedSettings(): SavedSettings | null {
   try {
     const saved = localStorage.getItem(SETTINGS_STORAGE_KEY);
-    return saved ? (JSON.parse(saved) as SavedSettings) : null;
+
+    if (!saved) {
+      return null;
+    }
+
+    return JSON.parse(saved) as SavedSettings;
   } catch {
     return null;
   }
@@ -32,12 +40,15 @@ export function useSelectionSettings() {
   const [drawCount, setDrawCount] = useState<DrawCount>(
     savedSettings?.drawCount ?? 3,
   );
+
   const [drawSpeed, setDrawSpeed] = useState<DrawSpeed>(
     savedSettings?.drawSpeed ?? "medium",
   );
+
   const [bannedCharacters, setBannedCharacters] = useState<Set<string>>(
     () => new Set(savedSettings?.bannedCharacters ?? []),
   );
+
   const [individualBans, setIndividualBans] = useState<
     Record<MemberSlot, Set<string>>
   >(() => ({
@@ -46,7 +57,11 @@ export function useSelectionSettings() {
     3: new Set(savedSettings?.individualBans?.[3] ?? []),
   }));
 
-  function toggleBan(character: CharacterType) {
+  const [challengeMode, setChallengeMode] = useState<boolean>(
+    savedSettings?.challengeMode ?? false,
+  );
+
+  function handleToggleBan(character: CharacterType) {
     const characterKey = getCharacterKey(character);
 
     setBannedCharacters((current) => {
@@ -62,7 +77,10 @@ export function useSelectionSettings() {
     });
   }
 
-  function toggleIndividualBan(member: MemberSlot, character: CharacterType) {
+  function handleToggleIndividualBan(
+    member: MemberSlot,
+    character: CharacterType,
+  ) {
     const characterKey = getCharacterKey(character);
 
     if (bannedCharacters.has(characterKey)) {
@@ -85,29 +103,57 @@ export function useSelectionSettings() {
     });
   }
 
+  function banCharacters(characters: CharacterType[]) {
+    if (characters.length === 0) {
+      return;
+    }
+
+    setBannedCharacters((current) => {
+      const updated = new Set(current);
+
+      for (const character of characters) {
+        updated.add(getCharacterKey(character));
+      }
+
+      return updated;
+    });
+  }
+
   useEffect(() => {
     const settings: SavedSettings = {
       drawCount,
       drawSpeed,
+
       bannedCharacters: Array.from(bannedCharacters),
+
       individualBans: {
         1: Array.from(individualBans[1]),
         2: Array.from(individualBans[2]),
         3: Array.from(individualBans[3]),
       },
+
+      challengeMode,
     };
 
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
-  }, [drawCount, drawSpeed, bannedCharacters, individualBans]);
+  }, [drawCount, drawSpeed, bannedCharacters, individualBans, challengeMode]);
 
   return {
     drawCount,
+    setDrawCount,
+
     drawSpeed,
+    setDrawSpeed,
+
     bannedCharacters,
     individualBans,
-    setDrawCount,
-    setDrawSpeed,
-    toggleBan,
-    toggleIndividualBan,
+
+    handleToggleBan,
+    handleToggleIndividualBan,
+
+    challengeMode,
+    setChallengeMode,
+
+    banCharacters,
   };
 }

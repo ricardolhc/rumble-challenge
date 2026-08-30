@@ -42,7 +42,10 @@
           "inSpeed": "à vitesse",
           "slowSpeed": "lente",
           "normalSpeed": "normale",
-          "fastSpeed": "rapide"
+          "fastSpeed": "rapide",
+          "challengeMode": "Mode Défi",
+          "challengeModeDescription": "Les personnages sortés ne pourront pas être répétés dans les tirages futurs",
+          "challengeModeActive": "Mode Défi Actif"
         },
         "globalBansSettings": {
           "bannedFrom": "bannis sur",

@@ -42,7 +42,10 @@
           "inSpeed": "at",
           "slowSpeed": "slow speed",
           "normalSpeed": "normal speed",
-          "fastSpeed": "fast speed"
+          "fastSpeed": "fast speed",
+          "challengeMode": "Challenge Mode",
+          "challengeModeDescription": "The drawn characters will not be repeated in future draws",
+          "challengeModeActive": "Challenge Mode Active"
         },
         "globalBansSettings": {
           "bannedFrom": "banned out of",

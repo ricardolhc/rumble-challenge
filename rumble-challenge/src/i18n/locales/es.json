@@ -42,7 +42,10 @@
           "inSpeed": "a velocidad",
           "slowSpeed": "lenta",
           "normalSpeed": "normal",
-          "fastSpeed": "rápida"
+          "fastSpeed": "rápida",
+          "challengeMode": "Modo Desafío",
+          "challengeModeDescription": "Los personajes sorteados no podrán ser repetidos en sorteos futuros",
+          "challengeModeActive": "Modo Desafío Activo"
         },
         "globalBansSettings": {
           "bannedFrom": "bloqueados de",

@@ -42,7 +42,10 @@
           "inSpeed": "速度",
           "slowSpeed": "遅い",
           "normalSpeed": "普通",
-          "fastSpeed": "速い"
+          "fastSpeed": "速い",
+          "challengeMode": "チャレンジモード",
+          "challengeModeDescription": "引かれたキャラクターは将来の抽選で繰り返されません",
+          "challengeModeActive": "チャレンジモード有効"
         },
         "globalBansSettings": {
           "bannedFrom": "中、使用禁止",

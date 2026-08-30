@@ -42,7 +42,10 @@
           "inSpeed": "mit",
           "slowSpeed": "langsamer Geschwindigkeit",
           "normalSpeed": "normaler Geschwindigkeit",
-          "fastSpeed": "schneller Geschwindigkeit"
+          "fastSpeed": "schneller Geschwindigkeit",
+          "challengeMode": "Herausforderungsmodus",
+          "challengeModeDescription": "Die gezogenen Charaktere dürfen in zukünftigen Ziehungen nicht wiederholt werden",
+          "challengeModeActive": "Herausforderungsmodus aktiv"
         },
         "globalBansSettings": {
           "bannedFrom": "gesperrt von",

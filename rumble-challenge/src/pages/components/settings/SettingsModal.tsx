@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { MouseEvent } from "react";
-
+import type { CharacterType } from "../../selection.types";
 import { DrawSettings } from "./DrawSettings";
 import { GlobalBansSettings } from "./GlobalBansSettings";
 import { IndividualBansSettings } from "./IndividualBansSettings";
@@ -12,8 +12,6 @@ import type {
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
-import type { CharacterType } from "../../selection.types";
-
 export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 
 interface SettingsModalProps {
@@ -22,8 +20,10 @@ interface SettingsModalProps {
   individualBans: Record<MemberSlot, Set<string>>;
   drawCount: DrawCount;
   drawSpeed: DrawSpeed;
+  challengeMode: boolean;
   onDrawCountChange: (count: DrawCount) => void;
   onDrawSpeedChange: (speed: DrawSpeed) => void;
+  onChallengeModeChange: (enabled: boolean) => void;
   onClose: () => void;
   onToggleBan: (character: CharacterType) => void;
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
@@ -32,13 +32,15 @@ interface SettingsModalProps {
 export function SettingsModal({
   characters,
   bannedCharacters,
-  onToggleBan,
   individualBans,
-  onToggleIndividualBan,
   drawCount,
   drawSpeed,
+  challengeMode,
   onDrawCountChange,
   onDrawSpeedChange,
+  onChallengeModeChange,
+  onToggleBan,
+  onToggleIndividualBan,
   onClose,
 }: SettingsModalProps) {
   const [selectedSection, setSelectedSection] =
@@ -90,8 +92,10 @@ export function SettingsModal({
             <DrawSettings
               drawCount={drawCount}
               drawSpeed={drawSpeed}
+              challengeMode={challengeMode}
               onDrawCountChange={onDrawCountChange}
               onDrawSpeedChange={onDrawSpeedChange}
+              onChallengeModeChange={onChallengeModeChange}
             />
           )}
         </section>

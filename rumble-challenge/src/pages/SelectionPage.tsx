@@ -1,43 +1,40 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import { CharacterGrid } from "./components/selection/CharacterGrid";
 import { DrawButton } from "./components/selection/DrawButton";
 import { SelectionHeader } from "./components/selection/SelectionHeader";
 import { SettingsButton } from "./components/selection/SettingsButton";
+import { LanguageSelector } from "./components/LanguageSelector";
 import { SettingsModal } from "./components/settings/SettingsModal";
 import { TeamModal } from "./components/TeamModal";
-import { LanguageSelector } from "./components/LanguageSelector";
-
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
-
 import type { CharacterType } from "./selection.types";
-
 import { getCharacterKey } from "./utils/selection.utils";
-
 export type { CharacterType } from "./selection.types";
 export { getCharacterKey } from "./utils/selection.utils";
 
 const CHARACTERS_URL = "https://api.npoint.io/ac031218a4837bc1162c";
 
 export function SelectionPage() {
+  const { t } = useTranslation();
   const [characters, setCharacters] = useState<CharacterType[]>([]);
   const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
   const [charactersError, setCharactersError] = useState<string | null>(null);
-  const { t } = useTranslation();
-
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const {
     drawCount,
+    setDrawCount,
     drawSpeed,
+    setDrawSpeed,
     bannedCharacters,
     individualBans,
-    setDrawCount,
-    setDrawSpeed,
-    toggleBan,
-    toggleIndividualBan,
+    handleToggleBan,
+    handleToggleIndividualBan,
+    challengeMode,
+    setChallengeMode,
+    banCharacters,
   } = useSelectionSettings();
 
   useEffect(() => {
@@ -78,12 +75,12 @@ export function SelectionPage() {
       }
     }
 
-    loadCharacters();
+    void loadCharacters();
 
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [t]);
 
   const {
     highlightedIndexes,
@@ -98,6 +95,7 @@ export function SelectionPage() {
     drawSpeed,
     bannedCharacters,
     individualBans,
+    onTeamDrawn: challengeMode ? banCharacters : undefined,
   });
 
   const availableCharactersCount = useMemo(
@@ -177,13 +175,15 @@ export function SelectionPage() {
         <SettingsModal
           characters={characters}
           bannedCharacters={bannedCharacters}
-          onToggleBan={toggleBan}
           individualBans={individualBans}
-          onToggleIndividualBan={toggleIndividualBan}
           drawCount={drawCount}
           drawSpeed={drawSpeed}
+          challengeMode={challengeMode}
+          onToggleBan={handleToggleBan}
+          onToggleIndividualBan={handleToggleIndividualBan}
           onDrawCountChange={setDrawCount}
           onDrawSpeedChange={setDrawSpeed}
+          onChallengeModeChange={setChallengeMode}
           onClose={() => setIsSettingsOpen(false)}
         />
       )}
