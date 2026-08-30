@@ -559,6 +559,7 @@ export function SelectionPage() {
                     transition-all
                     duration-200
                     ${isGloballyBanned ? "opacity-25 grayscale" : ""}
+                    ${isSelecting && !highlightedIndexes.includes(index) ? "opacity-15" : ""}
                   `}
               >
                 <Character
