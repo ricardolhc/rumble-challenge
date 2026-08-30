@@ -148,6 +148,10 @@
             "description": "Utilisez l'application dans différentes langues grâce au sélecteur de langue."
           }
         }
+      },
+      "characterModal": {
+        "information": "À propos du personnage",
+        "type": "Type"
       }
     }
   }

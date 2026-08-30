@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AboutModal } from "./components/AboutModal";
+import { CharacterModal } from "./components/CharacterModal";
 import { HelpButton } from "./components/HelpButton";
 import { LanguageSelector } from "./components/LanguageSelector";
 import { CharacterGrid } from "./components/selection/CharacterGrid";
@@ -10,14 +11,20 @@ import { DrawButton } from "./components/selection/DrawButton";
 import { SelectionHeader } from "./components/selection/SelectionHeader";
 import { SettingsButton } from "./components/selection/SettingsButton";
 import { SettingsModal } from "./components/settings/SettingsModal";
+
 import type { DrawLog } from "./components/settings/settings.types";
+
 import { TeamModal } from "./components/TeamModal";
+
 import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
+
+import { useCharacterDescriptions } from "./hooks/useCharacterDescriptions";
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
+
 import type { CharacterType } from "./selection.types";
+
 import { getCharacterKey } from "./utils/selection.utils";
-import { CharacterModal } from "./components/CharacterModal";
 
 export type { CharacterType } from "./selection.types";
 
@@ -29,16 +36,24 @@ export function SelectionPage() {
   const { t } = useTranslation();
 
   const [characters, setCharacters] = useState<CharacterType[]>([]);
+
   const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
+
   const [charactersError, setCharactersError] = useState<string | null>(null);
+
   const [selectedCharacter, setSelectedCharacter] =
     useState<CharacterType | null>(null);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   const [drawLogs, setDrawLogs] = useState<DrawLog[]>(() => getDrawLogs());
 
   const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
+
+  const { descriptions, isLoading: isLoadingDescriptions } =
+    useCharacterDescriptions();
 
   const {
     drawCount,
@@ -152,7 +167,17 @@ export function SelectionPage() {
   return (
     <>
       <main
-        className="relative flex min-h-screen w-full flex-col overflow-x-hidden px-4 py-4 text-white"
+        className="
+          relative
+          flex
+          min-h-screen
+          w-full
+          flex-col
+          overflow-x-hidden
+          px-4
+          py-4
+          text-white
+        "
         style={{
           backgroundColor: "#11151d",
           backgroundImage:
@@ -175,7 +200,17 @@ export function SelectionPage() {
         {isLoadingCharacters && (
           <div className="flex flex-1 items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-700 border-t-blue-500" />
+              <div
+                className="
+                  h-10
+                  w-10
+                  animate-spin
+                  rounded-full
+                  border-4
+                  border-slate-700
+                  border-t-blue-500
+                "
+              />
 
               <span className="text-sm text-slate-400">
                 {t("selection.page.loadingCharacters")}
@@ -186,7 +221,17 @@ export function SelectionPage() {
 
         {!isLoadingCharacters && charactersError && (
           <div className="flex flex-1 items-center justify-center">
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-6 py-4 text-center">
+            <div
+              className="
+                  rounded-xl
+                  border
+                  border-red-500/30
+                  bg-red-500/10
+                  px-6
+                  py-4
+                  text-center
+                "
+            >
               <p className="font-medium text-red-400">{charactersError}</p>
             </div>
           </div>
@@ -201,7 +246,16 @@ export function SelectionPage() {
               challengeMode={challengeMode}
             />
 
-            <div className="mx-auto mb-4 h-px w-full max-w-[1600px] bg-slate-700/50" />
+            <div
+              className="
+                  mx-auto
+                  mb-4
+                  h-px
+                  w-full
+                  max-w-[1600px]
+                  bg-slate-700/50
+                "
+            />
 
             <CharacterGrid
               characters={characters}
@@ -246,6 +300,12 @@ export function SelectionPage() {
       {selectedCharacter && (
         <CharacterModal
           character={selectedCharacter}
+          description={
+            isLoadingDescriptions
+              ? t("selection.page.loadingCharacterDescription")
+              : (descriptions[selectedCharacter.id]?.description ??
+                t("selection.page.characterDescriptionUnavailable"))
+          }
           onClose={() => setSelectedCharacter(null)}
         />
       )}

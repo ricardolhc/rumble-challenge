@@ -148,6 +148,10 @@
             "description": "Use the application in different languages through the language selector."
           }
         }
+      },
+      "characterModal": {
+        "information": "About the character",
+        "type": "Type"
       }
     }
   }

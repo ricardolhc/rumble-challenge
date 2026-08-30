@@ -148,6 +148,10 @@
             "description": "Verwende die Anwendung in verschiedenen Sprachen über den Sprachauswahldialog."
           }
         }
+      },
+      "characterModal": {
+        "information": "Über den Charakter",
+        "type": "Typ"
       }
     }
   }

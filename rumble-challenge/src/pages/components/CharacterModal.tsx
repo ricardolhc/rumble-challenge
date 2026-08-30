@@ -3,15 +3,22 @@ import { useEffect, useRef, useState } from "react";
 import type { CharacterType } from "../selection.types";
 
 import { TeamCharacter } from "./TeamCharacter";
+import { useTranslation } from "react-i18next";
 
 interface CharacterModalProps {
   character: CharacterType;
   onClose: () => void;
+  description: string;
 }
 
 const FADE_DURATION = 250;
 
-export function CharacterModal({ character, onClose }: CharacterModalProps) {
+export function CharacterModal({
+  character,
+  onClose,
+  description,
+}: CharacterModalProps) {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -220,7 +227,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
                     sm:text-2xl
                   "
                 >
-                  Sobre o personagem
+                  {t("selection.components.characterModal.information")}
                 </h2>
               </div>
 
@@ -236,8 +243,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
                   sm:leading-8
                 "
               >
-                {character.description ||
-                  "A descrição deste personagem ainda não está disponível."}
+                {description}
               </p>
 
               <div className="my-7 h-px w-full bg-slate-800" />
@@ -263,34 +269,7 @@ export function CharacterModal({ character, onClose }: CharacterModalProps) {
                       text-slate-500
                     "
                   >
-                    Universo
-                  </span>
-
-                  <p className="mt-0.5 font-bold text-slate-200">
-                    My Hero Academia
-                  </p>
-                </div>
-
-                <div
-                  className="
-                    rounded-lg
-                    border
-                    border-slate-700
-                    bg-slate-900/80
-                    px-4
-                    py-2
-                  "
-                >
-                  <span
-                    className="
-                      text-xs
-                      font-bold
-                      uppercase
-                      tracking-widest
-                      text-slate-500
-                    "
-                  >
-                    Tipo
+                    {t("selection.components.characterModal.type")}
                   </span>
 
                   <p className="mt-0.5 font-bold capitalize text-slate-200">

@@ -1,4 +1,5 @@
 export interface CharacterType {
+  id: string;
   name: string;
   image: string;
   type: string;
