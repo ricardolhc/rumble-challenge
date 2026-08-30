@@ -6,6 +6,7 @@ interface TeamCharacterProps {
   imageWidthTeam: number;
   imageHeightTeam: number;
   showName?: boolean;
+  isNew?: boolean;
 }
 
 export function TeamCharacter({
@@ -15,6 +16,7 @@ export function TeamCharacter({
   background,
   imageWidthTeam,
   imageHeightTeam,
+  isNew = false,
   showName = true,
 }: TeamCharacterProps) {
   return (
@@ -49,6 +51,27 @@ export function TeamCharacter({
           drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
         "
       />
+
+      {/* NEW */}
+      {isNew && (
+        <img
+          src="https://ultrarumble.com/assets/icons/newicon.png"
+          alt="New"
+          draggable={false}
+          className="
+            pointer-events-none
+            absolute
+            right-3
+            top-3
+            z-40
+            h-[26px]
+            w-[62px]
+            select-none
+            object-contain
+            animate-[isNewBounce_1s_ease-in-out_infinite]
+          "
+        />
+      )}
 
       {/* Personagem */}
       <img
