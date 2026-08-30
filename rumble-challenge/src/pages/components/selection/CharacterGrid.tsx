@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 import { Character } from "../Character";
 
 import type { CharacterType } from "../../selection.types";
@@ -12,6 +14,8 @@ interface CharacterGridProps {
   onCharacterClick: (character: CharacterType) => void;
 }
 
+const LONG_HOVER_DELAY = 3000;
+
 export function CharacterGrid({
   characters,
   bannedCharacters,
@@ -21,20 +25,84 @@ export function CharacterGrid({
 }: CharacterGridProps) {
   const highlighted = new Set(highlightedIndexes);
 
+  const [focusedCharacterKey, setFocusedCharacterKey] = useState<string | null>(
+    null,
+  );
+
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function clearHoverTimeout() {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
+  }
+
+  function handleMouseEnter(character: CharacterType) {
+    if (isSelecting) {
+      return;
+    }
+
+    clearHoverTimeout();
+
+    const characterKey = getCharacterKey(character);
+
+    hoverTimeoutRef.current = setTimeout(() => {
+      setFocusedCharacterKey(characterKey);
+      hoverTimeoutRef.current = null;
+    }, LONG_HOVER_DELAY);
+  }
+
+  function handleMouseLeave(character: CharacterType) {
+    clearHoverTimeout();
+
+    const characterKey = getCharacterKey(character);
+
+    if (focusedCharacterKey === characterKey) {
+      setFocusedCharacterKey(null);
+    }
+  }
+
+  useEffect(() => {
+    if (isSelecting) {
+      clearHoverTimeout();
+      setFocusedCharacterKey(null);
+    }
+  }, [isSelecting]);
+
+  useEffect(() => {
+    return () => {
+      clearHoverTimeout();
+    };
+  }, []);
+
   return (
     <section className="mx-auto flex w-full max-w-[1680px] flex-wrap justify-center gap-0">
       {characters.map((character, index) => {
-        const isGloballyBanned = bannedCharacters.has(
-          getCharacterKey(character),
-        );
+        const characterKey = getCharacterKey(character);
+
+        const isGloballyBanned = bannedCharacters.has(characterKey);
 
         const isHighlighted = highlighted.has(index);
 
+        const hasFocusedCharacter = focusedCharacterKey !== null;
+
+        const isFocusedCharacter = focusedCharacterKey === characterKey;
+
+        const shouldFade =
+          hasFocusedCharacter && !isFocusedCharacter && !isSelecting;
+
         return (
           <div
-            key={getCharacterKey(character)}
+            key={characterKey}
             role="button"
             tabIndex={isSelecting ? -1 : 0}
+            onMouseEnter={() => {
+              handleMouseEnter(character);
+            }}
+            onMouseLeave={() => {
+              handleMouseLeave(character);
+            }}
             onClick={() => {
               if (isSelecting) {
                 return;
@@ -49,6 +117,7 @@ export function CharacterGrid({
 
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
+
                 onCharacterClick(character);
               }
             }}
@@ -57,11 +126,15 @@ export function CharacterGrid({
               relative
               outline-none
               transition-all
-              duration-200
+              ease-out
+
+              ${shouldFade ? "opacity-15 duration-[1500ms]" : "duration-300"}
 
               ${isSelecting ? "cursor-default" : "cursor-pointer"}
 
-              ${isGloballyBanned ? "opacity-25 grayscale" : ""}
+              ${isGloballyBanned && !shouldFade ? "opacity-25 grayscale" : ""}
+
+              ${isGloballyBanned ? "grayscale" : ""}
 
               ${isSelecting && !isHighlighted ? "opacity-15" : ""}
 
@@ -80,6 +153,7 @@ export function CharacterGrid({
               imageWidth={character.imageWidth}
               imageHeight={character.imageHeight}
               isHighlighted={isHighlighted}
+              isFocused={isFocusedCharacter}
               isNew={character.isNew}
               isSelecting={isSelecting}
             />

@@ -4,6 +4,7 @@ interface CharacterProps {
   symbol: string;
   background: string;
   isHighlighted?: boolean;
+  isFocused?: boolean;
   imageWidth: number;
   imageHeight: number;
   isNew?: boolean;
@@ -18,6 +19,7 @@ export function Character({
   imageWidth,
   imageHeight,
   isHighlighted = false,
+  isFocused = false,
   isNew = false,
   isSelecting = false,
 }: CharacterProps) {
@@ -31,33 +33,44 @@ export function Character({
         overflow-hidden
         bg-repeat
         transition-all
-        duration-150
+        duration-300
         ease-out
 
         ${
-          isHighlighted
+          isFocused
             ? `
-              z-50
-              -translate-y-[5px]
-              scale-[1.06]
+              z-[70]
+              -translate-y-[8px]
+              scale-[1.75]
               ring-2
               ring-yellow-300
-              shadow-[0_8px_18px_rgba(0,0,0,0.65)]
+              shadow-[0_12px_28px_rgba(0,0,0,0.75)]
             `
-            : `
-              z-10
-              border
-              border-black
-            `
+            : isHighlighted
+              ? `
+                z-50
+                -translate-y-[5px]
+                scale-[1.06]
+                ring-2
+                ring-yellow-300
+                shadow-[0_8px_18px_rgba(0,0,0,0.65)]
+              `
+              : `
+                z-10
+                border
+                border-black
+              `
         }
 
         ${
-          !isSelecting && !isHighlighted
+          !isSelecting && !isHighlighted && !isFocused
             ? `
               hover:z-40
               hover:-translate-y-[4px]
               hover:scale-[1.04]
-              hover:shadow-[0_6px_14px_rgba(0,0,0,0.5)]
+              hover:ring-2
+              hover:ring-yellow-300
+              hover:shadow-[0_8px_18px_rgba(0,0,0,0.65)]
             `
             : ""
         }
