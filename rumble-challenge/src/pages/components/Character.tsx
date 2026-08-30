@@ -6,6 +6,7 @@ interface CharacterProps {
   isHighlighted?: boolean;
   imageWidth: number;
   imageHeight: number;
+  isNew?: boolean;
 }
 
 export function Character({
@@ -16,6 +17,7 @@ export function Character({
   imageWidth,
   imageHeight,
   isHighlighted = false,
+  isNew = false,
 }: CharacterProps) {
   return (
     <div
@@ -29,7 +31,6 @@ export function Character({
         transition-all
         duration-150
         ease-out
-
         ${
           isHighlighted
             ? `
@@ -93,6 +94,27 @@ export function Character({
         "
       />
 
+      {/* NEW */}
+      {isNew && (
+        <img
+          src="https://ultrarumble.com/assets/icons/newicon.png"
+          alt="New"
+          draggable={false}
+          className="
+      pointer-events-none
+      absolute
+      right-[2px]
+      top-[2px]
+      z-40
+      h-[16px]
+      w-[38px]
+      select-none
+      object-contain
+      animate-[isNewBounce_1s_ease-in-out_infinite]
+    "
+        />
+      )}
+
       {/* Nome */}
       <div
         className="
@@ -111,6 +133,7 @@ export function Character({
       >
         <h2
           className="
+            character-name
             max-w-full
             overflow-hidden
             text-ellipsis
@@ -120,7 +143,6 @@ export function Character({
             font-bold
             leading-none
             text-white
-            character-name
             drop-shadow-[0_1px_2px_rgba(0,0,0,1)]
           "
           title={name}

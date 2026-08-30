@@ -43,3 +43,14 @@ body,
 .character-name {
   font-family: "BarlowCondensed-Medium", sans-serif;
 }
+
+@keyframes isNewBounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}

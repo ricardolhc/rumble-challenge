@@ -20,7 +20,9 @@ export function CharacterGrid({
   return (
     <section className="mx-auto flex w-full max-w-[1680px] flex-wrap justify-center gap-0">
       {characters.map((character, index) => {
-        const isGloballyBanned = bannedCharacters.has(getCharacterKey(character));
+        const isGloballyBanned = bannedCharacters.has(
+          getCharacterKey(character),
+        );
         const isHighlighted = highlighted.has(index);
 
         return (
@@ -38,6 +40,7 @@ export function CharacterGrid({
               imageWidth={character.imageWidth}
               imageHeight={character.imageHeight}
               isHighlighted={isHighlighted}
+              isNew={character.isNew}
             />
 
             {isGloballyBanned && (

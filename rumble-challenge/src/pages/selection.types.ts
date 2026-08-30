@@ -8,6 +8,7 @@ export interface CharacterType {
   imageHeight: number;
   imageWidthTeam: number;
   imageHeightTeam: number;
+  isNew?: boolean;
 }
 
 export interface CharacterWithIndex {
