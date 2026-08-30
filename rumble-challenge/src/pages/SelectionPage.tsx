@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import personagensJson from "../personagens.json";
 
@@ -29,6 +29,15 @@ interface CharacterWithIndex {
   index: number;
 }
 
+interface SavedSettings {
+  drawCount: DrawCount;
+  drawSpeed: DrawSpeed;
+  bannedCharacters: string[];
+  individualBans: Record<MemberSlot, string[]>;
+}
+
+const SETTINGS_STORAGE_KEY = "rumble-challenge-settings";
+
 const personagens: CharacterType[] = personagensJson;
 
 const DRAW_SPEED_CONFIG: Record<
@@ -44,7 +53,23 @@ export function getCharacterKey(character: CharacterType) {
   return `${character.name}::${character.type}`;
 }
 
+function loadSavedSettings(): SavedSettings | null {
+  try {
+    const saved = localStorage.getItem(SETTINGS_STORAGE_KEY);
+
+    if (!saved) {
+      return null;
+    }
+
+    return JSON.parse(saved) as SavedSettings;
+  } catch {
+    return null;
+  }
+}
+
 export function SelectionPage() {
+  const savedSettings = useMemo(() => loadSavedSettings(), []);
+
   const [highlightedIndexes, setHighlightedIndexes] = useState<number[]>([]);
 
   const [isSelecting, setIsSelecting] = useState(false);
@@ -55,21 +80,25 @@ export function SelectionPage() {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  const [drawCount, setDrawCount] = useState<DrawCount>(3);
+  const [drawCount, setDrawCount] = useState<DrawCount>(
+    savedSettings?.drawCount ?? 3,
+  );
 
-  const [drawSpeed, setDrawSpeed] = useState<DrawSpeed>("medium");
+  const [drawSpeed, setDrawSpeed] = useState<DrawSpeed>(
+    savedSettings?.drawSpeed ?? "medium",
+  );
 
   const [bannedCharacters, setBannedCharacters] = useState<Set<string>>(
-    new Set(),
+    () => new Set(savedSettings?.bannedCharacters ?? []),
   );
 
   const [individualBans, setIndividualBans] = useState<
     Record<MemberSlot, Set<string>>
-  >({
-    1: new Set(),
-    2: new Set(),
-    3: new Set(),
-  });
+  >(() => ({
+    1: new Set(savedSettings?.individualBans?.[1] ?? []),
+    2: new Set(savedSettings?.individualBans?.[2] ?? []),
+    3: new Set(savedSettings?.individualBans?.[3] ?? []),
+  }));
 
   const charactersWithIndex = useMemo<CharacterWithIndex[]>(
     () =>
@@ -336,6 +365,21 @@ export function SelectionPage() {
   function handleCloseModal() {
     setSelectedTeam(null);
   }
+
+  useEffect(() => {
+    const settings: SavedSettings = {
+      drawCount,
+      drawSpeed,
+      bannedCharacters: Array.from(bannedCharacters),
+      individualBans: {
+        1: Array.from(individualBans[1]),
+        2: Array.from(individualBans[2]),
+        3: Array.from(individualBans[3]),
+      },
+    };
+
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+  }, [drawCount, drawSpeed, bannedCharacters, individualBans]);
 
   return (
     <>
