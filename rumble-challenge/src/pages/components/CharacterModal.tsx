@@ -208,6 +208,7 @@ export function CharacterModal({
                 imageWidthTeam={character.imageWidthTeam}
                 imageHeightTeam={character.imageHeightTeam}
                 showName={false}
+                isNew={character.isNew}
               />
             </div>
 
