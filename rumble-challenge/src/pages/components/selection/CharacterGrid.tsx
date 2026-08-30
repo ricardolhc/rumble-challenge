@@ -1,5 +1,7 @@
 import { Character } from "../Character";
+
 import type { CharacterType } from "../../selection.types";
+
 import { getCharacterKey } from "../../utils/selection.utils";
 
 interface CharacterGridProps {
@@ -7,6 +9,7 @@ interface CharacterGridProps {
   bannedCharacters: Set<string>;
   highlightedIndexes: number[];
   isSelecting: boolean;
+  onCharacterClick: (character: CharacterType) => void;
 }
 
 export function CharacterGrid({
@@ -14,6 +17,7 @@ export function CharacterGrid({
   bannedCharacters,
   highlightedIndexes,
   isSelecting,
+  onCharacterClick,
 }: CharacterGridProps) {
   const highlighted = new Set(highlightedIndexes);
 
@@ -23,14 +27,50 @@ export function CharacterGrid({
         const isGloballyBanned = bannedCharacters.has(
           getCharacterKey(character),
         );
+
         const isHighlighted = highlighted.has(index);
 
         return (
           <div
             key={getCharacterKey(character)}
-            className={`relative transition-all duration-200 ${
-              isGloballyBanned ? "opacity-25 grayscale" : ""
-            } ${isSelecting && !isHighlighted ? "opacity-15" : ""}`}
+            role="button"
+            tabIndex={isSelecting ? -1 : 0}
+            onClick={() => {
+              if (isSelecting) {
+                return;
+              }
+
+              onCharacterClick(character);
+            }}
+            onKeyDown={(event) => {
+              if (isSelecting) {
+                return;
+              }
+
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onCharacterClick(character);
+              }
+            }}
+            className={`
+              group
+              relative
+              outline-none
+              transition-all
+              duration-200
+
+              ${isSelecting ? "cursor-default" : "cursor-pointer"}
+
+              ${isGloballyBanned ? "opacity-25 grayscale" : ""}
+
+              ${isSelecting && !isHighlighted ? "opacity-15" : ""}
+
+              ${
+                !isSelecting
+                  ? "focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  : ""
+              }
+            `}
           >
             <Character
               name={character.name}
@@ -41,10 +81,26 @@ export function CharacterGrid({
               imageHeight={character.imageHeight}
               isHighlighted={isHighlighted}
               isNew={character.isNew}
+              isSelecting={isSelecting}
             />
 
             {isGloballyBanned && (
-              <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+              <div
+                className={`
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  z-[60]
+                  flex
+                  items-center
+                  justify-center
+                  transition-transform
+                  duration-150
+                  ease-out
+
+                  ${!isSelecting ? "group-hover:-translate-y-[4px]" : ""}
+                `}
+              >
                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-600/80 text-white shadow-lg">
                   <svg
                     viewBox="0 0 24 24"
@@ -54,6 +110,7 @@ export function CharacterGrid({
                     className="h-5 w-5"
                   >
                     <circle cx="12" cy="12" r="9" />
+
                     <path d="m6 6 12 12" />
                   </svg>
                 </div>

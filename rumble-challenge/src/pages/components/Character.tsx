@@ -7,6 +7,7 @@ interface CharacterProps {
   imageWidth: number;
   imageHeight: number;
   isNew?: boolean;
+  isSelecting?: boolean;
 }
 
 export function Character({
@@ -18,6 +19,7 @@ export function Character({
   imageHeight,
   isHighlighted = false,
   isNew = false,
+  isSelecting = false,
 }: CharacterProps) {
   return (
     <div
@@ -31,6 +33,7 @@ export function Character({
         transition-all
         duration-150
         ease-out
+
         ${
           isHighlighted
             ? `
@@ -46,6 +49,17 @@ export function Character({
               border
               border-black
             `
+        }
+
+        ${
+          !isSelecting && !isHighlighted
+            ? `
+              hover:z-40
+              hover:-translate-y-[4px]
+              hover:scale-[1.04]
+              hover:shadow-[0_6px_14px_rgba(0,0,0,0.5)]
+            `
+            : ""
         }
       `}
       style={{
@@ -101,17 +115,17 @@ export function Character({
           alt="New"
           draggable={false}
           className="
-      pointer-events-none
-      absolute
-      right-[2px]
-      top-[2px]
-      z-40
-      h-[16px]
-      w-[38px]
-      select-none
-      object-contain
-      animate-[isNewBounce_1s_ease-in-out_infinite]
-    "
+            pointer-events-none
+            absolute
+            right-[2px]
+            top-[2px]
+            z-40
+            h-[16px]
+            w-[38px]
+            select-none
+            object-contain
+            animate-[isNewBounce_1s_ease-in-out_infinite]
+          "
         />
       )}
 

@@ -17,6 +17,7 @@ import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
 import type { CharacterType } from "./selection.types";
 import { getCharacterKey } from "./utils/selection.utils";
+import { CharacterModal } from "./components/CharacterModal";
 
 export type { CharacterType } from "./selection.types";
 
@@ -30,7 +31,8 @@ export function SelectionPage() {
   const [characters, setCharacters] = useState<CharacterType[]>([]);
   const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
   const [charactersError, setCharactersError] = useState<string | null>(null);
-
+  const [selectedCharacter, setSelectedCharacter] =
+    useState<CharacterType | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
@@ -206,6 +208,7 @@ export function SelectionPage() {
               bannedCharacters={bannedCharacters}
               highlightedIndexes={highlightedIndexes}
               isSelecting={isSelecting}
+              onCharacterClick={setSelectedCharacter}
             />
 
             <DrawButton
@@ -239,6 +242,13 @@ export function SelectionPage() {
       {isAboutOpen && <AboutModal onClose={() => setIsAboutOpen(false)} />}
 
       {selectedTeam && <TeamModal team={selectedTeam} onClose={closeTeam} />}
+
+      {selectedCharacter && (
+        <CharacterModal
+          character={selectedCharacter}
+          onClose={() => setSelectedCharacter(null)}
+        />
+      )}
     </>
   );
 }
