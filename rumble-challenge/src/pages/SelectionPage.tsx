@@ -1,6 +1,5 @@
-import { useMemo, useState } from "react";
-
-import personagensJson from "../personagens.json";
+import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { CharacterGrid } from "./components/selection/CharacterGrid";
 import { DrawButton } from "./components/selection/DrawButton";
@@ -8,18 +7,26 @@ import { SelectionHeader } from "./components/selection/SelectionHeader";
 import { SettingsButton } from "./components/selection/SettingsButton";
 import { SettingsModal } from "./components/settings/SettingsModal";
 import { TeamModal } from "./components/TeamModal";
+import { LanguageSelector } from "./components/LanguageSelector";
+
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
+
 import type { CharacterType } from "./selection.types";
+
 import { getCharacterKey } from "./utils/selection.utils";
-import { LanguageSelector } from "./components/LanguageSelector";
 
 export type { CharacterType } from "./selection.types";
 export { getCharacterKey } from "./utils/selection.utils";
 
-const characters: CharacterType[] = personagensJson;
+const CHARACTERS_URL = "https://api.npoint.io/ac031218a4837bc1162c";
 
 export function SelectionPage() {
+  const [characters, setCharacters] = useState<CharacterType[]>([]);
+  const [isLoadingCharacters, setIsLoadingCharacters] = useState(true);
+  const [charactersError, setCharactersError] = useState<string | null>(null);
+  const { t } = useTranslation();
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const {
@@ -32,6 +39,51 @@ export function SelectionPage() {
     toggleBan,
     toggleIndividualBan,
   } = useSelectionSettings();
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadCharacters() {
+      try {
+        setIsLoadingCharacters(true);
+        setCharactersError(null);
+
+        const response = await fetch(CHARACTERS_URL, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `${t("selection.page.loadingCharactersError")}: ${response.status}`,
+          );
+        }
+
+        const data: CharacterType[] = await response.json();
+
+        setCharacters(data);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        console.error("Erro ao carregar personagens:", error);
+
+        setCharactersError(
+          t("selection.page.loadingCharactersErrorDescription"),
+        );
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoadingCharacters(false);
+        }
+      }
+    }
+
+    loadCharacters();
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const {
     highlightedIndexes,
@@ -53,7 +105,7 @@ export function SelectionPage() {
       characters.filter(
         (character) => !bannedCharacters.has(getCharacterKey(character)),
       ).length,
-    [bannedCharacters],
+    [characters, bannedCharacters],
   );
 
   return (
@@ -68,33 +120,57 @@ export function SelectionPage() {
         }}
       >
         <SettingsButton
-          disabled={isSelecting}
+          disabled={isSelecting || isLoadingCharacters}
           onClick={() => setIsSettingsOpen(true)}
         />
 
         <LanguageSelector disabled={isSelecting} />
 
-        <SelectionHeader
-          availableCharactersCount={availableCharactersCount}
-          drawCount={drawCount}
-          bannedCharactersCount={bannedCharacters.size}
-        />
+        {isLoadingCharacters && (
+          <div className="flex flex-1 items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-700 border-t-blue-500" />
 
-        <div className="mx-auto mb-4 h-px w-full max-w-[1600px] bg-slate-700/50" />
+              <span className="text-sm text-slate-400">
+                {t("selection.page.loadingCharacters")}
+              </span>
+            </div>
+          </div>
+        )}
 
-        <CharacterGrid
-          characters={characters}
-          bannedCharacters={bannedCharacters}
-          highlightedIndexes={highlightedIndexes}
-          isSelecting={isSelecting}
-        />
+        {!isLoadingCharacters && charactersError && (
+          <div className="flex flex-1 items-center justify-center">
+            <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-6 py-4 text-center">
+              <p className="font-medium text-red-400">{charactersError}</p>
+            </div>
+          </div>
+        )}
 
-        <DrawButton
-          drawCount={drawCount}
-          isSelecting={isSelecting}
-          hasAvailableTeam={hasAvailableTeam}
-          onClick={selectCharacters}
-        />
+        {!isLoadingCharacters && !charactersError && (
+          <>
+            <SelectionHeader
+              availableCharactersCount={availableCharactersCount}
+              drawCount={drawCount}
+              bannedCharactersCount={bannedCharacters.size}
+            />
+
+            <div className="mx-auto mb-4 h-px w-full max-w-[1600px] bg-slate-700/50" />
+
+            <CharacterGrid
+              characters={characters}
+              bannedCharacters={bannedCharacters}
+              highlightedIndexes={highlightedIndexes}
+              isSelecting={isSelecting}
+            />
+
+            <DrawButton
+              drawCount={drawCount}
+              isSelecting={isSelecting}
+              hasAvailableTeam={hasAvailableTeam}
+              onClick={selectCharacters}
+            />
+          </>
+        )}
       </main>
 
       {isSettingsOpen && (

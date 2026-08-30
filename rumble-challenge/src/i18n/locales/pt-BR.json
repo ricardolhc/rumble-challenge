@@ -1,5 +1,10 @@
 {
   "selection": {
+    "page": {
+      "loadingCharacters": "Carregando personagens...",
+      "loadingCharactersError": "Erro ao carregar personagens",
+      "loadingCharactersErrorDescription": "Não foi possível carregar os personagens. Tente novamente."
+    },
     "components": {
       "selection": {
         "settingsButton": {
