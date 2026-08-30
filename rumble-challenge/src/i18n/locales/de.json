@@ -1,0 +1,88 @@
+{
+  "selection": {
+    "components": {
+      "selection": {
+        "settingsButton": {
+          "title": "Einstellungen"
+        },
+        "selectionHeader": {
+          "title": "Team-Auslosung",
+          "subtitle": "Ziehe ein bis drei Charaktere",
+          "availableCharacters": "verfügbare Charaktere",
+          "noRepeatedCharacters": "Keine doppelten Charaktere",
+          "oneCharacterPerDraw": "Charakter pro Ziehung",
+          "multipleCharactersPerDraw": "Charaktere pro Ziehung",
+          "oneCharacterBanned": "gesperrt",
+          "multipleCharactersBanned": "gesperrt"
+        },
+        "drawButton": {
+          "selecting": "Wird ausgelost...",
+          "draw": "Team auslosen",
+          "drawOneCharacter": "Charakter auslosen",
+          "impossibleDraw": "Ungültige Konfiguration"
+        }
+      },
+      "settings": {
+        "characterBanList": {
+          "globalBanned": "Global gesperrt",
+          "banned": "Gesperrt"
+        },
+        "drawSettings": {
+          "drawCount": "Anzahl der Charaktere pro Ziehung",
+          "drawCountDescription": "Wähle aus, wie viele Charaktere gleichzeitig gezogen werden",
+          "oneCharacterPerDraw": "1 Charakter",
+          "twoCharactersPerDraw": "2 Charaktere",
+          "threeCharactersPerDraw": "3 Charaktere",
+          "drawSpeed": "Ziehungsgeschwindigkeit",
+          "drawSpeedDescription": "Lege die Geschwindigkeit der Animation während der Ziehung fest",
+          "slow": "Langsam",
+          "normal": "Normal",
+          "fast": "Schnell",
+          "currentDraw": "Aktuell werden ausgelost",
+          "inSpeed": "mit",
+          "slowSpeed": "langsamer Geschwindigkeit",
+          "normalSpeed": "normaler Geschwindigkeit",
+          "fastSpeed": "schneller Geschwindigkeit"
+        },
+        "globalBansSettings": {
+          "bannedFrom": "gesperrt von",
+          "cleanBans": "Sperren aufheben"
+        },
+        "individualBansSettings": {
+          "member": "Mitglied",
+          "clearMember": "Mitglied zurücksetzen",
+          "bannedCharacters": "Charaktere, die für diese Position gesperrt sind"
+        },
+        "settingsHeader": {
+          "bans": {
+            "title": "Sperren",
+            "description": "Gesperrte Charaktere können an keiner Position erscheinen"
+          },
+          "individualBans": {
+            "title": "Individuelle Sperren",
+            "description": "Wähle aus, welche Charaktere an den jeweiligen Positionen nicht erscheinen dürfen"
+          },
+          "draws": {
+            "title": "Ziehungen",
+            "description": "Lege fest, wie viele Charaktere gezogen werden"
+          }
+        },
+        "settingsSidebar": {
+          "configuration": "Einstellungen",
+          "configurationDescription": "Passe die Ziehung an",
+          "bans": "Sperren",
+          "individualBans": "Individuelle Sperren",
+          "draws": "Ziehungen"
+        }
+      },
+      "teamModal": {
+        "member": "Mitglied",
+        "close": "Schließen",
+        "oneCharacterDrawn": "Gezogener Charakter",
+        "multipleCharactersDrawn": "Gezogenes Team",
+        "oneCharacterDefined": "Dein Charakter wurde ausgewählt",
+        "multipleCharactersDefined": "Dein Team wurde ausgewählt"
+      }
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "selection": {
+    "components": {
+      "selection": {
+        "settingsButton": {
+          "title": "設定"
+        },
+        "selectionHeader": {
+          "title": "チーム抽選",
+          "subtitle": "1～3人のキャラクターを抽選します",
+          "availableCharacters": "使用可能なキャラクター",
+          "noRepeatedCharacters": "同じキャラクターは選ばれません",
+          "oneCharacterPerDraw": "回の抽選につき1キャラクター",
+          "multipleCharactersPerDraw": "回の抽選につきキャラクター",
+          "oneCharacterBanned": "使用禁止",
+          "multipleCharactersBanned": "使用禁止"
+        },
+        "drawButton": {
+          "selecting": "抽選中...",
+          "draw": "チームを抽選",
+          "drawOneCharacter": "キャラクターを抽選",
+          "impossibleDraw": "この設定では抽選できません"
+        }
+      },
+      "settings": {
+        "characterBanList": {
+          "globalBanned": "全体で使用禁止",
+          "banned": "使用禁止"
+        },
+        "drawSettings": {
+          "drawCount": "1回の抽選で選ぶキャラクター数",
+          "drawCountDescription": "一度に抽選するキャラクター数を選択してください",
+          "oneCharacterPerDraw": "1キャラクター",
+          "twoCharactersPerDraw": "2キャラクター",
+          "threeCharactersPerDraw": "3キャラクター",
+          "drawSpeed": "抽選速度",
+          "drawSpeedDescription": "抽選アニメーションの速度を設定します",
+          "slow": "遅い",
+          "normal": "普通",
+          "fast": "速い",
+          "currentDraw": "現在の抽選人数",
+          "inSpeed": "速度",
+          "slowSpeed": "遅い",
+          "normalSpeed": "普通",
+          "fastSpeed": "速い"
+        },
+        "globalBansSettings": {
+          "bannedFrom": "中、使用禁止",
+          "cleanBans": "使用禁止をすべて解除"
+        },
+        "individualBansSettings": {
+          "member": "メンバー",
+          "clearMember": "メンバーの設定をクリア",
+          "bannedCharacters": "この位置で使用禁止のキャラクター"
+        },
+        "settingsHeader": {
+          "bans": {
+            "title": "使用禁止",
+            "description": "使用禁止にしたキャラクターはどの位置にも登場しません"
+          },
+          "individualBans": {
+            "title": "個別使用禁止",
+            "description": "各位置に登場できないキャラクターを選択します"
+          },
+          "draws": {
+            "title": "抽選",
+            "description": "抽選するキャラクター数を設定します"
+          }
+        },
+        "settingsSidebar": {
+          "configuration": "設定",
+          "configurationDescription": "抽選をカスタマイズ",
+          "bans": "使用禁止",
+          "individualBans": "個別使用禁止",
+          "draws": "抽選"
+        }
+      },
+      "teamModal": {
+        "member": "メンバー",
+        "close": "閉じる",
+        "oneCharacterDrawn": "抽選されたキャラクター",
+        "multipleCharactersDrawn": "抽選されたチーム",
+        "oneCharacterDefined": "キャラクターが決定しました",
+        "multipleCharactersDefined": "チームが決定しました"
+      }
+    }
+  }
+}

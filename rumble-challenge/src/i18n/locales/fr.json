@@ -1,0 +1,88 @@
+{
+  "selection": {
+    "components": {
+      "selection": {
+        "settingsButton": {
+          "title": "Paramètres"
+        },
+        "selectionHeader": {
+          "title": "Tirage d'équipe",
+          "subtitle": "Tirez de un à trois personnages",
+          "availableCharacters": "personnages disponibles",
+          "noRepeatedCharacters": "Aucun personnage en double",
+          "oneCharacterPerDraw": "personnage par tirage",
+          "multipleCharactersPerDraw": "personnages par tirage",
+          "oneCharacterBanned": "banni",
+          "multipleCharactersBanned": "bannis"
+        },
+        "drawButton": {
+          "selecting": "Tirage en cours...",
+          "draw": "Tirer une équipe",
+          "drawOneCharacter": "Tirer un personnage",
+          "impossibleDraw": "Configuration impossible"
+        }
+      },
+      "settings": {
+        "characterBanList": {
+          "globalBanned": "Banni globalement",
+          "banned": "Banni"
+        },
+        "drawSettings": {
+          "drawCount": "Nombre de personnages par tirage",
+          "drawCountDescription": "Choisissez combien de personnages seront tirés à la fois",
+          "oneCharacterPerDraw": "1 personnage",
+          "twoCharactersPerDraw": "2 personnages",
+          "threeCharactersPerDraw": "3 personnages",
+          "drawSpeed": "Vitesse du tirage",
+          "drawSpeedDescription": "Définissez la vitesse de l'animation pendant le tirage",
+          "slow": "Lente",
+          "normal": "Normale",
+          "fast": "Rapide",
+          "currentDraw": "Seront actuellement tirés",
+          "inSpeed": "à vitesse",
+          "slowSpeed": "lente",
+          "normalSpeed": "normale",
+          "fastSpeed": "rapide"
+        },
+        "globalBansSettings": {
+          "bannedFrom": "bannis sur",
+          "cleanBans": "Effacer les bannissements"
+        },
+        "individualBansSettings": {
+          "member": "Membre",
+          "clearMember": "Effacer le membre",
+          "bannedCharacters": "personnages bannis à cette position"
+        },
+        "settingsHeader": {
+          "bans": {
+            "title": "Bannissements",
+            "description": "Les personnages bannis ne pourront apparaître à aucune position"
+          },
+          "individualBans": {
+            "title": "Bannissements individuels",
+            "description": "Choisissez les personnages qui ne peuvent pas apparaître à chaque position"
+          },
+          "draws": {
+            "title": "Tirages",
+            "description": "Définissez combien de personnages seront tirés"
+          }
+        },
+        "settingsSidebar": {
+          "configuration": "Configuration",
+          "configurationDescription": "Personnalisez le tirage",
+          "bans": "Bannissements",
+          "individualBans": "Bannissements individuels",
+          "draws": "Tirages"
+        }
+      },
+      "teamModal": {
+        "member": "Membre",
+        "close": "Fermer",
+        "oneCharacterDrawn": "Personnage tiré",
+        "multipleCharactersDrawn": "Équipe tirée",
+        "oneCharacterDefined": "Votre personnage a été sélectionné",
+        "multipleCharactersDefined": "Votre équipe a été sélectionnée"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 interface Language {
-  code: "pt" | "en" | "es";
+  code: "pt" | "en" | "es" | "fr" | "de" | "ja";
   label: string;
 }
 
@@ -21,6 +21,18 @@ const languages: Language[] = [
   {
     code: "es",
     label: "ES",
+  },
+  {
+    code: "fr",
+    label: "FR",
+  },
+  {
+    code: "de",
+    label: "DE",
+  },
+  {
+    code: "ja",
+    label: "JA",
   },
 ];
 
