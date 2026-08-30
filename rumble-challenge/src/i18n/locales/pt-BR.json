@@ -43,14 +43,18 @@
           "slow": "Lento",
           "normal": "Normal",
           "fast": "Rápido",
+          "instant": "Instantâneo",
           "currentDraw": "Atualmente serão sorteados",
           "inSpeed": "em velocidade",
           "slowSpeed": "lenta",
           "normalSpeed": "normal",
           "fastSpeed": "rápida",
+          "instantSpeed": "instantânea",
           "challengeMode": "Modo Desafio",
           "challengeModeDescription": "Os personagens sorteados não poderão ser repetidos em sorteios futuros",
-          "challengeModeActive": "Modo Desafio Ativo"
+          "challengeModeActive": "Modo Desafio Ativo",
+          "character": "personagem",
+          "characters": "personagens"
         },
         "globalBansSettings": {
           "bannedFrom": "banidos de",

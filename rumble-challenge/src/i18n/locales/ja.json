@@ -38,14 +38,18 @@
           "slow": "遅い",
           "normal": "普通",
           "fast": "速い",
+          "instant": "即時",
           "currentDraw": "現在の抽選人数",
           "inSpeed": "速度",
           "slowSpeed": "遅い",
           "normalSpeed": "普通",
           "fastSpeed": "速い",
+          "instantSpeed": "即時",
           "challengeMode": "チャレンジモード",
           "challengeModeDescription": "引かれたキャラクターは将来の抽選で繰り返されません",
-          "challengeModeActive": "チャレンジモード有効"
+          "challengeModeActive": "チャレンジモード有効",
+          "character": "キャラクター",
+          "characters": "キャラクター"
         },
         "globalBansSettings": {
           "bannedFrom": "中、使用禁止",

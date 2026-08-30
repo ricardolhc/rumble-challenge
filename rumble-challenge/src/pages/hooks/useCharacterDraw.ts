@@ -28,6 +28,11 @@ const DRAW_SPEED_CONFIG: Record<
     increment: number;
   }
 > = {
+  instant: {
+    base: 0,
+    increment: 0,
+  },
+
   fast: {
     base: 80,
     increment: 35,

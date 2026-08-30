@@ -38,14 +38,18 @@
           "slow": "Lente",
           "normal": "Normale",
           "fast": "Rapide",
+          "instant": "Instantanée",
           "currentDraw": "Seront actuellement tirés",
           "inSpeed": "à vitesse",
           "slowSpeed": "lente",
           "normalSpeed": "normale",
           "fastSpeed": "rapide",
+          "instantSpeed": "instantanée",
           "challengeMode": "Mode Défi",
           "challengeModeDescription": "Les personnages sortés ne pourront pas être répétés dans les tirages futurs",
-          "challengeModeActive": "Mode Défi Actif"
+          "challengeModeActive": "Mode Défi Actif",
+          "character": "personnage",
+          "characters": "personnages"
         },
         "globalBansSettings": {
           "bannedFrom": "bannis sur",

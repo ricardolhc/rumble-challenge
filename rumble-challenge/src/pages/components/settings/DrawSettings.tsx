@@ -83,6 +83,10 @@ export function DrawSettings({
           }
           className="w-full cursor-pointer rounded-xl border border-slate-700 bg-[#11151d] px-4 py-3 text-sm font-medium text-white outline-none transition-colors focus:border-emerald-500"
         >
+          <option value="instant">
+            {t("selection.components.settings.drawSettings.instant")}
+          </option>
+
           <option value="fast">
             {t("selection.components.settings.drawSettings.fast")}
           </option>
@@ -127,14 +131,20 @@ export function DrawSettings({
           <p className="text-xs text-slate-400">
             {t("selection.components.settings.drawSettings.currentDraw")}{" "}
             <span className="font-bold text-emerald-400">{drawCount}</span>{" "}
-            {drawCount === 1 ? "personagem" : "personagens"}{" "}
+            {drawCount === 1
+              ? t("selection.components.settings.drawSettings.character")
+              : t("selection.components.settings.drawSettings.characters")}{" "}
             {t("selection.components.settings.drawSettings.inSpeed")}{" "}
             <span className="font-bold text-emerald-400">
-              {drawSpeed === "fast"
-                ? t("selection.components.settings.drawSettings.fastSpeed")
-                : drawSpeed === "medium"
-                  ? t("selection.components.settings.drawSettings.normalSpeed")
-                  : t("selection.components.settings.drawSettings.slowSpeed")}
+              {drawSpeed === "instant"
+                ? t("selection.components.settings.drawSettings.instantSpeed")
+                : drawSpeed === "fast"
+                  ? t("selection.components.settings.drawSettings.fastSpeed")
+                  : drawSpeed === "medium"
+                    ? t(
+                        "selection.components.settings.drawSettings.normalSpeed",
+                      )
+                    : t("selection.components.settings.drawSettings.slowSpeed")}
             </span>
             .
           </p>

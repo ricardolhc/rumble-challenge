@@ -38,14 +38,18 @@
           "slow": "Langsam",
           "normal": "Normal",
           "fast": "Schnell",
+          "instant": "Sofort",
           "currentDraw": "Aktuell werden ausgelost",
           "inSpeed": "mit",
           "slowSpeed": "langsamer Geschwindigkeit",
           "normalSpeed": "normaler Geschwindigkeit",
           "fastSpeed": "schneller Geschwindigkeit",
+          "instantSpeed": "sofortiger Geschwindigkeit",
           "challengeMode": "Herausforderungsmodus",
           "challengeModeDescription": "Die gezogenen Charaktere dürfen in zukünftigen Ziehungen nicht wiederholt werden",
-          "challengeModeActive": "Herausforderungsmodus aktiv"
+          "challengeModeActive": "Herausforderungsmodus aktiv",
+          "character": "Charakter",
+          "characters": "Charaktere"
         },
         "globalBansSettings": {
           "bannedFrom": "gesperrt von",

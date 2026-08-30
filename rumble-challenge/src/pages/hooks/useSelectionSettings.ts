@@ -141,19 +141,14 @@ export function useSelectionSettings() {
   return {
     drawCount,
     setDrawCount,
-
     drawSpeed,
     setDrawSpeed,
-
     bannedCharacters,
     individualBans,
-
     handleToggleBan,
     handleToggleIndividualBan,
-
     challengeMode,
     setChallengeMode,
-
     banCharacters,
   };
 }

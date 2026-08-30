@@ -38,14 +38,18 @@
           "slow": "Slow",
           "normal": "Normal",
           "fast": "Fast",
+          "instant": "Instant",
           "currentDraw": "Currently drawing",
           "inSpeed": "at",
           "slowSpeed": "slow speed",
           "normalSpeed": "normal speed",
           "fastSpeed": "fast speed",
+          "instantSpeed": "instant speed",
           "challengeMode": "Challenge Mode",
           "challengeModeDescription": "The drawn characters will not be repeated in future draws",
-          "challengeModeActive": "Challenge Mode Active"
+          "challengeModeActive": "Challenge Mode Active",
+          "character": "character",
+          "characters": "characters"
         },
         "globalBansSettings": {
           "bannedFrom": "banned out of",
