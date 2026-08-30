@@ -1,5 +1,6 @@
-import type { CharacterType } from "../../SelectionPage";
+import type { CharacterType } from "../../selection.types";
 import { getCharacterKey } from "./settings.utils";
+import { useTranslation } from "react-i18next";
 
 interface CharacterBanListProps {
   characters: CharacterType[];
@@ -16,6 +17,8 @@ export function CharacterBanList({
   onToggle,
   disableGlobalBans = false,
 }: CharacterBanListProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="grid flex-1 grid-cols-2 content-start gap-2 overflow-y-auto px-6 pb-6 md:grid-cols-3">
       {characters.map((character) => {
@@ -86,9 +89,15 @@ export function CharacterBanList({
 
               <p className="mt-0.5 text-[10px] uppercase">
                 {isDisabled ? (
-                  <span className="text-orange-400">Banido globalmente</span>
+                  <span className="text-orange-400">
+                    {t(
+                      "selection.components.settings.characterBanList.globalBanned",
+                    )}
+                  </span>
                 ) : isBanned ? (
-                  <span className="text-red-500">Banido</span>
+                  <span className="text-red-500">
+                    {t("selection.components.settings.characterBanList.banned")}
+                  </span>
                 ) : (
                   <span className="text-slate-500">{character.type}</span>
                 )}

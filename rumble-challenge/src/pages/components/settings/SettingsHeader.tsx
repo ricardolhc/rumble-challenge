@@ -1,26 +1,43 @@
 import type { SettingsSection } from "./settings.types";
+import { useTranslation } from "react-i18next";
 
 interface SettingsHeaderProps {
   selectedSection: SettingsSection;
   onClose: () => void;
 }
 
-const sectionContent: Record<SettingsSection, { title: string; description: string }> = {
-  bans: {
-    title: "Banimentos",
-    description: "Personagens banidos não poderão aparecer em nenhuma posição.",
-  },
-  "individual-bans": {
-    title: "Banimentos Individuais",
-    description: "Escolha quais personagens não podem aparecer em cada posição.",
-  },
-  draws: {
-    title: "Sorteios",
-    description: "Defina quantos personagens serão sorteados.",
-  },
-};
+export function SettingsHeader({
+  selectedSection,
+  onClose,
+}: SettingsHeaderProps) {
+  const { t } = useTranslation();
 
-export function SettingsHeader({ selectedSection, onClose }: SettingsHeaderProps) {
+  const sectionContent: Record<
+    SettingsSection,
+    { title: string; description: string }
+  > = {
+    bans: {
+      title: t("selection.components.settings.settingsHeader.bans.title"),
+      description: t(
+        "selection.components.settings.settingsHeader.bans.description",
+      ),
+    },
+    "individual-bans": {
+      title: t(
+        "selection.components.settings.settingsHeader.individualBans.title",
+      ),
+      description: t(
+        "selection.components.settings.settingsHeader.individualBans.description",
+      ),
+    },
+    draws: {
+      title: t("selection.components.settings.settingsHeader.draws.title"),
+      description: t(
+        "selection.components.settings.settingsHeader.draws.description",
+      ),
+    },
+  };
+
   const content = sectionContent[selectedSection];
 
   return (
@@ -35,7 +52,13 @@ export function SettingsHeader({ selectedSection, onClose }: SettingsHeaderProps
         onClick={onClose}
         className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="h-5 w-5"
+        >
           <path d="M18 6 6 18" />
           <path d="m6 6 12 12" />
         </svg>

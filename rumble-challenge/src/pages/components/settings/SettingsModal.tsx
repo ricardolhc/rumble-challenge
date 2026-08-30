@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { MouseEvent } from "react";
 
-import type { CharacterType } from "../../SelectionPage";
 import { DrawSettings } from "./DrawSettings";
 import { GlobalBansSettings } from "./GlobalBansSettings";
 import { IndividualBansSettings } from "./IndividualBansSettings";
@@ -13,6 +12,7 @@ import type {
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
+import type { CharacterType } from "../../selection.types";
 
 export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 

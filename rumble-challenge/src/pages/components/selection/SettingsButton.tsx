@@ -1,15 +1,18 @@
+import { useTranslation } from "react-i18next";
 interface SettingsButtonProps {
   disabled: boolean;
   onClick: () => void;
 }
 
 export function SettingsButton({ disabled, onClick }: SettingsButtonProps) {
+  const { t } = useTranslation();
+
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      title="Configurações"
+      title={t("selection.components.selection.settingsButton.title")}
       className="absolute top-4 left-4 z-20 flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-slate-700 bg-slate-800/80 text-slate-300 shadow-lg backdrop-blur-sm transition-all duration-200 hover:border-slate-600 hover:bg-slate-700 hover:text-white active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
     >
       <svg

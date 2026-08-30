@@ -1,0 +1,88 @@
+{
+  "selection": {
+    "components": {
+      "selection": {
+        "settingsButton": {
+          "title": "Configuración"
+        },
+        "selectionHeader": {
+          "title": "Sorteador de Equipos",
+          "subtitle": "Sortea de uno a tres personajes",
+          "availableCharacters": "personajes disponibles",
+          "noRepeatedCharacters": "Sin personajes repetidos",
+          "oneCharacterPerDraw": "personaje por sorteo",
+          "multipleCharactersPerDraw": "personajes por sorteo",
+          "oneCharacterBanned": "bloqueado",
+          "multipleCharactersBanned": "bloqueados"
+        },
+        "drawButton": {
+          "selecting": "Sorteando...",
+          "draw": "Sortear equipo",
+          "drawOneCharacter": "Sortear personaje",
+          "impossibleDraw": "Configuración imposible"
+        }
+      },
+      "settings": {
+        "characterBanList": {
+          "globalBanned": "Bloqueado globalmente",
+          "banned": "Bloqueado"
+        },
+        "drawSettings": {
+          "drawCount": "Cantidad de personajes por sorteo",
+          "drawCountDescription": "Elige cuántos personajes se sortearán a la vez",
+          "oneCharacterPerDraw": "1 personaje",
+          "twoCharactersPerDraw": "2 personajes",
+          "threeCharactersPerDraw": "3 personajes",
+          "drawSpeed": "Velocidad del sorteo",
+          "drawSpeedDescription": "Define la velocidad de la animación durante el sorteo",
+          "slow": "Lento",
+          "normal": "Normal",
+          "fast": "Rápido",
+          "currentDraw": "Actualmente se sortearán",
+          "inSpeed": "a velocidad",
+          "slowSpeed": "lenta",
+          "normalSpeed": "normal",
+          "fastSpeed": "rápida"
+        },
+        "globalBansSettings": {
+          "bannedFrom": "bloqueados de",
+          "cleanBans": "Limpiar bloqueos"
+        },
+        "individualBansSettings": {
+          "member": "Miembro",
+          "clearMember": "Limpiar miembro",
+          "bannedCharacters": "personajes bloqueados en esta posición"
+        },
+        "settingsHeader": {
+          "bans": {
+            "title": "Bloqueos",
+            "description": "Los personajes bloqueados no podrán aparecer en ninguna posición"
+          },
+          "individualBans": {
+            "title": "Bloqueos individuales",
+            "description": "Elige qué personajes no pueden aparecer en cada posición"
+          },
+          "draws": {
+            "title": "Sorteos",
+            "description": "Define cuántos personajes serán sorteados"
+          }
+        },
+        "settingsSidebar": {
+          "configuration": "Configuración",
+          "configurationDescription": "Personaliza el sorteo",
+          "bans": "Bloqueos",
+          "individualBans": "Bloqueos individuales",
+          "draws": "Sorteos"
+        }
+      },
+      "teamModal": {
+        "member": "Miembro",
+        "close": "Cerrar",
+        "oneCharacterDrawn": "Personaje sorteado",
+        "multipleCharactersDrawn": "Equipo sorteado",
+        "oneCharacterDefined": "Tu personaje ha sido definido",
+        "multipleCharactersDefined": "Tu equipo ha sido definido"
+      }
+    }
+  }
+}

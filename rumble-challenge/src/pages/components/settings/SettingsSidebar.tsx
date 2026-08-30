@@ -1,4 +1,5 @@
 import type { DrawCount, SettingsSection } from "./settings.types";
+import { useTranslation } from "react-i18next";
 
 interface SettingsSidebarProps {
   selectedSection: SettingsSection;
@@ -15,6 +16,8 @@ export function SettingsSidebar({
   individualBansCount,
   drawCount,
 }: SettingsSidebarProps) {
+  const { t } = useTranslation();
+
   const itemClass = (section: SettingsSection) =>
     `flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
       selectedSection === section
@@ -25,17 +28,34 @@ export function SettingsSidebar({
   return (
     <aside className="flex w-[250px] shrink-0 flex-col border-r border-slate-700 bg-[#11151d] p-4">
       <div className="mb-5">
-        <h2 className="text-lg font-bold text-white">Configurações</h2>
-        <p className="mt-1 text-xs text-slate-500">Personalize o sorteio.</p>
+        <h2 className="text-lg font-bold text-white">
+          {t("selection.components.settings.settingsSidebar.configuration")}
+        </h2>
+        <p className="mt-1 text-xs text-slate-500">
+          {t(
+            "selection.components.settings.settingsSidebar.configurationDescription",
+          )}
+          .
+        </p>
       </div>
 
       <nav className="flex flex-col gap-2">
-        <button type="button" onClick={() => onSectionChange("bans")} className={itemClass("bans")}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+        <button
+          type="button"
+          onClick={() => onSectionChange("bans")}
+          className={itemClass("bans")}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-4 w-4"
+          >
             <circle cx="12" cy="12" r="9" />
             <path d="m6 6 12 12" />
           </svg>
-          Banimentos
+          {t("selection.components.settings.settingsSidebar.bans")}
           {globalBansCount > 0 && (
             <span className="ml-auto rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">
               {globalBansCount}
@@ -48,13 +68,19 @@ export function SettingsSidebar({
           onClick={() => onSectionChange("individual-bans")}
           className={itemClass("individual-bans")}
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-4 w-4"
+          >
             <circle cx="9" cy="7" r="4" />
             <path d="M3 21v-2a6 6 0 0 1 12 0v2" />
             <path d="M19 8v6" />
             <path d="M16 11h6" />
           </svg>
-          Banimentos Individuais
+          {t("selection.components.settings.settingsSidebar.individualBans")}
           {individualBansCount > 0 && (
             <span className="ml-auto rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">
               {individualBansCount}
@@ -62,7 +88,11 @@ export function SettingsSidebar({
           )}
         </button>
 
-        <button type="button" onClick={() => onSectionChange("draws")} className={itemClass("draws")}>
+        <button
+          type="button"
+          onClick={() => onSectionChange("draws")}
+          className={itemClass("draws")}
+        >
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -79,7 +109,7 @@ export function SettingsSidebar({
             <path d="m16 16 .01 0" />
             <path d="m12 12 .01 0" />
           </svg>
-          Sorteios
+          {t("selection.components.settings.settingsSidebar.draws")}
           <span className="ml-auto rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
             {drawCount}
           </span>

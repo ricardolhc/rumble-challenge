@@ -1,4 +1,5 @@
 import type { DrawCount } from "../settings/settings.types";
+import { useTranslation } from "react-i18next";
 
 interface DrawButtonProps {
   drawCount: DrawCount;
@@ -13,15 +14,16 @@ export function DrawButton({
   hasAvailableTeam,
   onClick,
 }: DrawButtonProps) {
+  const { t } = useTranslation();
   const isDisabled = isSelecting || !hasAvailableTeam;
 
   const label = isSelecting
-    ? "Sorteando..."
+    ? t("selection.components.selection.drawButton.selecting")
     : !hasAvailableTeam
-      ? "Configuração impossível"
+      ? t("selection.components.selection.drawButton.impossibleDraw")
       : drawCount === 1
-        ? "Sortear personagem"
-        : "Sortear time";
+        ? t("selection.components.selection.drawButton.drawOneCharacter")
+        : t("selection.components.selection.drawButton.draw");
 
   return (
     <div className="mt-auto flex w-full justify-center pt-5 pb-2">

@@ -1,6 +1,7 @@
-import type { CharacterType } from "../../SelectionPage";
+import type { CharacterType } from "../../selection.types";
 import { CharacterBanList } from "./CharacterBanList";
 import { getCharacterKey } from "./settings.utils";
+import { useTranslation } from "react-i18next";
 
 interface GlobalBansSettingsProps {
   characters: CharacterType[];
@@ -13,6 +14,8 @@ export function GlobalBansSettings({
   bannedCharacters,
   onToggleBan,
 }: GlobalBansSettingsProps) {
+  const { t } = useTranslation();
+
   function clearGlobalBans() {
     characters.forEach((character) => {
       if (bannedCharacters.has(getCharacterKey(character))) {
@@ -25,8 +28,11 @@ export function GlobalBansSettings({
     <>
       <div className="flex items-center justify-between px-6 py-4">
         <span className="text-sm text-slate-400">
-          <span className="font-semibold text-white">{bannedCharacters.size}</span>{" "}
-          banidos de {characters.length}
+          <span className="font-semibold text-white">
+            {bannedCharacters.size}
+          </span>{" "}
+          {t("selection.components.settings.globalBansSettings.bannedFrom")}{" "}
+          {characters.length}
         </span>
 
         {bannedCharacters.size > 0 && (
@@ -35,7 +41,7 @@ export function GlobalBansSettings({
             onClick={clearGlobalBans}
             className="cursor-pointer text-xs font-medium text-red-400 hover:text-red-300"
           >
-            Limpar banimentos
+            {t("selection.components.settings.globalBansSettings.cleanBans")}
           </button>
         )}
       </div>

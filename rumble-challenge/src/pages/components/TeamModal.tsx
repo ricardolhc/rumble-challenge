@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import type { CharacterType } from "../SelectionPage";
-
 import { TeamCharacter } from "./TeamCharacter";
+import type { CharacterType } from "../selection.types";
+import { useTranslation } from "react-i18next";
 
 interface TeamModalProps {
   team: CharacterType[];
@@ -13,6 +13,7 @@ const FADE_DURATION = 250;
 
 export function TeamModal({ team, onClose }: TeamModalProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useTranslation();
 
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -153,11 +154,15 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
               text-white
             "
           >
-            {isSolo ? "Personagem Sorteado" : "Time Sorteado"}
+            {isSolo
+              ? t("selection.components.teamModal.oneCharacterDrawn")
+              : t("selection.components.teamModal.multipleCharactersDrawn")}
           </h2>
 
           <p className="mt-1 text-sm text-slate-400">
-            {isSolo ? "Seu personagem foi definido" : "Sua equipe foi definida"}
+            {isSolo
+              ? t("selection.components.teamModal.oneCharacterDefined")
+              : t("selection.components.teamModal.multipleCharactersDefined")}
           </p>
         </header>
 
@@ -190,7 +195,7 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
                       text-slate-300
                     "
                 >
-                  Membro {index + 1}
+                  {t("selection.components.teamModal.member")} {index + 1}
                 </span>
               )}
 
@@ -234,7 +239,7 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
               active:scale-[0.98]
             "
           >
-            Fechar
+            {t("selection.components.teamModal.close")}
           </button>
         </div>
       </div>

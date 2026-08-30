@@ -12,6 +12,7 @@ import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
 import type { CharacterType } from "./selection.types";
 import { getCharacterKey } from "./utils/selection.utils";
+import { LanguageSelector } from "./components/LanguageSelector";
 
 export type { CharacterType } from "./selection.types";
 export { getCharacterKey } from "./utils/selection.utils";
@@ -70,6 +71,8 @@ export function SelectionPage() {
           disabled={isSelecting}
           onClick={() => setIsSettingsOpen(true)}
         />
+
+        <LanguageSelector disabled={isSelecting} />
 
         <SelectionHeader
           availableCharactersCount={availableCharactersCount}

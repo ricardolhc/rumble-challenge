@@ -1,0 +1,88 @@
+{
+  "selection": {
+    "components": {
+      "selection": {
+        "settingsButton": {
+          "title": "Settings"
+        },
+        "selectionHeader": {
+          "title": "Team Randomizer",
+          "subtitle": "Draw one to three characters",
+          "availableCharacters": "characters available",
+          "noRepeatedCharacters": "No duplicate characters",
+          "oneCharacterPerDraw": "character per draw",
+          "multipleCharactersPerDraw": "characters per draw",
+          "oneCharacterBanned": "banned",
+          "multipleCharactersBanned": "banned"
+        },
+        "drawButton": {
+          "selecting": "Drawing...",
+          "draw": "Draw team",
+          "drawOneCharacter": "Draw character",
+          "impossibleDraw": "Impossible configuration"
+        }
+      },
+      "settings": {
+        "characterBanList": {
+          "globalBanned": "Globally banned",
+          "banned": "Banned"
+        },
+        "drawSettings": {
+          "drawCount": "Number of characters per draw",
+          "drawCountDescription": "Choose how many characters will be drawn at a time",
+          "oneCharacterPerDraw": "1 character",
+          "twoCharactersPerDraw": "2 characters",
+          "threeCharactersPerDraw": "3 characters",
+          "drawSpeed": "Draw speed",
+          "drawSpeedDescription": "Set the animation speed during the draw",
+          "slow": "Slow",
+          "normal": "Normal",
+          "fast": "Fast",
+          "currentDraw": "Currently drawing",
+          "inSpeed": "at",
+          "slowSpeed": "slow speed",
+          "normalSpeed": "normal speed",
+          "fastSpeed": "fast speed"
+        },
+        "globalBansSettings": {
+          "bannedFrom": "banned out of",
+          "cleanBans": "Clear bans"
+        },
+        "individualBansSettings": {
+          "member": "Member",
+          "clearMember": "Clear member",
+          "bannedCharacters": "characters banned from this position"
+        },
+        "settingsHeader": {
+          "bans": {
+            "title": "Bans",
+            "description": "Banned characters cannot appear in any position"
+          },
+          "individualBans": {
+            "title": "Individual Bans",
+            "description": "Choose which characters cannot appear in each position"
+          },
+          "draws": {
+            "title": "Draws",
+            "description": "Set how many characters will be drawn"
+          }
+        },
+        "settingsSidebar": {
+          "configuration": "Settings",
+          "configurationDescription": "Customize the draw",
+          "bans": "Bans",
+          "individualBans": "Individual Bans",
+          "draws": "Draws"
+        }
+      },
+      "teamModal": {
+        "member": "Member",
+        "close": "Close",
+        "oneCharacterDrawn": "Character Drawn",
+        "multipleCharactersDrawn": "Team Drawn",
+        "oneCharacterDefined": "Your character has been selected",
+        "multipleCharactersDefined": "Your team has been selected"
+      }
+    }
+  }
+}

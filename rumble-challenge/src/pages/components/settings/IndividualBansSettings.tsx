@@ -1,9 +1,9 @@
 import { useState } from "react";
-
-import type { CharacterType } from "../../SelectionPage";
 import { CharacterBanList } from "./CharacterBanList";
 import { getCharacterKey } from "./settings.utils";
 import type { MemberSlot } from "./settings.types";
+import type { CharacterType } from "../../selection.types";
+import { useTranslation } from "react-i18next";
 
 interface IndividualBansSettingsProps {
   characters: CharacterType[];
@@ -21,6 +21,7 @@ export function IndividualBansSettings({
   onToggleIndividualBan,
 }: IndividualBansSettingsProps) {
   const [selectedMember, setSelectedMember] = useState<MemberSlot>(1);
+  const { t } = useTranslation();
 
   function clearIndividualBans(member: MemberSlot) {
     characters.forEach((character) => {
@@ -45,7 +46,8 @@ export function IndividualBansSettings({
                   : "text-slate-400 hover:bg-slate-800 hover:text-white"
               }`}
             >
-              Membro {member}
+              {t("selection.components.settings.individualBansSettings.member")}{" "}
+              {member}
               {individualBans[member].size > 0 && (
                 <span className="ml-2 rounded-full bg-black/20 px-2 py-0.5 text-[10px]">
                   {individualBans[member].size}
@@ -58,9 +60,15 @@ export function IndividualBansSettings({
 
       <div className="flex items-center justify-between px-6 py-4">
         <div>
-          <p className="text-sm font-medium text-white">Membro {selectedMember}</p>
+          <p className="text-sm font-medium text-white">
+            {t("selection.components.settings.individualBansSettings.member")}{" "}
+            {selectedMember}
+          </p>
           <p className="text-xs text-slate-500">
-            {individualBans[selectedMember].size} personagens banidos nesta posição
+            {individualBans[selectedMember].size}{" "}
+            {t(
+              "selection.components.settings.individualBansSettings.bannedCharacters",
+            )}
           </p>
         </div>
 
@@ -70,7 +78,10 @@ export function IndividualBansSettings({
             onClick={() => clearIndividualBans(selectedMember)}
             className="cursor-pointer text-xs font-medium text-red-400 hover:text-red-300"
           >
-            Limpar Membro {selectedMember}
+            {t(
+              "selection.components.settings.individualBansSettings.clearMember",
+            )}{" "}
+            {selectedMember}
           </button>
         )}
       </div>
@@ -79,7 +90,9 @@ export function IndividualBansSettings({
         characters={characters}
         bannedCharacters={individualBans[selectedMember]}
         globalBannedCharacters={bannedCharacters}
-        onToggle={(character) => onToggleIndividualBan(selectedMember, character)}
+        onToggle={(character) =>
+          onToggleIndividualBan(selectedMember, character)
+        }
         disableGlobalBans
       />
     </>
