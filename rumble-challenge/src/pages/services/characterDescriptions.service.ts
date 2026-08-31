@@ -1,6 +1,7 @@
 export type SupportedLanguage = "pt" | "en" | "es" | "fr" | "de" | "ja";
 
 export interface CharacterDescription {
+  name: string;
   description: string;
 }
 
@@ -24,20 +25,8 @@ const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   "ja",
 ];
 
-/**
- * Cache em memória.
- *
- * Enquanto o usuário permanecer na aplicação, cada idioma será
- * solicitado apenas uma vez.
- */
 const descriptionsCache = new Map<SupportedLanguage, CharacterDescriptions>();
 
-/**
- * Guarda requisições que já estão em andamento.
- *
- * Isso evita duas chamadas simultâneas ao mesmo endpoint caso
- * vários componentes solicitem o mesmo idioma ao mesmo tempo.
- */
 const pendingRequests = new Map<
   SupportedLanguage,
   Promise<CharacterDescriptions>
@@ -72,7 +61,7 @@ async function fetchDescriptions(
     .then(async (response) => {
       if (!response.ok) {
         throw new Error(
-          `Erro ao carregar descrições (${language}): ${response.status}`,
+          `Erro ao carregar informações dos personagens (${language}): ${response.status}`,
         );
       }
 
@@ -100,20 +89,18 @@ export async function loadCharacterDescriptions(
     return await fetchDescriptions(selectedLanguage);
   } catch (error) {
     console.error(
-      `Não foi possível carregar as descrições em "${selectedLanguage}".`,
+      `Não foi possível carregar as informações dos personagens em "${selectedLanguage}".`,
       error,
     );
 
-    /*
-     * Se o idioma solicitado já for português,
-     * não existe outro fallback.
-     */
     if (selectedLanguage === "pt") {
       return {};
     }
 
     try {
-      console.warn(`Utilizando descrições em português como fallback.`);
+      console.warn(
+        "Utilizando informações dos personagens em português como fallback.",
+      );
 
       return await fetchDescriptions("pt");
     } catch (fallbackError) {
@@ -127,9 +114,6 @@ export async function loadCharacterDescriptions(
   }
 }
 
-/**
- * Retorna uma descrição específica.
- */
 export async function loadCharacterDescription(
   characterId: string,
   language: string,
@@ -139,12 +123,24 @@ export async function loadCharacterDescription(
   return descriptions[characterId]?.description ?? null;
 }
 
-/**
- * Permite limpar o cache manualmente.
- *
- * Pode ser útil futuramente se você atualizar os JSONs no npoint
- * e quiser recarregar os dados sem atualizar a página.
- */
+export async function loadCharacterInfo(
+  characterId: string,
+  language: string,
+): Promise<CharacterDescription | null> {
+  const descriptions = await loadCharacterDescriptions(language);
+
+  return descriptions[characterId] ?? null;
+}
+
+export async function loadCharacterName(
+  characterId: string,
+  language: string,
+): Promise<string | null> {
+  const descriptions = await loadCharacterDescriptions(language);
+
+  return descriptions[characterId]?.name ?? null;
+}
+
 export function clearCharacterDescriptionsCache(language?: SupportedLanguage) {
   if (language) {
     descriptionsCache.delete(language);

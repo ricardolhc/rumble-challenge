@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 interface CharacterModalProps {
   character: CharacterType;
   onClose: () => void;
+  name: string;
   description: string;
 }
 
@@ -16,6 +17,7 @@ const FADE_DURATION = 250;
 export function CharacterModal({
   character,
   onClose,
+  name,
   description,
 }: CharacterModalProps) {
   const { t } = useTranslation();
@@ -171,7 +173,7 @@ export function CharacterModal({
                 md:text-5xl
               "
             >
-              {character.name}
+              {name}
             </h1>
 
             <div

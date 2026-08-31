@@ -12,6 +12,7 @@ interface CharacterGridProps {
   highlightedIndexes: number[];
   isSelecting: boolean;
   onCharacterClick: (character: CharacterType) => void;
+  infos: Record<string, { name: string; description: string }>;
 }
 
 const LONG_HOVER_DELAY = 3000;
@@ -22,6 +23,7 @@ export function CharacterGrid({
   highlightedIndexes,
   isSelecting,
   onCharacterClick,
+  infos,
 }: CharacterGridProps) {
   const highlighted = new Set(highlightedIndexes);
 
@@ -146,7 +148,7 @@ export function CharacterGrid({
             `}
           >
             <Character
-              name={character.name}
+              name={infos[character.id]?.name ?? character.name}
               image={character.image}
               symbol={character.symbol}
               background={character.background}

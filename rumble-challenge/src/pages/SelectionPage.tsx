@@ -14,7 +14,7 @@ import { SettingsModal } from "./components/settings/SettingsModal";
 import type { DrawLog } from "./components/settings/settings.types";
 import { TeamModal } from "./components/TeamModal";
 import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
-import { useCharacterDescriptions } from "./hooks/useCharacterDescriptions";
+
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
 import type { CharacterType } from "./selection.types";
@@ -22,6 +22,7 @@ import { getCharacterKey } from "./utils/selection.utils";
 import { MultiplayerButton } from "./components/multiplayer/MultiplayerButton";
 import { MultiplayerModal } from "./components/multiplayer/MultiplayerModal";
 import { useMultiplayerRoom } from "./hooks/useMultiplayerRoom";
+import { useCharacterInfos } from "./hooks/useCharacterinfos";
 
 export type { CharacterType } from "./selection.types";
 export { getCharacterKey } from "./utils/selection.utils";
@@ -55,8 +56,7 @@ export function SelectionPage() {
 
   const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
 
-  const { descriptions, isLoading: isLoadingDescriptions } =
-    useCharacterDescriptions();
+  const { infos, isLoading: isLoadingDescriptions } = useCharacterInfos();
 
   const {
     drawCount,
@@ -390,6 +390,7 @@ export function SelectionPage() {
               highlightedIndexes={displayedHighlightedIndexes}
               isSelecting={displayedIsSelecting}
               onCharacterClick={setSelectedCharacter}
+              infos={infos}
             />
 
             {!isGuest && (
@@ -453,10 +454,11 @@ export function SelectionPage() {
       {selectedCharacter && (
         <CharacterModal
           character={selectedCharacter}
+          name={infos[selectedCharacter.id]?.name ?? selectedCharacter.name}
           description={
             isLoadingDescriptions
               ? t("selection.page.loadingCharacterDescription")
-              : (descriptions[selectedCharacter.id]?.description ??
+              : (infos[selectedCharacter.id]?.description ??
                 t("selection.page.characterDescriptionUnavailable"))
           }
           onClose={() => setSelectedCharacter(null)}

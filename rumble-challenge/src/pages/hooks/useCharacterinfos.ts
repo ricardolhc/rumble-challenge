@@ -1,29 +1,34 @@
 import { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
+
 import {
   loadCharacterDescriptions,
   type CharacterDescriptions,
 } from "../services/characterDescriptions.service";
 
+interface CharacterDescriptionInfos {
+  name: string;
+  description: string;
+}
+
 interface UseCharacterDescriptionsResult {
-  descriptions: CharacterDescriptions;
+  infos: Record<string, CharacterDescriptionInfos>;
   isLoading: boolean;
   error: boolean;
 }
 
-export function useCharacterDescriptions(): UseCharacterDescriptionsResult {
+export function useCharacterInfos(): UseCharacterDescriptionsResult {
   const { i18n } = useTranslation();
 
-  const [descriptions, setDescriptions] = useState<CharacterDescriptions>({});
-
+  const [infos, setInfos] = useState<CharacterDescriptions>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
 
-    async function loadDescriptions() {
+    async function loadInfos() {
       setIsLoading(true);
       setError(false);
 
@@ -36,18 +41,16 @@ export function useCharacterDescriptions(): UseCharacterDescriptionsResult {
           return;
         }
 
-        setDescriptions(result);
-
-        /*
-         * Se o serviço retornou {}, significa que tanto
-         * o idioma quanto o fallback falharam.
-         */
+        setInfos(result);
         setError(Object.keys(result).length === 0);
       } catch (error) {
-        console.error("Erro inesperado ao carregar descrições:", error);
+        console.error(
+          "Erro inesperado ao carregar informações dos personagens:",
+          error,
+        );
 
         if (!cancelled) {
-          setDescriptions({});
+          setInfos({});
           setError(true);
         }
       } finally {
@@ -57,7 +60,7 @@ export function useCharacterDescriptions(): UseCharacterDescriptionsResult {
       }
     }
 
-    void loadDescriptions();
+    void loadInfos();
 
     return () => {
       cancelled = true;
@@ -65,7 +68,7 @@ export function useCharacterDescriptions(): UseCharacterDescriptionsResult {
   }, [i18n.resolvedLanguage, i18n.language]);
 
   return {
-    descriptions,
+    infos,
     isLoading,
     error,
   };
