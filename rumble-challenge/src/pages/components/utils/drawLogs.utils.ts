@@ -3,11 +3,11 @@ import type { DrawLog } from "../settings/settings.types";
 
 const DRAW_LOGS_STORAGE_KEY = "rumble-challenge-draw-logs";
 
-const MAX_DRAW_LOGS = 5;
+const MAX_DRAW_LOGS = 10;
 
 export function getDrawLogs(): DrawLog[] {
   try {
-    const storedLogs = sessionStorage.getItem(DRAW_LOGS_STORAGE_KEY);
+    const storedLogs = localStorage.getItem(DRAW_LOGS_STORAGE_KEY);
 
     if (!storedLogs) {
       return [];
@@ -37,11 +37,8 @@ export function addDrawLog(team: CharacterType[]): DrawLog[] {
   const updatedLogs = [newLog, ...currentLogs].slice(0, MAX_DRAW_LOGS);
 
   try {
-    sessionStorage.setItem(DRAW_LOGS_STORAGE_KEY, JSON.stringify(updatedLogs));
-  } catch {
-    // Se o sessionStorage não estiver disponível,
-    // ainda retornamos os logs atualizados para a UI.
-  }
+    localStorage.setItem(DRAW_LOGS_STORAGE_KEY, JSON.stringify(updatedLogs));
+  } catch {}
 
   return updatedLogs;
 }
