@@ -72,6 +72,10 @@
             "title": "使用禁止",
             "description": "使用禁止にしたキャラクターはどの位置にも登場しません"
           },
+          "challengeMode": {
+            "title": "チャレンジモード",
+            "description": "チャレンジモードの特別なルールを設定します"
+          },
           "individualBans": {
             "title": "個別使用禁止",
             "description": "各位置に登場できないキャラクターを選択します"
@@ -90,7 +94,8 @@
           "development": "開発",
           "repository": "リポジトリ",
           "issues": "問題",
-          "logs": "ログ"
+          "logs": "ログ",
+          "challengeMode": "チャレンジモード"
         },
         "logsSettings": {
           "emptyTitle": "抽選ログが見つかりません",
@@ -98,6 +103,12 @@
           "draw": "抽選",
           "character": "キャラクター",
           "characters": "キャラクター"
+        },
+        "challengeMode": {
+          "active": "チャレンジモード有効",
+          "inactive": "チャレンジモード無効",
+          "inactiveDescription": "チャレンジモードを有効にすると、自動的に特別なルールが抽選に適用されます。",
+          "activeDescription": "引かれたキャラクターは全体の使用禁止に追加されます。"
         }
       },
       "teamModal": {

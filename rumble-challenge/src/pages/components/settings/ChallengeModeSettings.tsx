@@ -104,29 +104,17 @@ export function ChallengeModeSettings({
                 }`}
               >
                 {challengeMode
-                  ? t(
-                      "selection.components.settings.drawSettings.challengeModeActive",
-                    )
-                  : t("selection.components.settings.challengeMode.inactive", {
-                      defaultValue: "Modo Desafio desativado",
-                    })}
+                  ? t("selection.components.settings.challengeMode.active")
+                  : t("selection.components.settings.challengeMode.inactive")}
               </p>
 
               <p className="mt-1 text-xs leading-relaxed text-slate-500">
                 {challengeMode
                   ? t(
                       "selection.components.settings.challengeMode.activeDescription",
-                      {
-                        defaultValue:
-                          "Os personagens sorteados passam a fazer parte dos banimentos globais.",
-                      },
                     )
                   : t(
                       "selection.components.settings.challengeMode.inactiveDescription",
-                      {
-                        defaultValue:
-                          "Ative o Modo Desafio para aplicar automaticamente as regras especiais aos sorteios.",
-                      },
                     )}
               </p>
             </div>

@@ -72,6 +72,10 @@
             "title": "Bans",
             "description": "Banned characters cannot appear in any position"
           },
+          "challengeMode": {
+            "title": "Challenge Mode",
+            "description": "Configure the special rules of Challenge Mode"
+          },
           "individualBans": {
             "title": "Individual Bans",
             "description": "Choose which characters cannot appear in each position"
@@ -90,7 +94,8 @@
           "development": "Development",
           "repository": "Repository",
           "issues": "Issues",
-          "logs": "Logs"
+          "logs": "Logs",
+          "challengeMode": "Challenge Mode"
         },
         "logsSettings": {
           "emptyTitle": "No draw logs found",
@@ -98,6 +103,12 @@
           "draw": "Draw",
           "character": "Character",
           "characters": "Characters"
+        },
+        "challengeMode": {
+          "active": "Challenge Mode active",
+          "inactive": "Challenge Mode inactive",
+          "inactiveDescription": "Activate Challenge Mode to automatically apply special rules to draws.",
+          "activeDescription": "The drawn characters will become part of the global bans."
         }
       },
       "teamModal": {

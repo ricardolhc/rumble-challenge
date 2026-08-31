@@ -25,9 +25,6 @@ export function SettingsHeader({
 
     "challenge-mode": t(
       "selection.components.settings.settingsHeader.challengeMode.title",
-      {
-        defaultValue: "Modo Desafio",
-      },
     ),
 
     logs: t("selection.components.settings.settingsHeader.logs.title"),
@@ -44,9 +41,6 @@ export function SettingsHeader({
 
     "challenge-mode": t(
       "selection.components.settings.settingsHeader.challengeMode.description",
-      {
-        defaultValue: "Configure as regras especiais do Modo Desafio.",
-      },
     ),
 
     logs: t("selection.components.settings.settingsHeader.logs.description"),

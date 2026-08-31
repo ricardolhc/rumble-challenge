@@ -72,6 +72,10 @@
             "title": "Bloqueos",
             "description": "Los personajes bloqueados no podrán aparecer en ninguna posición"
           },
+          "challengeMode": {
+            "title": "Modo Desafío",
+            "description": "Configura las reglas especiales del Modo Desafío"
+          },
           "individualBans": {
             "title": "Bloqueos individuales",
             "description": "Elige qué personajes no pueden aparecer en cada posición"
@@ -90,7 +94,8 @@
           "development": "Desarrollo",
           "repository": "Repositorio",
           "issues": "Problemas",
-          "logs": "Registros"
+          "logs": "Registros",
+          "challengeMode": "Modo Desafío"
         },
         "logsSettings": {
           "emptyTitle": "No se encontraron registros de sorteos",
@@ -98,6 +103,12 @@
           "draw": "Sorteo",
           "character": "Personaje",
           "characters": "Personajes"
+        },
+        "challengeMode": {
+          "active": "Modo Desafío activo",
+          "inactive": "Modo Desafío inactivo",
+          "inactiveDescription": "Activa el Modo Desafío para aplicar automáticamente reglas especiales a los sorteos.",
+          "activeDescription": "Los personajes sorteados se convertirán en parte de los bloqueos globales."
         }
       },
       "teamModal": {

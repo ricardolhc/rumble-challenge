@@ -72,6 +72,10 @@
             "title": "Banimentos",
             "description": "Personagens banidos não poderão aparecer em nenhuma posição"
           },
+          "challengeMode": {
+            "title": "Modo Desafio",
+            "description": "Configure as regras especiais do Modo Desafio"
+          },
           "individualBans": {
             "title": "Banimentos Individuais",
             "description": "Escolha quais personagens não podem aparecer em cada posição"
@@ -94,7 +98,8 @@
           "development": "Desenvolvimento",
           "repository": "Repositório",
           "issues": "Problemas",
-          "logs": "Logs"
+          "logs": "Logs",
+          "challengeMode": "Modo Desafio"
         },
         "logsSettings": {
           "emptyTitle": "Nenhum log de sorteio encontrado",
@@ -102,6 +107,12 @@
           "draw": "Sorteio",
           "character": "Personagem",
           "characters": "Personagens"
+        },
+        "challengeMode": {
+          "active": "Modo Desafio ativo",
+          "inactive": "Modo Desafio desativado",
+          "inactiveDescription": "Ative o Modo Desafio para aplicar automaticamente as regras especiais aos sorteios.",
+          "activeDescription": "Os personagens sorteados passam a fazer parte dos banimentos globais."
         }
       },
       "teamModal": {

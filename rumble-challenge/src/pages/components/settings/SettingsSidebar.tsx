@@ -144,9 +144,7 @@ export function SettingsSidebar({
         >
           <ChallengeIcon />
 
-          {t("selection.components.settings.settingsSidebar.challengeMode", {
-            defaultValue: "Modo Desafio",
-          })}
+          {t("selection.components.settings.settingsSidebar.challengeMode")}
 
           <span
             className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${

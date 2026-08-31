@@ -72,6 +72,10 @@
             "title": "Bannissements",
             "description": "Les personnages bannis ne pourront apparaître à aucune position"
           },
+          "challengeMode": {
+            "title": "Mode Défi",
+            "description": "Configure les règles spéciales du Mode Défi"
+          },
           "individualBans": {
             "title": "Bannissements individuels",
             "description": "Choisissez les personnages qui ne peuvent pas apparaître à chaque position"
@@ -90,7 +94,8 @@
           "development": "Développement",
           "repository": "Référentiel",
           "issues": "Problèmes",
-          "logs": "Journaux"
+          "logs": "Journaux",
+          "challengeMode": "Mode Défi"
         },
         "logsSettings": {
           "emptyTitle": "Aucun journal de tirage trouvé",
@@ -98,6 +103,12 @@
           "draw": "Tirage",
           "character": "Personnage",
           "characters": "Personnages"
+        },
+        "challengeMode": {
+          "active": "Mode Défi actif",
+          "inactive": "Mode Défi inactif",
+          "inactiveDescription": "Activez le Mode Défi pour appliquer automatiquement des règles spéciales aux tirages.",
+          "activeDescription": "Les personnages sortis deviendront partie des bannissements globaux."
         }
       },
       "teamModal": {

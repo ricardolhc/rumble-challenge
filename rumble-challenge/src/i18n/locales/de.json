@@ -72,6 +72,10 @@
             "title": "Sperren",
             "description": "Gesperrte Charaktere können an keiner Position erscheinen"
           },
+          "challengeMode": {
+            "title": "Herausforderungsmodus",
+            "description": "Konfiguriere die speziellen Regeln des Herausforderungsmodus"
+          },
           "individualBans": {
             "title": "Individuelle Sperren",
             "description": "Wähle aus, welche Charaktere an den jeweiligen Positionen nicht erscheinen dürfen"
@@ -90,7 +94,8 @@
           "development": "Entwicklung",
           "repository": "Repository",
           "issues": "Probleme",
-          "logs": "Protokolle"
+          "logs": "Protokolle",
+          "challengeMode": "Herausforderungsmodus"
         },
         "logsSettings": {
           "emptyTitle": "Keine Ziehungsprotokolle gefunden",
@@ -98,6 +103,12 @@
           "draw": "Ziehung",
           "character": "Charakter",
           "characters": "Charaktere"
+        },
+        "challengeMode": {
+          "active": "Herausforderungsmodus aktiv",
+          "inactive": "Herausforderungsmodus inaktiv",
+          "inactiveDescription": "Aktiviere den Herausforderungsmodus, um automatisch spezielle Regeln auf Ziehungen anzuwenden.",
+          "activeDescription": "Die gezogenen Charaktere werden Teil der globalen Sperren."
         }
       },
       "teamModal": {
