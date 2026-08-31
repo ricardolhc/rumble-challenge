@@ -4,6 +4,7 @@ import type {
   MultiplayerRole,
   MultiplayerStatus,
 } from "../../multiplayer.types";
+import { useTranslation } from "react-i18next";
 interface MultiplayerModalProps {
   role: MultiplayerRole;
   status: MultiplayerStatus;
@@ -197,6 +198,8 @@ function ConnectionCode({
   copyLabel,
   onCopy,
 }: ConnectionCodeProps) {
+  const { t } = useTranslation();
+
   return (
     <button
       type="button"
@@ -241,7 +244,7 @@ function ConnectionCode({
       {copied ? (
         <>
           <CheckIcon />
-          Copiado!
+          {t("selection.components.multiplayer.copied")}
         </>
       ) : (
         <>
@@ -266,6 +269,7 @@ export function MultiplayerModal({
   onLeaveRoom,
   onClose,
 }: MultiplayerModalProps) {
+  const { t } = useTranslation();
   const [participantOffer, setParticipantOffer] = useState("");
 
   const [hostAnswer, setHostAnswer] = useState("");
@@ -334,9 +338,7 @@ export function MultiplayerModal({
         setCopied((current) => (current === type ? null : current));
       }, 1600);
     } catch {
-      setLocalError(
-        "Não foi possível copiar automaticamente. Selecione o código e copie manualmente.",
-      );
+      setLocalError(t("selection.components.multiplayer.cannotAutoCopy"));
     }
   }
 
@@ -348,7 +350,7 @@ export function MultiplayerModal({
 
       await onCreateGuestOffer();
     } catch {
-      setLocalError("Não foi possível gerar o código de conexão.");
+      setLocalError(t("selection.components.multiplayer.unableToGenerateCode"));
     }
   }
 
@@ -368,7 +370,9 @@ export function MultiplayerModal({
       setLocalError(
         error instanceof Error
           ? error.message
-          : "Não foi possível processar o código do participante.",
+          : t(
+              "selection.components.multiplayer.unableToProcessParticipantCode",
+            ),
       );
     }
   }
@@ -384,9 +388,7 @@ export function MultiplayerModal({
       await onApplyHostAnswer(hostAnswer.trim());
     } catch (error) {
       setLocalError(
-        error instanceof Error
-          ? error.message
-          : "Não foi possível conectar ao host.",
+        error instanceof Error ? error.message : t("unableToConnectToHost"),
       );
     }
   }
@@ -484,7 +486,7 @@ export function MultiplayerModal({
                   id="multiplayer-title"
                   className="text-xl font-bold text-white"
                 >
-                  Multiplayer
+                  {t("selection.components.multiplayer.multiplayer")}
                 </h2>
 
                 {role === "host" && (
@@ -501,7 +503,7 @@ export function MultiplayerModal({
                       text-emerald-400
                     "
                   >
-                    Host
+                    {t("selection.components.multiplayer.host")}
                   </span>
                 )}
 
@@ -519,13 +521,15 @@ export function MultiplayerModal({
                       text-blue-400
                     "
                   >
-                    Participante
+                    {t("selection.components.multiplayer.participant")}
                   </span>
                 )}
               </div>
 
               <p className="mt-1 text-sm text-slate-400">
-                Conexão direta entre os navegadores.
+                {t(
+                  "selection.components.multiplayer.directConectionThroughBrowser",
+                )}
               </p>
             </div>
           </div>
@@ -581,7 +585,7 @@ export function MultiplayerModal({
 
               <div>
                 <p className="text-sm font-semibold text-red-300">
-                  Não foi possível concluir a ação
+                  {t("selection.components.multiplayer.unableToCompleteAction")}
                 </p>
 
                 <p className="mt-0.5 text-sm text-red-300/80">{visibleError}</p>
@@ -597,11 +601,11 @@ export function MultiplayerModal({
             <div>
               <div className="mb-5">
                 <h3 className="text-lg font-semibold text-white">
-                  Como você quer participar?
+                  {t("selection.components.multiplayer.howToParticipate")}
                 </h3>
 
                 <p className="mt-1 text-sm text-slate-400">
-                  Escolha quem vai controlar o sorteio.
+                  {t("selection.components.multiplayer.chooseWhoControlsDraw")}
                 </p>
               </div>
 
@@ -644,12 +648,13 @@ export function MultiplayerModal({
                   </div>
 
                   <h4 className="mt-4 text-lg font-bold text-white">
-                    Criar transmissão
+                    {t("selection.components.multiplayer.createStream")}
                   </h4>
 
                   <p className="mt-2 text-sm leading-5 text-slate-400">
-                    Controle os sorteios e transmita tudo em tempo real para
-                    outras pessoas.
+                    {t(
+                      "selection.components.multiplayer.createStreamDescription",
+                    )}
                   </p>
 
                   <div
@@ -663,7 +668,7 @@ export function MultiplayerModal({
                       text-emerald-400
                     "
                   >
-                    Ser o host
+                    {t("selection.components.multiplayer.beTheHost")}
                     <span
                       className="
                         transition-transform
@@ -716,11 +721,11 @@ export function MultiplayerModal({
                   </div>
 
                   <h4 className="mt-4 text-lg font-bold text-white">
-                    Participar
+                    {t("selection.components.multiplayer.participate")}
                   </h4>
 
                   <p className="mt-2 text-sm leading-5 text-slate-400">
-                    Acompanhe automaticamente os sorteios realizados pelo host.
+                    {t("selection.components.multiplayer.accompanyDraws")}
                   </p>
 
                   <div
@@ -737,11 +742,13 @@ export function MultiplayerModal({
                     {creatingOffer ? (
                       <>
                         <Spinner />
-                        Preparando...
+                        {t("selection.components.multiplayer.preparing")}
                       </>
                     ) : (
                       <>
-                        Entrar como participante
+                        {t(
+                          "selection.components.multiplayer.enterAsParticipant",
+                        )}
                         <span
                           className="
                             transition-transform
@@ -770,8 +777,9 @@ export function MultiplayerModal({
                   text-slate-500
                 "
               >
-                Não é necessário criar conta nem sala. A conexão é realizada
-                diretamente entre os navegadores usando WebRTC.
+                {t(
+                  "selection.components.multiplayer.notNecessaryToCreateAccount",
+                )}
               </div>
             </div>
           )}
@@ -826,11 +834,11 @@ export function MultiplayerModal({
 
                   <div>
                     <p className="text-sm font-semibold text-emerald-300">
-                      Transmissão ativa
+                      {t("selection.components.multiplayer.activeStream")}
                     </p>
 
                     <p className="mt-0.5 text-xs text-slate-500">
-                      Os sorteios deste navegador serão sincronizados.
+                      {t("selection.components.multiplayer.synchronizedDraws")}
                     </p>
                   </div>
                 </div>
@@ -853,7 +861,9 @@ export function MultiplayerModal({
                   <strong className="text-white">{connectedGuests}</strong>
 
                   <span className="text-xs text-slate-400">
-                    conectado{connectedGuests === 1 ? "" : "s"}
+                    {connectedGuests === 1
+                      ? t("selection.components.multiplayer.connected")
+                      : t("selection.components.multiplayer.connecteds")}
                   </span>
                 </div>
               </div>
@@ -862,9 +872,9 @@ export function MultiplayerModal({
 
               <div className="grid grid-cols-3 gap-2">
                 {[
-                  ["1", "Receber código"],
-                  ["2", "Gerar resposta"],
-                  ["3", "Enviar"],
+                  ["1", t("selection.components.multiplayer.receiveCode")],
+                  ["2", t("selection.components.multiplayer.generateResponse")],
+                  ["3", t("selection.components.multiplayer.send")],
                 ].map(([number, label], index) => {
                   const step = index + 1;
 
@@ -916,7 +926,7 @@ export function MultiplayerModal({
                           }
                         `}
                       >
-                        Passo {number}
+                        {t("selection.components.multiplayer.step")} {number}
                       </p>
 
                       <p
@@ -955,12 +965,15 @@ export function MultiplayerModal({
 
                     <div className="min-w-0 flex-1">
                       <h3 className="font-semibold text-white">
-                        Cole o código do participante
+                        {t(
+                          "selection.components.multiplayer.pasteParticipantCode",
+                        )}
                       </h3>
 
                       <p className="mt-1 text-sm text-slate-400">
-                        Peça para a pessoa copiar o código gerado no dispositivo
-                        dela.
+                        {t(
+                          "selection.components.multiplayer.pasteParticipantCodeDescription",
+                        )}
                       </p>
                     </div>
                   </div>
@@ -975,7 +988,9 @@ export function MultiplayerModal({
                         setGeneratedAnswer("");
                       }
                     }}
-                    placeholder="Cole o código aqui..."
+                    placeholder={t(
+                      "selection.components.multiplayer.pasteCodeHere",
+                    )}
                     spellCheck={false}
                     className="
                       mt-4
@@ -1028,10 +1043,12 @@ export function MultiplayerModal({
                     {creatingAnswer ? (
                       <>
                         <Spinner />
-                        Processando código...
+                        {t(
+                          "selection.components.multiplayer.generatingResponse",
+                        )}
                       </>
                     ) : (
-                      "Gerar resposta"
+                      t("selection.components.multiplayer.generateResponse")
                     )}
                   </button>
                 </section>
@@ -1052,11 +1069,13 @@ export function MultiplayerModal({
 
                     <div>
                       <h3 className="font-semibold text-white">
-                        Resposta pronta
+                        {t("selection.components.multiplayer.responseReady")}
                       </h3>
 
                       <p className="mt-1 text-sm text-slate-400">
-                        Copie e envie este código para o mesmo participante.
+                        {t(
+                          "selection.components.multiplayer.copyAndPasteToSameParticipant",
+                        )}
                       </p>
                     </div>
                   </div>
@@ -1064,7 +1083,9 @@ export function MultiplayerModal({
                   <ConnectionCode
                     value={answerCode}
                     copied={copied === "answer"}
-                    copyLabel="Copiar resposta"
+                    copyLabel={t(
+                      "selection.components.multiplayer.copyResponse",
+                    )}
                     onCopy={() => void handleCopy(answerCode, "answer")}
                   />
 
@@ -1085,7 +1106,8 @@ export function MultiplayerModal({
                       hover:text-blue-300
                     "
                   >
-                    + Adicionar outro participante
+                    +{" "}
+                    {t("selection.components.multiplayer.addOtherParticipant")}
                   </button>
                 </section>
               )}
@@ -1109,7 +1131,7 @@ export function MultiplayerModal({
                   hover:bg-red-500/10
                 "
               >
-                Encerrar transmissão
+                {t("selection.components.multiplayer.doneStream")}
               </button>
             </div>
           )}
@@ -1175,7 +1197,7 @@ export function MultiplayerModal({
                         text-white
                       "
                     >
-                      Conectado ao host
+                      {t("selection.components.multiplayer.connectedToHost")}
                     </h3>
 
                     <p
@@ -1187,8 +1209,9 @@ export function MultiplayerModal({
                         text-slate-400
                       "
                     >
-                      Tudo pronto. Os sorteios e alterações feitas pelo host
-                      serão sincronizados automaticamente neste dispositivo.
+                      {t(
+                        "selection.components.multiplayer.allReadysynchronizedDraws",
+                      )}
                     </p>
 
                     <div
@@ -1214,7 +1237,7 @@ export function MultiplayerModal({
                           bg-emerald-400
                         "
                       />
-                      Sincronização ativa
+                      {t("selection.components.multiplayer.syncActive")}
                     </div>
                   </div>
 
@@ -1238,18 +1261,18 @@ export function MultiplayerModal({
                       hover:bg-red-500/10
                     "
                   >
-                    Sair da transmissão
+                    {t("selection.components.multiplayer.leaveStream")}
                   </button>
                 </div>
               ) : (
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-lg font-semibold text-white">
-                      Conectar ao host
+                      {t("selection.components.multiplayer.connectToHost")}
                     </h3>
 
                     <p className="mt-1 text-sm text-slate-400">
-                      São apenas dois passos.
+                      {t("selection.components.multiplayer.twoOnlySteps")}
                     </p>
                   </div>
 
@@ -1281,11 +1304,15 @@ export function MultiplayerModal({
                         >
                           <div>
                             <h4 className="font-semibold text-white">
-                              Envie seu código
+                              {t(
+                                "selection.components.multiplayer.sendYourCode",
+                              )}
                             </h4>
 
                             <p className="mt-1 text-sm text-slate-400">
-                              Gere o código, copie e envie para o host.
+                              {t(
+                                "selection.components.multiplayer.sendYourCodeDescription",
+                              )}
                             </p>
                           </div>
 
@@ -1318,10 +1345,16 @@ export function MultiplayerModal({
                               {creatingOffer && <Spinner />}
 
                               {creatingOffer
-                                ? "Gerando..."
+                                ? t(
+                                    "selection.components.multiplayer.generating",
+                                  )
                                 : guestOfferCode
-                                  ? "Gerar outro"
-                                  : "Gerar código"}
+                                  ? t(
+                                      "selection.components.multiplayer.generateAnother",
+                                    )
+                                  : t(
+                                      "selection.components.multiplayer.generateCode",
+                                    )}
                             </button>
 
                             {guestOfferCode && (
@@ -1365,12 +1398,14 @@ export function MultiplayerModal({
                                 {copied === "offer" ? (
                                   <>
                                     <CheckIcon />
-                                    Copiado!
+                                    {t(
+                                      "selection.components.multiplayer.coppied",
+                                    )}
                                   </>
                                 ) : (
                                   <>
                                     <CopyIcon />
-                                    Copiar
+                                    {t("selection.components.multiplayer.copy")}
                                   </>
                                 )}
                               </button>
@@ -1409,11 +1444,13 @@ export function MultiplayerModal({
 
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-white">
-                          Cole a resposta
+                          {t("selection.components.multiplayer.pasteResponse")}
                         </h4>
 
                         <p className="mt-1 text-sm text-slate-400">
-                          O host devolverá outro código. Cole ele aqui.
+                          {t(
+                            "selection.components.multiplayer.pasteResponseDescription",
+                          )}
                         </p>
 
                         <textarea
@@ -1422,7 +1459,9 @@ export function MultiplayerModal({
                           onChange={(event) =>
                             setHostAnswer(event.target.value)
                           }
-                          placeholder="Cole o código aqui..."
+                          placeholder={t(
+                            "selection.components.multiplayer.pasteCodeHere",
+                          )}
                           spellCheck={false}
                           className="
                             mt-4
@@ -1479,10 +1518,12 @@ export function MultiplayerModal({
                           {guestIsConnecting ? (
                             <>
                               <Spinner />
-                              Conectando ao host...
+                              {t(
+                                "selection.components.multiplayer.connectingToHost",
+                              )}
                             </>
                           ) : (
-                            "Conectar"
+                            t("selection.components.multiplayer.connect")
                           )}
                         </button>
                       </div>
@@ -1505,7 +1546,7 @@ export function MultiplayerModal({
                       hover:text-red-400
                     "
                   >
-                    Cancelar
+                    {t("selection.components.multiplayer.cancel")}
                   </button>
                 </div>
               )}

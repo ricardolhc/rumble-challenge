@@ -173,7 +173,6 @@ export function SelectionPage() {
           return;
         }
 
-        console.error("Erro ao carregar personagens:", error);
         setCharactersError(
           t("selection.page.loadingCharactersErrorDescription"),
         );
@@ -377,8 +376,8 @@ export function SelectionPage() {
                   }`}
                 />
                 {multiplayerStatus === "connected"
-                  ? "Conectado ao host — aguardando o próximo sorteio"
-                  : "Preparando conexão com o host"}
+                  ? t("selection.page.connectedToHost")
+                  : t("selection.page.connectingToHost")}
               </div>
             )}
 
