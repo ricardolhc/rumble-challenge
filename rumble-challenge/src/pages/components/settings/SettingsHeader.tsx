@@ -4,6 +4,7 @@ import type { SettingsSection } from "./settings.types";
 
 interface SettingsHeaderProps {
   selectedSection: SettingsSection;
+
   onClose: () => void;
 }
 
@@ -22,6 +23,13 @@ export function SettingsHeader({
 
     draws: t("selection.components.settings.settingsHeader.draws.title"),
 
+    "challenge-mode": t(
+      "selection.components.settings.settingsHeader.challengeMode.title",
+      {
+        defaultValue: "Modo Desafio",
+      },
+    ),
+
     logs: t("selection.components.settings.settingsHeader.logs.title"),
   };
 
@@ -33,6 +41,13 @@ export function SettingsHeader({
     ),
 
     draws: t("selection.components.settings.settingsHeader.draws.description"),
+
+    "challenge-mode": t(
+      "selection.components.settings.settingsHeader.challengeMode.description",
+      {
+        defaultValue: "Configure as regras especiais do Modo Desafio.",
+      },
+    ),
 
     logs: t("selection.components.settings.settingsHeader.logs.description"),
   };
@@ -74,6 +89,7 @@ export function SettingsHeader({
           className="h-5 w-5"
         >
           <path d="M18 6 6 18" />
+
           <path d="m6 6 12 12" />
         </svg>
       </button>

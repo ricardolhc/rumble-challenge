@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-
 import type { MouseEvent } from "react";
 
 import type { CharacterType } from "../../selection.types";
@@ -18,22 +17,35 @@ import type {
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
+import { ChallengeModeSettings } from "./ChallengeModeSettings";
 
 export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 
 interface SettingsModalProps {
   characters: CharacterType[];
+
   bannedCharacters: Set<string>;
+
   individualBans: Record<MemberSlot, Set<string>>;
+
   drawCount: DrawCount;
+
   drawSpeed: DrawSpeed;
+
   challengeMode: boolean;
+
   onDrawCountChange: (count: DrawCount) => void;
+
   onDrawSpeedChange: (speed: DrawSpeed) => void;
+
   onChallengeModeChange: (enabled: boolean) => void;
+
   onClose: () => void;
+
   onToggleBan: (character: CharacterType) => void;
+
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
+
   drawLogs: DrawLog[];
 }
 
@@ -56,7 +68,9 @@ export function SettingsModal({
 }: SettingsModalProps) {
   const [selectedSection, setSelectedSection] =
     useState<SettingsSection>("bans");
+
   const [isVisible, setIsVisible] = useState(false);
+
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalIndividualBans =
@@ -77,6 +91,7 @@ export function SettingsModal({
 
     return () => {
       cancelAnimationFrame(frame);
+
       document.removeEventListener("keydown", handleKeyDown);
 
       if (closeTimeoutRef.current) {
@@ -121,6 +136,7 @@ export function SettingsModal({
           individualBansCount={totalIndividualBans}
           drawCount={drawCount}
           logsCount={drawLogs.length}
+          challengeMode={challengeMode}
         />
 
         <section className="flex min-w-0 flex-1 flex-col">
@@ -150,9 +166,14 @@ export function SettingsModal({
             <DrawSettings
               drawCount={drawCount}
               drawSpeed={drawSpeed}
-              challengeMode={challengeMode}
               onDrawCountChange={onDrawCountChange}
               onDrawSpeedChange={onDrawSpeedChange}
+            />
+          )}
+
+          {selectedSection === "challenge-mode" && (
+            <ChallengeModeSettings
+              challengeMode={challengeMode}
               onChallengeModeChange={onChallengeModeChange}
             />
           )}
