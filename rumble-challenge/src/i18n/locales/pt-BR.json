@@ -91,6 +91,10 @@
           "logs": {
             "title": "Logs",
             "description": "Veja os logs de sorteios anteriores"
+          },
+          "sound": {
+            "title": "Som",
+            "description": "Configure os efeitos sonoros do sorteio."
           }
         },
         "settingsSidebar": {
@@ -103,7 +107,8 @@
           "repository": "Repositório",
           "issues": "Problemas",
           "logs": "Logs",
-          "challengeMode": "Modo Desafio"
+          "challengeMode": "Modo Desafio",
+          "sound": "Som"
         },
         "logsSettings": {
           "emptyTitle": "Nenhum log de sorteio encontrado",
@@ -123,6 +128,14 @@
           "globalBanDescription": "Os personagens sorteados não poderão aparecer em nenhuma posição nos próximos sorteios.",
           "individualBan": "Banimento individual",
           "individualBanDescription": "Cada personagem será banido apenas da posição em que foi sorteado."
+        },
+        "sound": {
+          "enabled": "Efeitos sonoros",
+          "enabledDescription": "Ativa ou desativa os efeitos sonoros do sorteio.",
+          "tickVolume": "Volume do sorteio",
+          "tickVolumeDescription": "Volume do som reproduzido a cada troca de personagem.",
+          "resultVolume": "Volume do resultado",
+          "resultVolumeDescription": "Volume do som reproduzido quando o resultado é revelado."
         }
       },
       "teamModal": {

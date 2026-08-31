@@ -18,6 +18,8 @@ import { SettingsHeader } from "./SettingsHeader";
 
 import { SettingsSidebar } from "./SettingsSidebar";
 
+import { SoundSettings } from "./SoundSettings";
+
 import type {
   ChallengeBanMode,
   DrawCount,
@@ -49,6 +51,12 @@ interface SettingsModalProps {
 
   challengeBanMode: ChallengeBanMode;
 
+  soundEnabled: boolean;
+
+  tickVolume: number;
+
+  resultVolume: number;
+
   onDrawCountChange: (count: DrawCount) => void;
 
   onDrawSpeedChange: (speed: DrawSpeed) => void;
@@ -56,6 +64,12 @@ interface SettingsModalProps {
   onChallengeModeChange: (enabled: boolean) => void;
 
   onChallengeBanModeChange: (mode: ChallengeBanMode) => void;
+
+  onSoundEnabledChange: (enabled: boolean) => void;
+
+  onTickVolumeChange: (volume: number) => void;
+
+  onResultVolumeChange: (volume: number) => void;
 
   onClose: () => void;
 
@@ -76,10 +90,20 @@ export function SettingsModal({
   drawSpeed,
   challengeMode,
   challengeBanMode,
+
+  soundEnabled,
+  tickVolume,
+  resultVolume,
+
   onDrawCountChange,
   onDrawSpeedChange,
   onChallengeModeChange,
   onChallengeBanModeChange,
+
+  onSoundEnabledChange,
+  onTickVolumeChange,
+  onResultVolumeChange,
+
   onToggleBan,
   onToggleIndividualBan,
   onClose,
@@ -156,6 +180,7 @@ export function SettingsModal({
           drawCount={drawCount}
           logsCount={drawLogs.length}
           challengeMode={challengeMode}
+          soundEnabled={soundEnabled}
         />
 
         <section className="flex min-w-0 flex-1 flex-col">
@@ -196,6 +221,17 @@ export function SettingsModal({
               challengeBanMode={challengeBanMode}
               onChallengeModeChange={onChallengeModeChange}
               onChallengeBanModeChange={onChallengeBanModeChange}
+            />
+          )}
+
+          {selectedSection === "sound" && (
+            <SoundSettings
+              soundEnabled={soundEnabled}
+              tickVolume={tickVolume}
+              resultVolume={resultVolume}
+              onSoundEnabledChange={onSoundEnabledChange}
+              onTickVolumeChange={onTickVolumeChange}
+              onResultVolumeChange={onResultVolumeChange}
             />
           )}
 

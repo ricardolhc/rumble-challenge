@@ -4,7 +4,6 @@ import type { SettingsSection } from "./settings.types";
 
 interface SettingsHeaderProps {
   selectedSection: SettingsSection;
-
   onClose: () => void;
 }
 
@@ -27,6 +26,8 @@ export function SettingsHeader({
       "selection.components.settings.settingsHeader.challengeMode.title",
     ),
 
+    sound: t("selection.components.settings.settingsHeader.sound.title"),
+
     logs: t("selection.components.settings.settingsHeader.logs.title"),
   };
 
@@ -42,6 +43,8 @@ export function SettingsHeader({
     "challenge-mode": t(
       "selection.components.settings.settingsHeader.challengeMode.description",
     ),
+
+    sound: t("selection.components.settings.settingsHeader.sound.description"),
 
     logs: t("selection.components.settings.settingsHeader.logs.description"),
   };

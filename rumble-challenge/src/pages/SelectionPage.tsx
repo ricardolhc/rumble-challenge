@@ -14,6 +14,7 @@ import { SettingsModal } from "./components/settings/SettingsModal";
 import type { DrawLog } from "./components/settings/settings.types";
 import { TeamModal } from "./components/TeamModal";
 import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
+import { useSoundSettings } from "./hooks/useSoundSettings";
 
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
@@ -56,6 +57,9 @@ export function SelectionPage() {
 
   const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
 
+  const tickAudioRef = useRef<HTMLAudioElement | null>(null);
+  const resultAudioRef = useRef<HTMLAudioElement | null>(null);
+
   const { infos, isLoading: isLoadingDescriptions } = useCharacterInfos();
 
   const {
@@ -74,6 +78,39 @@ export function SelectionPage() {
     banCharacters,
     banIndividualCharacters,
   } = useSelectionSettings();
+
+  const {
+    soundEnabled,
+    setSoundEnabled,
+    tickVolume,
+    setTickVolume,
+    resultVolume,
+    setResultVolume,
+  } = useSoundSettings();
+
+  useEffect(() => {
+    const baseUrl = import.meta.env.BASE_URL;
+
+    const tickAudio = new Audio(`${baseUrl}sounds/tick.wav`);
+
+    const resultAudio = new Audio(`${baseUrl}sounds/result.wav`);
+
+    tickAudio.preload = "auto";
+    resultAudio.preload = "auto";
+
+    tickAudioRef.current = tickAudio;
+
+    resultAudioRef.current = resultAudio;
+
+    return () => {
+      tickAudio.pause();
+      resultAudio.pause();
+
+      tickAudioRef.current = null;
+
+      resultAudioRef.current = null;
+    };
+  }, []);
 
   const handleRemoteDrawStart = useCallback(() => {
     setRemoteSelectedTeam(null);
@@ -260,6 +297,30 @@ export function SelectionPage() {
     setDrawLogs(updatedLogs);
   }, [selectedTeam]);
 
+  useEffect(() => {
+    const baseUrl = import.meta.env.BASE_URL;
+
+    const tickAudio = new Audio(`${baseUrl}sounds/tick.wav`);
+    const resultAudio = new Audio(`${baseUrl}sounds/result.wav`);
+
+    tickAudio.preload = "auto";
+    resultAudio.preload = "auto";
+
+    tickAudio.volume = 0.35;
+    resultAudio.volume = 0.6;
+
+    tickAudioRef.current = tickAudio;
+    resultAudioRef.current = resultAudio;
+
+    return () => {
+      tickAudio.pause();
+      resultAudio.pause();
+
+      tickAudioRef.current = null;
+      resultAudioRef.current = null;
+    };
+  }, []);
+
   function openSettings() {
     setIsAboutOpen(false);
     setIsMultiplayerOpen(false);
@@ -314,6 +375,61 @@ export function SelectionPage() {
   const displayedIsSelecting = isGuest ? remoteIsSelecting : isSelecting;
 
   const displayedTeam = isGuest ? remoteSelectedTeam : selectedTeam;
+
+  useEffect(() => {
+    if (
+      !soundEnabled ||
+      !displayedIsSelecting ||
+      displayedHighlightedIndexes.length === 0
+    ) {
+      return;
+    }
+
+    const audio = tickAudioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    audio.pause();
+
+    audio.currentTime = 0;
+
+    audio.volume = tickVolume;
+
+    void audio.play().catch(() => {
+      // O navegador pode bloquear
+      // áudio sem interação prévia.
+    });
+  }, [
+    displayedHighlightedIndexes,
+    displayedIsSelecting,
+    soundEnabled,
+    tickVolume,
+  ]);
+
+  useEffect(() => {
+    if (!soundEnabled || !displayedTeam) {
+      return;
+    }
+
+    const audio = resultAudioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    audio.pause();
+
+    audio.currentTime = 0;
+
+    audio.volume = resultVolume;
+
+    void audio.play().catch(() => {
+      // Ignora bloqueios
+      // de autoplay.
+    });
+  }, [displayedTeam, soundEnabled, resultVolume]);
 
   const displayedBannedCharacters = isGuest
     ? remoteBannedCharacters
@@ -436,12 +552,18 @@ export function SelectionPage() {
           drawSpeed={drawSpeed}
           challengeMode={challengeMode}
           challengeBanMode={challengeBanMode}
+          soundEnabled={soundEnabled}
+          tickVolume={tickVolume}
+          resultVolume={resultVolume}
           onToggleBan={handleToggleBan}
           onToggleIndividualBan={handleToggleIndividualBan}
           onDrawCountChange={setDrawCount}
           onDrawSpeedChange={setDrawSpeed}
           onChallengeModeChange={setChallengeMode}
           onChallengeBanModeChange={setChallengeBanMode}
+          onSoundEnabledChange={setSoundEnabled}
+          onTickVolumeChange={setTickVolume}
+          onResultVolumeChange={setResultVolume}
           onClose={() => setIsSettingsOpen(false)}
           drawLogs={drawLogs}
         />

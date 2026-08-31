@@ -10,6 +10,7 @@ export type SettingsSection =
   | "individual-bans"
   | "draws"
   | "challenge-mode"
+  | "sound"
   | "logs";
 
 export interface DrawLog {
