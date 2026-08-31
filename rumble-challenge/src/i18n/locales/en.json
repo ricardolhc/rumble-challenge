@@ -1,5 +1,12 @@
 {
   "selection": {
+    "page": {
+      "loadingCharacters": "Loading characters...",
+      "loadingCharactersError": "Error loading characters",
+      "loadingCharactersErrorDescription": "Failed to load characters. Please try again.",
+      "loadingCharacterDescription": "Loading character description...",
+      "characterDescriptionUnavailable": "Character description unavailable"
+    },
     "components": {
       "selection": {
         "settingsButton": {

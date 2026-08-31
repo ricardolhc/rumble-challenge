@@ -1,5 +1,12 @@
 {
   "selection": {
+    "page": {
+      "loadingCharacters": "Charaktere werden geladen...",
+      "loadingCharactersError": "Fehler beim Laden der Charaktere",
+      "loadingCharactersErrorDescription": "Die Charaktere konnten nicht geladen werden. Bitte versuche es erneut.",
+      "loadingCharacterDescription": "Charakterbeschreibung wird geladen...",
+      "characterDescriptionUnavailable": "Charakterbeschreibung nicht verfügbar"
+    },
     "components": {
       "selection": {
         "settingsButton": {

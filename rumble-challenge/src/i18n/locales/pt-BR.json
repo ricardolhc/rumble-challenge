@@ -3,7 +3,9 @@
     "page": {
       "loadingCharacters": "Carregando personagens...",
       "loadingCharactersError": "Erro ao carregar personagens",
-      "loadingCharactersErrorDescription": "Não foi possível carregar os personagens. Tente novamente."
+      "loadingCharactersErrorDescription": "Não foi possível carregar os personagens. Tente novamente.",
+      "loadingCharacterDescription": "Carregando descrição do personagem...",
+      "characterDescriptionUnavailable": "Descrição do personagem indisponível"
     },
     "components": {
       "selection": {
