@@ -6,11 +6,8 @@ import type { DrawCount, DrawSpeed } from "./settings.types";
 
 interface DrawSettingsProps {
   drawCount: DrawCount;
-
   drawSpeed: DrawSpeed;
-
   onDrawCountChange: (count: DrawCount) => void;
-
   onDrawSpeedChange: (speed: DrawSpeed) => void;
 }
 
@@ -99,6 +96,10 @@ export function DrawSettings({
           <option value="slow">
             {t("selection.components.settings.drawSettings.slow")}
           </option>
+
+          <option value="super-slow">
+            {t("selection.components.settings.drawSettings.superSlow")}
+          </option>
         </select>
 
         <div className="mt-5 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
@@ -118,7 +119,13 @@ export function DrawSettings({
                     ? t(
                         "selection.components.settings.drawSettings.normalSpeed",
                       )
-                    : t("selection.components.settings.drawSettings.slowSpeed")}
+                    : drawSpeed === "slow"
+                      ? t(
+                          "selection.components.settings.drawSettings.slowSpeed",
+                        )
+                      : t(
+                          "selection.components.settings.drawSettings.superSlowSpeed",
+                        )}
             </span>
             .
           </p>

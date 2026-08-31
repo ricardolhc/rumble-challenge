@@ -23,29 +23,17 @@ export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 
 interface SettingsModalProps {
   characters: CharacterType[];
-
   bannedCharacters: Set<string>;
-
   individualBans: Record<MemberSlot, Set<string>>;
-
   drawCount: DrawCount;
-
   drawSpeed: DrawSpeed;
-
   challengeMode: boolean;
-
   onDrawCountChange: (count: DrawCount) => void;
-
   onDrawSpeedChange: (speed: DrawSpeed) => void;
-
   onChallengeModeChange: (enabled: boolean) => void;
-
   onClose: () => void;
-
   onToggleBan: (character: CharacterType) => void;
-
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
-
   drawLogs: DrawLog[];
 }
 

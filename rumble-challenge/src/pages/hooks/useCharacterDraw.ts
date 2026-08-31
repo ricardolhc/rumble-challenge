@@ -47,6 +47,11 @@ const DRAW_SPEED_CONFIG: Record<
     base: 280,
     increment: 110,
   },
+
+  "super-slow": {
+    base: 400,
+    increment: 150,
+  },
 };
 
 function shuffle<T>(items: T[]) {

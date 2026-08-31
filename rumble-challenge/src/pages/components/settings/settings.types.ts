@@ -1,10 +1,8 @@
 import type { CharacterType } from "../../selection.types";
 
 export type MemberSlot = 1 | 2 | 3;
-
 export type DrawCount = 1 | 2 | 3;
-
-export type DrawSpeed = "fast" | "medium" | "slow" | "instant";
+export type DrawSpeed = "fast" | "medium" | "slow" | "instant" | "super-slow";
 
 export type SettingsSection =
   | "bans"
@@ -15,8 +13,6 @@ export type SettingsSection =
 
 export interface DrawLog {
   id: string;
-
   createdAt: string;
-
   team: CharacterType[];
 }
