@@ -4,25 +4,20 @@ import type { MouseEvent } from "react";
 
 import type { CharacterType } from "../../selection.types";
 
+import { LogsSettings } from "../LogsSettings";
 import { DrawSettings } from "./DrawSettings";
-
 import { GlobalBansSettings } from "./GlobalBansSettings";
-
 import { IndividualBansSettings } from "./IndividualBansSettings";
-
 import { SettingsHeader } from "./SettingsHeader";
-
 import { SettingsSidebar } from "./SettingsSidebar";
 
 import type {
-  DrawLog,
   DrawCount,
+  DrawLog,
   DrawSpeed,
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
-
-import { LogsSettings } from "../LogsSettings";
 
 export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
 
@@ -61,9 +56,7 @@ export function SettingsModal({
 }: SettingsModalProps) {
   const [selectedSection, setSelectedSection] =
     useState<SettingsSection>("bans");
-
   const [isVisible, setIsVisible] = useState(false);
-
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const totalIndividualBans =
@@ -84,7 +77,6 @@ export function SettingsModal({
 
     return () => {
       cancelAnimationFrame(frame);
-
       document.removeEventListener("keydown", handleKeyDown);
 
       if (closeTimeoutRef.current) {
@@ -107,44 +99,17 @@ export function SettingsModal({
 
   return (
     <div
-      className={`
-        fixed
-        inset-0
-        z-[100]
-        flex
-        items-center
-        justify-center
-        bg-black/70
-        p-4
-        backdrop-blur-sm
-        transition-opacity
-        duration-[250ms]
-        ease-out
-        ${isVisible ? "opacity-100" : "opacity-0"}
-      `}
+      className={`fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm transition-opacity duration-[250ms] ease-out ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
       onMouseDown={handleClose}
     >
       <div
-        className={`
-          flex
-          h-[650px]
-          w-full
-          max-w-[1100px]
-          overflow-hidden
-          rounded-2xl
-          border
-          border-slate-700
-          bg-[#161b25]
-          shadow-2xl
-          transition-all
-          duration-[250ms]
-          ease-out
-          ${
-            isVisible
-              ? "translate-y-0 scale-100 opacity-100"
-              : "translate-y-3 scale-[0.98] opacity-0"
-          }
-        `}
+        className={`flex h-[650px] w-full max-w-[1100px] overflow-hidden rounded-2xl border border-slate-700 bg-[#161b25] shadow-2xl transition-all duration-[250ms] ease-out ${
+          isVisible
+            ? "translate-y-0 scale-100 opacity-100"
+            : "translate-y-3 scale-[0.98] opacity-0"
+        }`}
         onMouseDown={(event: MouseEvent<HTMLDivElement>) =>
           event.stopPropagation()
         }
