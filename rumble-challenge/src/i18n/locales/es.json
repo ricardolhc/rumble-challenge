@@ -165,6 +165,10 @@
           "languages": {
             "title": "Múltiples idiomas",
             "description": "Utilice la aplicación en diferentes idiomas a través del selector de idioma."
+          },
+          "multiplayer": {
+            "title": "Multijugador",
+            "description": "Conéctese con otros jugadores y sincronice los sorteos en tiempo real."
           }
         }
       },

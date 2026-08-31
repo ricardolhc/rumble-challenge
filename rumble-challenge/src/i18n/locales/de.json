@@ -165,6 +165,10 @@
           "languages": {
             "title": "Mehrere Sprachen",
             "description": "Verwende die Anwendung in verschiedenen Sprachen über den Sprachauswahldialog."
+          },
+          "multiplayer": {
+            "title": "Mehrspieler",
+            "description": "Verbinde dich mit anderen Spielern und synchronisiere die Ziehungen in Echtzeit."
           }
         }
       },

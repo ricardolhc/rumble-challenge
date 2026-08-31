@@ -165,6 +165,10 @@
           "languages": {
             "title": "Multilinguisme",
             "description": "Utilisez l'application dans différentes langues grâce au sélecteur de langue."
+          },
+          "multiplayer": {
+            "title": "Multijoueur",
+            "description": "Connectez-vous à d'autres joueurs et synchronisez les tirages en temps réel."
           }
         }
       },
