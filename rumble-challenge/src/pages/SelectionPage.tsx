@@ -48,6 +48,10 @@ export function SelectionPage() {
     CharacterType[] | null
   >(null);
   const [remoteIsSelecting, setRemoteIsSelecting] = useState(false);
+  const [remoteBannedCharacters, setRemoteBannedCharacters] = useState<
+    Set<string>
+  >(new Set());
+  const [remoteChallengeMode, setRemoteChallengeMode] = useState(false);
 
   const lastLoggedTeamRef = useRef<CharacterType[] | null>(null);
 
@@ -90,6 +94,14 @@ export function SelectionPage() {
     setRemoteIsSelecting(false);
   }, []);
 
+  const handleRemoteRoomState = useCallback(
+    (state: { bannedCharacters: string[]; challengeMode: boolean }) => {
+      setRemoteBannedCharacters(new Set(state.bannedCharacters));
+      setRemoteChallengeMode(state.challengeMode);
+    },
+    [],
+  );
+
   const {
     role,
     status: multiplayerStatus,
@@ -109,12 +121,32 @@ export function SelectionPage() {
     broadcastDrawFrame,
     broadcastDrawResult,
     broadcastDrawClose,
+    broadcastRoomState,
   } = useMultiplayerRoom({
     onDrawStart: handleRemoteDrawStart,
     onDrawFrame: handleRemoteDrawFrame,
     onDrawResult: handleRemoteDrawResult,
     onDrawClose: handleRemoteDrawClose,
+    onRoomState: handleRemoteRoomState,
   });
+
+  useEffect(() => {
+    if (!isHost || !isInRoom) {
+      return;
+    }
+
+    broadcastRoomState({
+      bannedCharacters: Array.from(bannedCharacters),
+      challengeMode,
+    });
+  }, [
+    bannedCharacters,
+    challengeMode,
+    connectedGuests,
+    isHost,
+    isInRoom,
+    broadcastRoomState,
+  ]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -191,14 +223,6 @@ export function SelectionPage() {
     broadcastDrawResult(selectedTeam);
   }, [selectedTeam, isHost, broadcastDrawResult]);
 
-  const availableCharactersCount = useMemo(
-    () =>
-      characters.filter(
-        (character) => !bannedCharacters.has(getCharacterKey(character)),
-      ).length,
-    [characters, bannedCharacters],
-  );
-
   useEffect(() => {
     if (!selectedTeam) {
       return;
@@ -257,6 +281,8 @@ export function SelectionPage() {
     setRemoteSelectedTeam(null);
     setRemoteHighlightedIndexes([]);
     setRemoteIsSelecting(false);
+    setRemoteBannedCharacters(new Set());
+    setRemoteChallengeMode(false);
   }
 
   const displayedHighlightedIndexes = isGuest
@@ -266,6 +292,21 @@ export function SelectionPage() {
   const displayedIsSelecting = isGuest ? remoteIsSelecting : isSelecting;
 
   const displayedTeam = isGuest ? remoteSelectedTeam : selectedTeam;
+
+  const displayedBannedCharacters = isGuest
+    ? remoteBannedCharacters
+    : bannedCharacters;
+
+  const displayedChallengeMode = isGuest ? remoteChallengeMode : challengeMode;
+
+  const displayedAvailableCharactersCount = useMemo(
+    () =>
+      characters.filter(
+        (character) =>
+          !displayedBannedCharacters.has(getCharacterKey(character)),
+      ).length,
+    [characters, displayedBannedCharacters],
+  );
 
   return (
     <>
@@ -320,10 +361,10 @@ export function SelectionPage() {
         {!isLoadingCharacters && !charactersError && (
           <>
             <SelectionHeader
-              availableCharactersCount={availableCharactersCount}
+              availableCharactersCount={displayedAvailableCharactersCount}
               drawCount={drawCount}
-              bannedCharactersCount={bannedCharacters.size}
-              challengeMode={challengeMode}
+              bannedCharactersCount={displayedBannedCharacters.size}
+              challengeMode={displayedChallengeMode}
             />
 
             {isGuest && (
@@ -345,7 +386,7 @@ export function SelectionPage() {
 
             <CharacterGrid
               characters={characters}
-              bannedCharacters={bannedCharacters}
+              bannedCharacters={displayedBannedCharacters}
               highlightedIndexes={displayedHighlightedIndexes}
               isSelecting={displayedIsSelecting}
               onCharacterClick={setSelectedCharacter}
@@ -358,20 +399,6 @@ export function SelectionPage() {
                 hasAvailableTeam={hasAvailableTeam}
                 onClick={handleSelectCharacters}
               />
-            )}
-
-            {isGuest && (
-              <button
-                type="button"
-                disabled
-                className="fixed bottom-6 left-1/2 z-20 -translate-x-1/2 cursor-not-allowed rounded-xl border border-slate-700 bg-slate-800 px-8 py-3 font-bold text-slate-400 shadow-xl"
-              >
-                {remoteIsSelecting
-                  ? "Sorteando..."
-                  : multiplayerStatus === "connected"
-                    ? "Aguardando host"
-                    : "Conectando..."}
-              </button>
             )}
           </>
         )}

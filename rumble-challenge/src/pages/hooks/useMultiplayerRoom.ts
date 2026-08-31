@@ -14,11 +14,24 @@ import {
   encodeSignal,
 } from "../utils/multiplayer.utils";
 
+export interface MultiplayerRoomState {
+  bannedCharacters: string[];
+  challengeMode: boolean;
+}
+
+type MultiplayerRoomMessage =
+  | MultiplayerDrawMessage
+  | {
+      type: "room-state";
+      state: MultiplayerRoomState;
+    };
+
 interface UseMultiplayerRoomOptions {
   onDrawStart?: () => void;
   onDrawFrame?: (indexes: number[]) => void;
   onDrawResult?: (team: CharacterType[]) => void;
   onDrawClose?: () => void;
+  onRoomState?: (state: MultiplayerRoomState) => void;
 }
 
 interface HostPeer {
@@ -65,12 +78,14 @@ export function useMultiplayerRoom({
   onDrawFrame,
   onDrawResult,
   onDrawClose,
+  onRoomState,
 }: UseMultiplayerRoomOptions = {}) {
   const callbacksRef = useRef({
     onDrawStart,
     onDrawFrame,
     onDrawResult,
     onDrawClose,
+    onRoomState,
   });
 
   const hostPeersRef = useRef<Map<string, HostPeer>>(new Map());
@@ -108,8 +123,9 @@ export function useMultiplayerRoom({
       onDrawFrame,
       onDrawResult,
       onDrawClose,
+      onRoomState,
     };
-  }, [onDrawStart, onDrawFrame, onDrawResult, onDrawClose]);
+  }, [onDrawStart, onDrawFrame, onDrawResult, onDrawClose, onRoomState]);
 
   const refreshConnectedGuests = useCallback(() => {
     const connectedCount = Array.from(hostPeersRef.current.values()).filter(
@@ -121,7 +137,7 @@ export function useMultiplayerRoom({
 
   const handleGuestMessage = useCallback((rawMessage: string) => {
     try {
-      const message = JSON.parse(rawMessage) as MultiplayerDrawMessage;
+      const message = JSON.parse(rawMessage) as MultiplayerRoomMessage;
 
       switch (message.type) {
         case "draw:start":
@@ -138,6 +154,10 @@ export function useMultiplayerRoom({
 
         case "draw:close":
           callbacksRef.current.onDrawClose?.();
+          break;
+
+        case "room-state":
+          callbacksRef.current.onRoomState?.(message.state);
           break;
       }
     } catch (error) {
@@ -546,7 +566,7 @@ export function useMultiplayerRoom({
     }
   }, []);
 
-  const broadcastMessage = useCallback((message: MultiplayerDrawMessage) => {
+  const broadcastMessage = useCallback((message: MultiplayerRoomMessage) => {
     const serializedMessage = JSON.stringify(message);
 
     for (const { dataChannel } of hostPeersRef.current.values()) {
@@ -587,6 +607,16 @@ export function useMultiplayerRoom({
       type: "draw:close",
     });
   }, [broadcastMessage]);
+
+  const broadcastRoomState = useCallback(
+    (state: MultiplayerRoomState) => {
+      broadcastMessage({
+        type: "room-state",
+        state,
+      });
+    },
+    [broadcastMessage],
+  );
 
   useEffect(() => {
     return () => {
@@ -632,5 +662,6 @@ export function useMultiplayerRoom({
     broadcastDrawFrame,
     broadcastDrawResult,
     broadcastDrawClose,
+    broadcastRoomState,
   };
 }
