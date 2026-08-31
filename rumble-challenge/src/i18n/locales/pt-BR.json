@@ -16,7 +16,6 @@
           "title": "Sorteador de Times",
           "subtitle": "Sorteie de um a três personagens",
           "availableCharacters": "personagens disponíveis",
-          "noRepeatedCharacters": "Sem personagens repetidos",
           "oneCharacterPerDraw": "personagem por sorteio",
           "multipleCharactersPerDraw": "personagens por sorteio",
           "oneCharacterBanned": "banido",

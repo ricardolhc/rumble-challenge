@@ -16,7 +16,6 @@
           "title": "チーム抽選",
           "subtitle": "1～3人のキャラクターを抽選します",
           "availableCharacters": "使用可能なキャラクター",
-          "noRepeatedCharacters": "同じキャラクターは選ばれません",
           "oneCharacterPerDraw": "回の抽選につき1キャラクター",
           "multipleCharactersPerDraw": "回の抽選につきキャラクター",
           "oneCharacterBanned": "使用禁止",

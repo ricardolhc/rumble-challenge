@@ -16,7 +16,6 @@
           "title": "Tirage d'équipe",
           "subtitle": "Tirez de un à trois personnages",
           "availableCharacters": "personnages disponibles",
-          "noRepeatedCharacters": "Aucun personnage en double",
           "oneCharacterPerDraw": "personnage par tirage",
           "multipleCharactersPerDraw": "personnages par tirage",
           "oneCharacterBanned": "banni",

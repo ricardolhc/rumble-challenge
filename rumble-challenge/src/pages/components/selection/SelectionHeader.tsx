@@ -55,14 +55,6 @@ export function SelectionHeader({
               )}
         </Badge>
 
-        {drawCount > 1 && (
-          <Badge>
-            {t(
-              "selection.components.selection.selectionHeader.noRepeatedCharacters",
-            )}
-          </Badge>
-        )}
-
         {bannedCharactersCount > 0 && (
           <span className="rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-xs font-medium text-red-400">
             {bannedCharactersCount}{" "}

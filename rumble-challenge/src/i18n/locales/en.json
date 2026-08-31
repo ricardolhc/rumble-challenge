@@ -16,7 +16,6 @@
           "title": "Team Randomizer",
           "subtitle": "Draw one to three characters",
           "availableCharacters": "characters available",
-          "noRepeatedCharacters": "No duplicate characters",
           "oneCharacterPerDraw": "character per draw",
           "multipleCharactersPerDraw": "characters per draw",
           "oneCharacterBanned": "banned",

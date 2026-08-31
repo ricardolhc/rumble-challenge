@@ -16,7 +16,6 @@
           "title": "Team-Auslosung",
           "subtitle": "Ziehe ein bis drei Charaktere",
           "availableCharacters": "verfügbare Charaktere",
-          "noRepeatedCharacters": "Keine doppelten Charaktere",
           "oneCharacterPerDraw": "Charakter pro Ziehung",
           "multipleCharactersPerDraw": "Charaktere pro Ziehung",
           "oneCharacterBanned": "gesperrt",

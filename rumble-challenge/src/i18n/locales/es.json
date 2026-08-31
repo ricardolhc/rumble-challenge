@@ -16,7 +16,6 @@
           "title": "Sorteador de Equipos",
           "subtitle": "Sortea de uno a tres personajes",
           "availableCharacters": "personajes disponibles",
-          "noRepeatedCharacters": "Sin personajes repetidos",
           "oneCharacterPerDraw": "personaje por sorteo",
           "multipleCharactersPerDraw": "personajes por sorteo",
           "oneCharacterBanned": "bloqueado",
