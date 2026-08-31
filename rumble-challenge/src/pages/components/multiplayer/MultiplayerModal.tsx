@@ -258,7 +258,6 @@ export function MultiplayerModal({
   status,
   connectedGuests,
   guestOfferCode,
-  lastHostAnswerCode,
   errorMessage,
   onBecomeHost,
   onCreateGuestOffer,
@@ -287,11 +286,11 @@ export function MultiplayerModal({
 
   const visibleError = localError || errorMessage;
 
-  const answerCode = generatedAnswer || lastHostAnswerCode;
+  const answerCode = generatedAnswer;
 
   const hostHasOffer = participantOffer.trim().length > 0;
 
-  const hostHasAnswer = answerCode.length > 0;
+  const hostHasAnswer = generatedAnswer.length > 0;
 
   const participantHasAnswer = hostAnswer.trim().length > 0;
 
