@@ -116,7 +116,13 @@
           "active": "Modo Desafio ativo",
           "inactive": "Modo Desafio desativado",
           "inactiveDescription": "Ative o Modo Desafio para aplicar automaticamente as regras especiais aos sorteios.",
-          "activeDescription": "Os personagens sorteados passam a fazer parte dos banimentos globais."
+          "activeDescription": "Os personagens sorteados passam a fazer parte dos banimentos globais.",
+          "banMode": "Tipo de banimento",
+          "banModeDescription": "Escolha como os personagens sorteados serão banidos.",
+          "globalBan": "Banimento global",
+          "globalBanDescription": "Os personagens sorteados não poderão aparecer em nenhuma posição nos próximos sorteios.",
+          "individualBan": "Banimento individual",
+          "individualBanDescription": "Cada personagem será banido apenas da posição em que foi sorteado."
         }
       },
       "teamModal": {

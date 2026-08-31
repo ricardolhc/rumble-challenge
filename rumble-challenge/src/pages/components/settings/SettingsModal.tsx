@@ -1,39 +1,68 @@
 import { useEffect, useRef, useState } from "react";
+
 import type { MouseEvent } from "react";
 
 import type { CharacterType } from "../../selection.types";
 
 import { LogsSettings } from "../LogsSettings";
+
+import { ChallengeModeSettings } from "./ChallengeModeSettings";
+
 import { DrawSettings } from "./DrawSettings";
+
 import { GlobalBansSettings } from "./GlobalBansSettings";
+
 import { IndividualBansSettings } from "./IndividualBansSettings";
+
 import { SettingsHeader } from "./SettingsHeader";
+
 import { SettingsSidebar } from "./SettingsSidebar";
 
 import type {
+  ChallengeBanMode,
   DrawCount,
   DrawLog,
   DrawSpeed,
   MemberSlot,
   SettingsSection,
 } from "./settings.types";
-import { ChallengeModeSettings } from "./ChallengeModeSettings";
 
-export type { DrawCount, DrawSpeed, MemberSlot } from "./settings.types";
+export type {
+  ChallengeBanMode,
+  DrawCount,
+  DrawSpeed,
+  MemberSlot,
+} from "./settings.types";
 
 interface SettingsModalProps {
   characters: CharacterType[];
+
   bannedCharacters: Set<string>;
+
   individualBans: Record<MemberSlot, Set<string>>;
+
   drawCount: DrawCount;
+
   drawSpeed: DrawSpeed;
+
   challengeMode: boolean;
+
+  challengeBanMode: ChallengeBanMode;
+
   onDrawCountChange: (count: DrawCount) => void;
+
   onDrawSpeedChange: (speed: DrawSpeed) => void;
+
   onChallengeModeChange: (enabled: boolean) => void;
+
+  onChallengeBanModeChange: (mode: ChallengeBanMode) => void;
+
   onClose: () => void;
+
   onToggleBan: (character: CharacterType) => void;
+
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
+
   drawLogs: DrawLog[];
 }
 
@@ -46,9 +75,11 @@ export function SettingsModal({
   drawCount,
   drawSpeed,
   challengeMode,
+  challengeBanMode,
   onDrawCountChange,
   onDrawSpeedChange,
   onChallengeModeChange,
+  onChallengeBanModeChange,
   onToggleBan,
   onToggleIndividualBan,
   onClose,
@@ -162,7 +193,9 @@ export function SettingsModal({
           {selectedSection === "challenge-mode" && (
             <ChallengeModeSettings
               challengeMode={challengeMode}
+              challengeBanMode={challengeBanMode}
               onChallengeModeChange={onChallengeModeChange}
+              onChallengeBanModeChange={onChallengeBanModeChange}
             />
           )}
 

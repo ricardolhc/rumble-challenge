@@ -1,14 +1,19 @@
 import { useTranslation } from "react-i18next";
 
+import type { ChallengeBanMode } from "./settings.types";
+
 interface ChallengeModeSettingsProps {
   challengeMode: boolean;
-
+  challengeBanMode: ChallengeBanMode;
   onChallengeModeChange: (enabled: boolean) => void;
+  onChallengeBanModeChange: (mode: ChallengeBanMode) => void;
 }
 
 export function ChallengeModeSettings({
   challengeMode,
+  challengeBanMode,
   onChallengeModeChange,
+  onChallengeBanModeChange,
 }: ChallengeModeSettingsProps) {
   const { t } = useTranslation();
 
@@ -19,7 +24,6 @@ export function ChallengeModeSettings({
           <h3 className="text-base font-bold text-white">
             {t("selection.components.settings.drawSettings.challengeMode")}
           </h3>
-
           <p className="mt-1 text-xs leading-relaxed text-slate-500">
             {t(
               "selection.components.settings.drawSettings.challengeModeDescription",
@@ -35,7 +39,6 @@ export function ChallengeModeSettings({
             <span className="block text-sm font-semibold text-slate-200">
               {t("selection.components.settings.drawSettings.challengeMode")}
             </span>
-
             <span className="mt-1 block text-xs leading-relaxed text-slate-500">
               {t(
                 "selection.components.settings.drawSettings.challengeModeDescription",
@@ -51,37 +54,67 @@ export function ChallengeModeSettings({
               onChange={(event) => onChallengeModeChange(event.target.checked)}
               className="peer sr-only"
             />
-
-            <div
-              className="
-                h-6
-                w-11
-                rounded-full
-                bg-slate-700
-                transition-colors
-                duration-200
-                peer-checked:bg-emerald-500
-              "
-            />
-
-            <div
-              className="
-                pointer-events-none
-                absolute
-                left-1
-                top-1
-                h-4
-                w-4
-                rounded-full
-                bg-white
-                shadow
-                transition-transform
-                duration-200
-                peer-checked:translate-x-5
-              "
-            />
+            <div className="h-6 w-11 rounded-full bg-slate-700 transition-colors duration-200 peer-checked:bg-emerald-500" />
+            <div className="pointer-events-none absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5" />
           </div>
         </label>
+
+        <div className="mt-5">
+          <label
+            htmlFor="challenge-ban-mode"
+            className="mb-2 block text-sm font-semibold text-slate-200"
+          >
+            {t("selection.components.settings.challengeMode.banMode")}
+          </label>
+
+          <p className="mb-3 text-xs leading-relaxed text-slate-500">
+            {t(
+              "selection.components.settings.challengeMode.banModeDescription",
+            )}
+          </p>
+
+          <div className="relative">
+            <select
+              id="challenge-ban-mode"
+              value={challengeBanMode}
+              onChange={(event) =>
+                onChallengeBanModeChange(event.target.value as ChallengeBanMode)
+              }
+              className="w-full cursor-pointer appearance-none rounded-xl border border-slate-700 bg-[#11151d] px-4 py-3 pr-10 text-sm font-semibold text-slate-200 outline-none transition-colors hover:border-slate-600 focus:border-emerald-500/60"
+            >
+              <option value="global">
+                {t("selection.components.settings.challengeMode.globalBan")}
+              </option>
+              <option value="individual">
+                {t("selection.components.settings.challengeMode.individualBan")}
+              </option>
+            </select>
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </div>
+
+          <div className="mt-3 rounded-lg border border-slate-700 bg-slate-900/40 px-3 py-2">
+            <p className="text-xs leading-relaxed text-slate-500">
+              {challengeBanMode === "global"
+                ? t(
+                    "selection.components.settings.challengeMode.globalBanDescription",
+                  )
+                : t(
+                    "selection.components.settings.challengeMode.individualBanDescription",
+                  )}
+            </p>
+          </div>
+        </div>
 
         <div
           className={`mt-5 rounded-xl border p-4 transition-colors ${
@@ -96,7 +129,6 @@ export function ChallengeModeSettings({
             ) : (
               <InactiveChallengeIcon />
             )}
-
             <div>
               <p
                 className={`text-sm font-semibold ${
@@ -107,7 +139,6 @@ export function ChallengeModeSettings({
                   ? t("selection.components.settings.challengeMode.active")
                   : t("selection.components.settings.challengeMode.inactive")}
               </p>
-
               <p className="mt-1 text-xs leading-relaxed text-slate-500">
                 {challengeMode
                   ? t(

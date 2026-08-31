@@ -16,7 +16,13 @@ import {
 
 export interface MultiplayerRoomState {
   bannedCharacters: string[];
+  individualBans?: {
+    1: string[];
+    2: string[];
+    3: string[];
+  };
   challengeMode: boolean;
+  challengeBanMode?: "global" | "individual";
 }
 
 type MultiplayerRoomMessage =

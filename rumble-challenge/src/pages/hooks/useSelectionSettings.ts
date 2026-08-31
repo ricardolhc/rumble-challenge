@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import type { CharacterType } from "../selection.types";
 
 import type {
+  ChallengeBanMode,
   DrawCount,
   DrawSpeed,
   MemberSlot,
@@ -12,10 +13,16 @@ import { getCharacterKey } from "../utils/selection.utils";
 
 interface SavedSettings {
   drawCount: DrawCount;
+
   drawSpeed: DrawSpeed;
+
   bannedCharacters: string[];
+
   individualBans: Record<MemberSlot, string[]>;
+
   challengeMode: boolean;
+
+  challengeBanMode: ChallengeBanMode;
 }
 
 const SETTINGS_STORAGE_KEY = "rumble-challenge-settings";
@@ -61,7 +68,11 @@ export function useSelectionSettings() {
     savedSettings?.challengeMode ?? false,
   );
 
-  function handleToggleBan(character: CharacterType) {
+  const [challengeBanMode, setChallengeBanMode] = useState<ChallengeBanMode>(
+    savedSettings?.challengeBanMode ?? "global",
+  );
+
+  const handleToggleBan = useCallback((character: CharacterType) => {
     const characterKey = getCharacterKey(character);
 
     setBannedCharacters((current) => {
@@ -75,35 +86,45 @@ export function useSelectionSettings() {
 
       return updated;
     });
-  }
+  }, []);
 
-  function handleToggleIndividualBan(
-    member: MemberSlot,
-    character: CharacterType,
-  ) {
-    const characterKey = getCharacterKey(character);
+  const handleToggleIndividualBan = useCallback(
+    (member: MemberSlot, character: CharacterType) => {
+      const characterKey = getCharacterKey(character);
 
-    if (bannedCharacters.has(characterKey)) {
-      return;
-    }
-
-    setIndividualBans((current) => {
-      const updatedMemberBans = new Set(current[member]);
-
-      if (updatedMemberBans.has(characterKey)) {
-        updatedMemberBans.delete(characterKey);
-      } else {
-        updatedMemberBans.add(characterKey);
+      /*
+       * O personagem já está indisponível em todas as posições
+       * caso esteja banido globalmente.
+       */
+      if (bannedCharacters.has(characterKey)) {
+        return;
       }
 
-      return {
-        ...current,
-        [member]: updatedMemberBans,
-      };
-    });
-  }
+      setIndividualBans((current) => {
+        const updatedMemberBans = new Set(current[member]);
 
-  function banCharacters(characters: CharacterType[]) {
+        if (updatedMemberBans.has(characterKey)) {
+          updatedMemberBans.delete(characterKey);
+        } else {
+          updatedMemberBans.add(characterKey);
+        }
+
+        return {
+          ...current,
+          [member]: updatedMemberBans,
+        };
+      });
+    },
+    [bannedCharacters],
+  );
+
+  /**
+   * Adiciona todos os personagens ao banimento global.
+   *
+   * Utilizado pelo modo desafio quando:
+   * challengeBanMode === "global"
+   */
+  const banCharacters = useCallback((characters: CharacterType[]) => {
     if (characters.length === 0) {
       return;
     }
@@ -117,11 +138,71 @@ export function useSelectionSettings() {
 
       return updated;
     });
-  }
+  }, []);
+
+  /**
+   * Bane cada personagem somente na posição
+   * em que foi sorteado.
+   *
+   * Exemplo:
+   *
+   * team[0] -> individualBans[1]
+   * team[1] -> individualBans[2]
+   * team[2] -> individualBans[3]
+   *
+   * Utilizado pelo modo desafio quando:
+   * challengeBanMode === "individual"
+   */
+  const banIndividualCharacters = useCallback(
+    (characters: CharacterType[]) => {
+      if (characters.length === 0) {
+        return;
+      }
+
+      setIndividualBans((current) => {
+        const updated: Record<MemberSlot, Set<string>> = {
+          1: new Set(current[1]),
+          2: new Set(current[2]),
+          3: new Set(current[3]),
+        };
+
+        characters.forEach((character, index) => {
+          const member = (index + 1) as MemberSlot;
+
+          if (member < 1 || member > 3) {
+            return;
+          }
+
+          const characterKey = getCharacterKey(character);
+
+          /*
+           * Se o personagem já estiver banido globalmente,
+           * não precisamos duplicar o ban individualmente.
+           */
+          if (bannedCharacters.has(characterKey)) {
+            return;
+          }
+
+          /*
+           * Aqui usamos add() ao invés de toggle.
+           *
+           * O modo desafio sempre deve adicionar o ban.
+           * Caso utilizássemos toggle, um personagem já
+           * banido poderia acabar sendo desbanido.
+           */
+          updated[member].add(characterKey);
+        });
+
+        return updated;
+      });
+    },
+    [bannedCharacters],
+  );
 
   useEffect(() => {
     const settings: SavedSettings = {
       drawCount,
+
       drawSpeed,
 
       bannedCharacters: Array.from(bannedCharacters),
@@ -133,22 +214,43 @@ export function useSelectionSettings() {
       },
 
       challengeMode,
+
+      challengeBanMode,
     };
 
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
-  }, [drawCount, drawSpeed, bannedCharacters, individualBans, challengeMode]);
+  }, [
+    drawCount,
+    drawSpeed,
+    bannedCharacters,
+    individualBans,
+    challengeMode,
+    challengeBanMode,
+  ]);
 
   return {
     drawCount,
     setDrawCount,
+
     drawSpeed,
     setDrawSpeed,
+
     bannedCharacters,
+
     individualBans,
+
     handleToggleBan,
+
     handleToggleIndividualBan,
+
     challengeMode,
     setChallengeMode,
+
+    challengeBanMode,
+    setChallengeBanMode,
+
     banCharacters,
+
+    banIndividualCharacters,
   };
 }

@@ -69,7 +69,10 @@ export function SelectionPage() {
     handleToggleIndividualBan,
     challengeMode,
     setChallengeMode,
+    challengeBanMode,
+    setChallengeBanMode,
     banCharacters,
+    banIndividualCharacters,
   } = useSelectionSettings();
 
   const handleRemoteDrawStart = useCallback(() => {
@@ -137,11 +140,19 @@ export function SelectionPage() {
 
     broadcastRoomState({
       bannedCharacters: Array.from(bannedCharacters),
+      individualBans: {
+        1: Array.from(individualBans[1]),
+        2: Array.from(individualBans[2]),
+        3: Array.from(individualBans[3]),
+      },
       challengeMode,
+      challengeBanMode,
     });
   }, [
     bannedCharacters,
+    individualBans,
     challengeMode,
+    challengeBanMode,
     connectedGuests,
     isHost,
     isInRoom,
@@ -190,6 +201,18 @@ export function SelectionPage() {
     };
   }, [t]);
 
+  const handleChallengeTeamDrawn = useCallback(
+    (team: CharacterType[]) => {
+      if (challengeBanMode === "global") {
+        banCharacters(team);
+        return;
+      }
+
+      banIndividualCharacters(team);
+    },
+    [challengeBanMode, banCharacters, banIndividualCharacters],
+  );
+
   const {
     highlightedIndexes,
     isSelecting,
@@ -203,7 +226,7 @@ export function SelectionPage() {
     drawSpeed,
     bannedCharacters,
     individualBans,
-    onTeamDrawn: challengeMode ? banCharacters : undefined,
+    onTeamDrawn: challengeMode ? handleChallengeTeamDrawn : undefined,
   });
 
   useEffect(() => {
@@ -412,11 +435,13 @@ export function SelectionPage() {
           drawCount={drawCount}
           drawSpeed={drawSpeed}
           challengeMode={challengeMode}
+          challengeBanMode={challengeBanMode}
           onToggleBan={handleToggleBan}
           onToggleIndividualBan={handleToggleIndividualBan}
           onDrawCountChange={setDrawCount}
           onDrawSpeedChange={setDrawSpeed}
           onChallengeModeChange={setChallengeMode}
+          onChallengeBanModeChange={setChallengeBanMode}
           onClose={() => setIsSettingsOpen(false)}
           drawLogs={drawLogs}
         />
