@@ -4,21 +4,11 @@ import type {
   MultiplayerRole,
   MultiplayerStatus,
 } from "../../multiplayer.types";
-import {
-  decodeMultiplayerCode,
-  encodeMultiplayerCode,
-} from "../utils/multiplayerCode.utils";
-
 interface MultiplayerModalProps {
   role: MultiplayerRole;
   status: MultiplayerStatus;
   connectedGuests: number;
 
-  /**
-   * Continua sendo o SDP original.
-   *
-   * A compactação acontece somente dentro deste modal.
-   */
   guestOfferCode: string;
   lastHostAnswerCode: string;
 
@@ -281,11 +271,7 @@ export function MultiplayerModal({
 
   const [hostAnswer, setHostAnswer] = useState("");
 
-  const [compressedGuestOffer, setCompressedGuestOffer] = useState("");
-
   const [generatedAnswer, setGeneratedAnswer] = useState("");
-
-  const [compressedLastAnswer, setCompressedLastAnswer] = useState("");
 
   const [copied, setCopied] = useState<CopyType>(null);
 
@@ -301,7 +287,7 @@ export function MultiplayerModal({
 
   const visibleError = localError || errorMessage;
 
-  const answerCode = generatedAnswer || compressedLastAnswer;
+  const answerCode = generatedAnswer || lastHostAnswerCode;
 
   const hostHasOffer = participantOffer.trim().length > 0;
 
@@ -334,58 +320,6 @@ export function MultiplayerModal({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [onClose]);
-
-  /*
-   * guestOfferCode continua sendo o SDP original vindo
-   * da camada WebRTC.
-   *
-   * Somente o valor exibido é compactado.
-   */
-  useEffect(() => {
-    let cancelled = false;
-
-    async function encodeOffer() {
-      if (!guestOfferCode) {
-        setCompressedGuestOffer("");
-        return;
-      }
-
-      const encoded = await encodeMultiplayerCode(guestOfferCode);
-
-      if (!cancelled) {
-        setCompressedGuestOffer(encoded);
-      }
-    }
-
-    void encodeOffer();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [guestOfferCode]);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function encodeAnswer() {
-      if (!lastHostAnswerCode) {
-        setCompressedLastAnswer("");
-        return;
-      }
-
-      const encoded = await encodeMultiplayerCode(lastHostAnswerCode);
-
-      if (!cancelled) {
-        setCompressedLastAnswer(encoded);
-      }
-    }
-
-    void encodeAnswer();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [lastHostAnswerCode]);
 
   async function handleCopy(value: string, type: Exclude<CopyType, null>) {
     if (!value) {
@@ -428,19 +362,9 @@ export function MultiplayerModal({
     setGeneratedAnswer("");
 
     try {
-      /*
-       * O usuário cola RC1:...
-       *
-       * Aqui recuperamos o SDP antes de entregar para
-       * a camada WebRTC existente.
-       */
-      const rawOffer = await decodeMultiplayerCode(participantOffer);
+      const answer = await onCreateHostAnswer(participantOffer.trim());
 
-      const rawAnswer = await onCreateHostAnswer(rawOffer);
-
-      const encodedAnswer = await encodeMultiplayerCode(rawAnswer);
-
-      setGeneratedAnswer(encodedAnswer);
+      setGeneratedAnswer(answer);
     } catch (error) {
       setLocalError(
         error instanceof Error
@@ -458,12 +382,7 @@ export function MultiplayerModal({
     setLocalError(null);
 
     try {
-      /*
-       * O WebRTC continua recebendo o SDP original.
-       */
-      const rawAnswer = await decodeMultiplayerCode(hostAnswer);
-
-      await onApplyHostAnswer(rawAnswer);
+      await onApplyHostAnswer(hostAnswer.trim());
     } catch (error) {
       setLocalError(
         error instanceof Error
@@ -476,7 +395,6 @@ export function MultiplayerModal({
   function handleResetHostParticipant() {
     setParticipantOffer("");
     setGeneratedAnswer("");
-    setCompressedLastAnswer("");
     setCopied(null);
     setLocalError(null);
   }
@@ -1058,7 +976,7 @@ export function MultiplayerModal({
                         setGeneratedAnswer("");
                       }
                     }}
-                    placeholder="RC1:H4sIAAAAA..."
+                    placeholder="Cole o código aqui..."
                     spellCheck={false}
                     className="
                       mt-4
@@ -1348,7 +1266,7 @@ export function MultiplayerModal({
                     "
                   >
                     <div className="flex items-start gap-3">
-                      <StepBadge completed={Boolean(compressedGuestOffer)}>
+                      <StepBadge completed={Boolean(guestOfferCode)}>
                         1
                       </StepBadge>
 
@@ -1402,17 +1320,17 @@ export function MultiplayerModal({
 
                               {creatingOffer
                                 ? "Gerando..."
-                                : compressedGuestOffer
+                                : guestOfferCode
                                   ? "Gerar outro"
                                   : "Gerar código"}
                             </button>
 
-                            {compressedGuestOffer && (
+                            {guestOfferCode && (
                               <button
                                 type="button"
                                 disabled={creatingOffer}
                                 onClick={() =>
-                                  void handleCopy(compressedGuestOffer, "offer")
+                                  void handleCopy(guestOfferCode, "offer")
                                 }
                                 className={`
                                   flex
@@ -1474,7 +1392,7 @@ export function MultiplayerModal({
                       transition-colors
 
                       ${
-                        compressedGuestOffer
+                        guestOfferCode
                           ? `
                             border-blue-500/20
                             bg-blue-500/5
@@ -1501,11 +1419,11 @@ export function MultiplayerModal({
 
                         <textarea
                           value={hostAnswer}
-                          disabled={!compressedGuestOffer || guestIsConnecting}
+                          disabled={!guestOfferCode || guestIsConnecting}
                           onChange={(event) =>
                             setHostAnswer(event.target.value)
                           }
-                          placeholder="RC1:H4sIAAAAA..."
+                          placeholder="Cole o código aqui..."
                           spellCheck={false}
                           className="
                             mt-4
@@ -1536,7 +1454,7 @@ export function MultiplayerModal({
                           disabled={
                             !participantHasAnswer ||
                             guestIsConnecting ||
-                            !compressedGuestOffer
+                            !guestOfferCode
                           }
                           onClick={() => void handleConnectGuest()}
                           className="
