@@ -1,6 +1,8 @@
-import type { CharacterType } from "../../selection.types";
-import { getCharacterKey } from "./settings.utils";
 import { useTranslation } from "react-i18next";
+
+import type { CharacterType } from "../../selection.types";
+
+import { getCharacterKey } from "./settings.utils";
 
 interface CharacterBanListProps {
   characters: CharacterType[];
@@ -23,8 +25,11 @@ export function CharacterBanList({
     <div className="grid flex-1 grid-cols-2 content-start gap-2 overflow-y-auto px-6 pb-6 md:grid-cols-3">
       {characters.map((character) => {
         const characterKey = getCharacterKey(character);
+
         const isBanned = bannedCharacters.has(characterKey);
+
         const isGloballyBanned = globalBannedCharacters.has(characterKey);
+
         const isDisabled = disableGlobalBans && isGloballyBanned;
 
         return (
@@ -46,7 +51,15 @@ export function CharacterBanList({
             }`}
           >
             <div
-              className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-slate-900"
+              className="
+                relative
+                h-12
+                w-12
+                shrink-0
+                overflow-hidden
+                rounded-lg
+                bg-slate-900
+              "
               style={{
                 backgroundImage: `url(${character.background})`,
                 backgroundSize: "48px 48px",
@@ -55,7 +68,16 @@ export function CharacterBanList({
               <img
                 src={character.image}
                 alt={character.name}
-                className="absolute bottom-0 left-1/2 h-[65px] w-[65px] max-w-none -translate-x-1/2 object-contain"
+                className="
+                  absolute
+                  inset-0
+                  h-full
+                  w-full
+                  origin-bottom
+                  scale-125
+                  object-contain
+                  object-bottom
+                "
               />
 
               {(isBanned || isDisabled) && (
@@ -68,6 +90,7 @@ export function CharacterBanList({
                     className="h-6 w-6 text-red-400"
                   >
                     <circle cx="12" cy="12" r="9" />
+
                     <path d="m6 6 12 12" />
                   </svg>
                 </div>
@@ -83,6 +106,7 @@ export function CharacterBanList({
                       ? "text-red-300"
                       : "text-slate-200"
                 }`}
+                title={character.name}
               >
                 {character.name}
               </p>
