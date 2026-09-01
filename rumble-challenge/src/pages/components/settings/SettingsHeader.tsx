@@ -20,6 +20,8 @@ export function SettingsHeader({
       "selection.components.settings.settingsHeader.individualBans.title",
     ),
 
+    profiles: t("selection.components.settings.settingsHeader.profiles.title"),
+
     draws: t("selection.components.settings.settingsHeader.draws.title"),
 
     "challenge-mode": t(
@@ -36,6 +38,10 @@ export function SettingsHeader({
 
     "individual-bans": t(
       "selection.components.settings.settingsHeader.individualBans.description",
+    ),
+
+    profiles: t(
+      "selection.components.settings.settingsHeader.profiles.description",
     ),
 
     draws: t("selection.components.settings.settingsHeader.draws.description"),
@@ -86,7 +92,6 @@ export function SettingsHeader({
           className="h-5 w-5"
         >
           <path d="M18 6 6 18" />
-
           <path d="m6 6 12 12" />
         </svg>
       </button>

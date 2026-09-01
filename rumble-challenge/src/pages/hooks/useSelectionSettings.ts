@@ -13,15 +13,10 @@ import { getCharacterKey } from "../utils/selection.utils";
 
 interface SavedSettings {
   drawCount: DrawCount;
-
   drawSpeed: DrawSpeed;
-
   bannedCharacters: string[];
-
   individualBans: Record<MemberSlot, string[]>;
-
   challengeMode: boolean;
-
   challengeBanMode: ChallengeBanMode;
 }
 
@@ -119,6 +114,33 @@ export function useSelectionSettings() {
   );
 
   /**
+   * Substitui completamente os banimentos individuais
+   * de um membro.
+   *
+   * Utilizado ao aplicar um perfil.
+   *
+   * Exemplo:
+   *
+   * membro atual:
+   * [A, B, C]
+   *
+   * perfil:
+   * [D, E]
+   *
+   * resultado:
+   * [D, E]
+   */
+  const replaceIndividualBans = useCallback(
+    (member: MemberSlot, characterKeys: Set<string>) => {
+      setIndividualBans((current) => ({
+        ...current,
+        [member]: new Set(characterKeys),
+      }));
+    },
+    [],
+  );
+
+  /**
    * Adiciona todos os personagens ao banimento global.
    *
    * Utilizado pelo modo desafio quando:
@@ -202,7 +224,6 @@ export function useSelectionSettings() {
   useEffect(() => {
     const settings: SavedSettings = {
       drawCount,
-
       drawSpeed,
 
       bannedCharacters: Array.from(bannedCharacters),
@@ -214,7 +235,6 @@ export function useSelectionSettings() {
       },
 
       challengeMode,
-
       challengeBanMode,
     };
 
@@ -240,8 +260,9 @@ export function useSelectionSettings() {
     individualBans,
 
     handleToggleBan,
-
     handleToggleIndividualBan,
+
+    replaceIndividualBans,
 
     challengeMode,
     setChallengeMode,
@@ -250,7 +271,6 @@ export function useSelectionSettings() {
     setChallengeBanMode,
 
     banCharacters,
-
     banIndividualCharacters,
   };
 }

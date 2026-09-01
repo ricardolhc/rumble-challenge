@@ -8,6 +8,7 @@ export type ChallengeBanMode = "global" | "individual";
 export type SettingsSection =
   | "bans"
   | "individual-bans"
+  | "profiles"
   | "draws"
   | "challenge-mode"
   | "sound"
@@ -17,4 +18,10 @@ export interface DrawLog {
   id: string;
   createdAt: string;
   team: CharacterType[];
+}
+
+export interface BanProfile {
+  id: string;
+  name: string;
+  bannedCharacters: string[];
 }

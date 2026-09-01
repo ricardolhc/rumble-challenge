@@ -77,6 +77,7 @@ export function SelectionPage() {
     setChallengeBanMode,
     banCharacters,
     banIndividualCharacters,
+    replaceIndividualBans,
   } = useSelectionSettings();
 
   const {
@@ -566,6 +567,7 @@ export function SelectionPage() {
           onResultVolumeChange={setResultVolume}
           onClose={() => setIsSettingsOpen(false)}
           drawLogs={drawLogs}
+          onReplaceIndividualBans={replaceIndividualBans}
         />
       )}
 

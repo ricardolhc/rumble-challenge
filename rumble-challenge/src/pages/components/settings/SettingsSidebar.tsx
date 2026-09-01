@@ -5,7 +5,7 @@ import type { DrawCount, SettingsSection } from "./settings.types";
 interface SettingsSidebarProps {
   selectedSection: SettingsSection;
   onSectionChange: (section: SettingsSection) => void;
-
+  profilesCount: number;
   globalBansCount: number;
   individualBansCount: number;
   drawCount: DrawCount;
@@ -27,6 +27,7 @@ export function SettingsSidebar({
   logsCount,
   challengeMode,
   soundEnabled,
+  profilesCount,
 }: SettingsSidebarProps) {
   const { t } = useTranslation();
 
@@ -111,6 +112,33 @@ export function SettingsSidebar({
           {individualBansCount > 0 && (
             <span className="ml-auto rounded-full bg-red-500/15 px-2 py-0.5 text-[10px] font-bold text-red-400">
               {individualBansCount}
+            </span>
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => onSectionChange("profiles")}
+          className={itemClass("profiles")}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-5 w-5 shrink-0"
+          >
+            <path d="M20 21a8 8 0 0 0-16 0" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+
+          <span className="flex-1">
+            {t("selection.components.settings.settingsSidebar.profiles")}
+          </span>
+
+          {profilesCount > 0 && (
+            <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px]">
+              {profilesCount}
             </span>
           )}
         </button>

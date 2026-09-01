@@ -6,6 +6,8 @@ import type { CharacterType } from "../../selection.types";
 
 import { LogsSettings } from "../LogsSettings";
 
+import { getBanProfiles } from "./banProfiles.utils";
+
 import { ChallengeModeSettings } from "./ChallengeModeSettings";
 
 import { DrawSettings } from "./DrawSettings";
@@ -14,6 +16,8 @@ import { GlobalBansSettings } from "./GlobalBansSettings";
 
 import { IndividualBansSettings } from "./IndividualBansSettings";
 
+import { ProfilesSettings } from "./ProfilesSettings";
+
 import { SettingsHeader } from "./SettingsHeader";
 
 import { SettingsSidebar } from "./SettingsSidebar";
@@ -21,6 +25,7 @@ import { SettingsSidebar } from "./SettingsSidebar";
 import { SoundSettings } from "./SoundSettings";
 
 import type {
+  BanProfile,
   ChallengeBanMode,
   DrawCount,
   DrawLog,
@@ -77,6 +82,11 @@ interface SettingsModalProps {
 
   onToggleIndividualBan: (member: MemberSlot, character: CharacterType) => void;
 
+  onReplaceIndividualBans: (
+    member: MemberSlot,
+    bannedCharacters: Set<string>,
+  ) => void;
+
   drawLogs: DrawLog[];
 }
 
@@ -90,27 +100,28 @@ export function SettingsModal({
   drawSpeed,
   challengeMode,
   challengeBanMode,
-
   soundEnabled,
   tickVolume,
   resultVolume,
-
   onDrawCountChange,
   onDrawSpeedChange,
   onChallengeModeChange,
   onChallengeBanModeChange,
-
   onSoundEnabledChange,
   onTickVolumeChange,
   onResultVolumeChange,
-
   onToggleBan,
   onToggleIndividualBan,
+  onReplaceIndividualBans,
   onClose,
   drawLogs,
 }: SettingsModalProps) {
   const [selectedSection, setSelectedSection] =
     useState<SettingsSection>("bans");
+
+  const [profiles, setProfiles] = useState<BanProfile[]>(() =>
+    getBanProfiles(),
+  );
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -181,6 +192,7 @@ export function SettingsModal({
           logsCount={drawLogs.length}
           challengeMode={challengeMode}
           soundEnabled={soundEnabled}
+          profilesCount={profiles.length}
         />
 
         <section className="flex min-w-0 flex-1 flex-col">
@@ -202,7 +214,17 @@ export function SettingsModal({
               characters={characters}
               bannedCharacters={bannedCharacters}
               individualBans={individualBans}
+              profiles={profiles}
               onToggleIndividualBan={onToggleIndividualBan}
+              onReplaceIndividualBans={onReplaceIndividualBans}
+            />
+          )}
+
+          {selectedSection === "profiles" && (
+            <ProfilesSettings
+              characters={characters}
+              profiles={profiles}
+              onProfilesChange={setProfiles}
             />
           )}
 
