@@ -154,7 +154,11 @@
           "create": "Criar perfil",
           "cancel": "Cancelar",
           "delete": "Excluir",
-          "bannedCharacters": "personagens banidos"
+          "bannedCharacters": "personagens banidos",
+          "import": "Importar",
+          "export": "Exportar",
+          "invalidJson": "O arquivo selecionado não contém um JSON válido.",
+          "invalidProfile": "O arquivo selecionado não é um perfil válido."
         }
       },
       "teamModal": {

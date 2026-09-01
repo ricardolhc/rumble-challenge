@@ -1,12 +1,22 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 
+import type { ChangeEvent } from "react";
+
 import type { CharacterType } from "../../selection.types";
+
+import { getCharacterKey } from "../../utils/selection.utils";
 
 import { CharacterBanList } from "./CharacterBanList";
 
-import { createBanProfileId, saveBanProfiles } from "./banProfiles.utils";
+import {
+  createBanProfileId,
+  exportBanProfile,
+  getUniqueBanProfileName,
+  parseBanProfile,
+  saveBanProfiles,
+} from "./banProfiles.utils";
 
 import type { BanProfile } from "./settings.types";
 
@@ -25,15 +35,21 @@ export function ProfilesSettings({
 }: ProfilesSettingsProps) {
   const { t } = useTranslation();
 
+  const importInputRef = useRef<HTMLInputElement>(null);
+
   const [selectedProfileId, setSelectedProfileId] = useState<string | null>(
     profiles[0]?.id ?? null,
   );
 
-  const [isCreating, setIsCreating] = useState(profiles.length === 0);
+  const [isCreating, setIsCreating] = useState(false);
 
   const [newProfileName, setNewProfileName] = useState("");
 
-  const [newProfileBans, setNewProfileBans] = useState<Set<string>>(new Set());
+  const [newProfileBans, setNewProfileBans] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  const [importError, setImportError] = useState<string | null>(null);
 
   const selectedProfile = useMemo(
     () => profiles.find((profile) => profile.id === selectedProfileId) ?? null,
@@ -42,19 +58,51 @@ export function ProfilesSettings({
 
   function updateProfiles(updatedProfiles: BanProfile[]) {
     onProfilesChange(updatedProfiles);
+
     saveBanProfiles(updatedProfiles);
   }
 
-  function handleCreateProfile() {
-    const normalizedName = newProfileName.trim();
+  function handleStartCreate() {
+    setIsCreating(true);
+    setNewProfileName("");
+    setNewProfileBans(new Set());
+    setImportError(null);
+  }
 
-    if (!normalizedName) {
+  function handleCancelCreate() {
+    setIsCreating(false);
+    setNewProfileName("");
+    setNewProfileBans(new Set());
+  }
+
+  function handleToggleNewProfileBan(character: CharacterType) {
+    const characterKey = getCharacterKey(character);
+
+    setNewProfileBans((current) => {
+      const updated = new Set(current);
+
+      if (updated.has(characterKey)) {
+        updated.delete(characterKey);
+      } else {
+        updated.add(characterKey);
+      }
+
+      return updated;
+    });
+  }
+
+  function handleCreateProfile() {
+    const name = newProfileName.trim();
+
+    if (!name) {
       return;
     }
 
     const profile: BanProfile = {
       id: createBanProfileId(),
-      name: normalizedName,
+
+      name: getUniqueBanProfileName(name, profiles),
+
       bannedCharacters: Array.from(newProfileBans),
     };
 
@@ -63,25 +111,12 @@ export function ProfilesSettings({
     updateProfiles(updatedProfiles);
 
     setSelectedProfileId(profile.id);
-    setNewProfileName("");
-    setNewProfileBans(new Set());
+
     setIsCreating(false);
-  }
 
-  function handleDeleteProfile(profileId: string) {
-    const updatedProfiles = profiles.filter(
-      (profile) => profile.id !== profileId,
-    );
+    setNewProfileName("");
 
-    updateProfiles(updatedProfiles);
-
-    if (selectedProfileId === profileId) {
-      setSelectedProfileId(updatedProfiles[0]?.id ?? null);
-
-      if (updatedProfiles.length === 0) {
-        setIsCreating(true);
-      }
-    }
+    setNewProfileBans(new Set());
   }
 
   function handleProfileNameChange(name: string) {
@@ -106,21 +141,21 @@ export function ProfilesSettings({
       return;
     }
 
-    const characterKey = `${character.name}::${character.type}`;
+    const characterKey = getCharacterKey(character);
 
-    const updatedBans = new Set(selectedProfile.bannedCharacters);
+    const currentBans = new Set(selectedProfile.bannedCharacters);
 
-    if (updatedBans.has(characterKey)) {
-      updatedBans.delete(characterKey);
+    if (currentBans.has(characterKey)) {
+      currentBans.delete(characterKey);
     } else {
-      updatedBans.add(characterKey);
+      currentBans.add(characterKey);
     }
 
     const updatedProfiles = profiles.map((profile) =>
       profile.id === selectedProfile.id
         ? {
             ...profile,
-            bannedCharacters: Array.from(updatedBans),
+            bannedCharacters: Array.from(currentBans),
           }
         : profile,
     );
@@ -128,85 +163,207 @@ export function ProfilesSettings({
     updateProfiles(updatedProfiles);
   }
 
-  function handleToggleNewProfileBan(character: CharacterType) {
-    const characterKey = `${character.name}::${character.type}`;
+  function handleDeleteProfile() {
+    if (!selectedProfile) {
+      return;
+    }
 
-    setNewProfileBans((current) => {
-      const updated = new Set(current);
+    const updatedProfiles = profiles.filter(
+      (profile) => profile.id !== selectedProfile.id,
+    );
 
-      if (updated.has(characterKey)) {
-        updated.delete(characterKey);
-      } else {
-        updated.add(characterKey);
+    updateProfiles(updatedProfiles);
+
+    setSelectedProfileId(updatedProfiles[0]?.id ?? null);
+  }
+
+  function handleExportProfile() {
+    if (!selectedProfile) {
+      return;
+    }
+
+    exportBanProfile(selectedProfile);
+  }
+
+  function handleOpenImport() {
+    setImportError(null);
+
+    importInputRef.current?.click();
+  }
+
+  async function handleImportProfile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+
+    /*
+     * Permite selecionar o mesmo arquivo novamente
+     * depois da importação.
+     */
+    event.target.value = "";
+
+    if (!file) {
+      return;
+    }
+
+    setImportError(null);
+
+    try {
+      const content = await file.text();
+
+      const importedProfile = parseBanProfile(content);
+
+      const profile: BanProfile = {
+        id: createBanProfileId(),
+
+        name: getUniqueBanProfileName(importedProfile.name, profiles),
+
+        bannedCharacters: importedProfile.bannedCharacters,
+      };
+
+      const updatedProfiles = [...profiles, profile];
+
+      updateProfiles(updatedProfiles);
+
+      setSelectedProfileId(profile.id);
+
+      setIsCreating(false);
+    } catch (error) {
+      if (error instanceof Error && error.message === "invalid-json") {
+        setImportError(
+          t("selection.components.settings.profilesSettings.invalidJson"),
+        );
+
+        return;
       }
 
-      return updated;
-    });
-  }
-
-  function startCreatingProfile() {
-    setIsCreating(true);
-    setSelectedProfileId(null);
-    setNewProfileName("");
-    setNewProfileBans(new Set());
-  }
-
-  function cancelCreatingProfile() {
-    setIsCreating(false);
-    setNewProfileName("");
-    setNewProfileBans(new Set());
-
-    setSelectedProfileId(profiles[0]?.id ?? null);
+      setImportError(
+        t("selection.components.settings.profilesSettings.invalidProfile"),
+      );
+    }
   }
 
   return (
-    <div className="flex min-h-0 flex-1">
-      <aside className="flex w-[240px] shrink-0 flex-col border-r border-slate-700 bg-slate-900/30">
-        <div className="border-b border-slate-700 p-4">
-          <button
-            type="button"
-            onClick={startCreatingProfile}
-            className="
-              flex
-              w-full
-              cursor-pointer
-              items-center
-              justify-center
-              gap-2
-              rounded-xl
-              bg-emerald-600
-              px-4
-              py-2.5
-              text-sm
-              font-semibold
-              text-white
-              transition-colors
-              hover:bg-emerald-500
-            "
-          >
-            <span className="text-lg leading-none">+</span>
+    <div className="flex h-full min-h-0 gap-5">
+      <input
+        ref={importInputRef}
+        type="file"
+        accept=".json,.rumble-profile.json,application/json"
+        className="hidden"
+        onChange={handleImportProfile}
+      />
 
-            {t("selection.components.settings.profilesSettings.newProfile")}
-          </button>
-        </div>
+      <div
+        className="
+          flex
+          w-[240px]
+          shrink-0
+          flex-col
+          rounded-xl
+          border
+          border-slate-700
+          bg-slate-900/60
+        "
+      >
+        <div
+          className="
+            border-b
+            border-slate-700
+            p-3
+          "
+        >
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleStartCreate}
+              className="
+                flex-1
+                cursor-pointer
+                rounded-lg
+                bg-emerald-600
+                px-3
+                py-2
+                text-sm
+                font-bold
+                text-white
+                transition-colors
+                hover:bg-emerald-500
+              "
+            >
+              {t("selection.components.settings.profilesSettings.newProfile")}
+            </button>
 
-        <div className="flex-1 overflow-y-auto p-3">
-          {profiles.length === 0 && !isCreating && (
-            <p className="px-3 py-4 text-center text-xs text-slate-500">
-              {t("selection.components.settings.profilesSettings.noProfiles")}
+            <button
+              type="button"
+              onClick={handleOpenImport}
+              title={t("selection.components.settings.profilesSettings.import")}
+              className="
+                cursor-pointer
+                rounded-lg
+                border
+                border-slate-600
+                bg-slate-800
+                px-3
+                py-2
+                text-sm
+                font-bold
+                text-slate-200
+                transition-colors
+                hover:border-slate-500
+                hover:bg-slate-700
+                hover:text-white
+              "
+            >
+              ↓
+            </button>
+          </div>
+
+          {importError && (
+            <p
+              className="
+                mt-2
+                text-xs
+                font-medium
+                text-red-400
+              "
+            >
+              {importError}
             </p>
           )}
+        </div>
 
-          <div className="space-y-1">
-            {profiles.map((profile) => (
+        <div
+          className="
+            min-h-0
+            flex-1
+            overflow-y-auto
+            p-2
+          "
+        >
+          {profiles.length === 0 && !isCreating ? (
+            <div
+              className="
+                px-3
+                py-6
+                text-center
+                text-sm
+                text-slate-500
+              "
+            >
+              {t("selection.components.settings.profilesSettings.noProfiles")}
+            </div>
+          ) : (
+            profiles.map((profile) => (
               <button
                 key={profile.id}
                 type="button"
                 onClick={() => {
                   setSelectedProfileId(profile.id);
+
                   setIsCreating(false);
+
+                  setImportError(null);
                 }}
                 className={`
+                  mb-1
                   flex
                   w-full
                   cursor-pointer
@@ -221,83 +378,113 @@ export function ProfilesSettings({
                   ${
                     selectedProfileId === profile.id && !isCreating
                       ? "bg-emerald-500/10 text-emerald-400"
-                      : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                      : "text-slate-300 hover:bg-slate-800 hover:text-white"
                   }
                 `}
               >
-                <span className="min-w-0 truncate font-medium">
-                  {profile.name}
-                </span>
+                <span className="truncate font-semibold">{profile.name}</span>
 
-                {profile.bannedCharacters.length > 0 && (
-                  <span className="ml-2 rounded-full bg-slate-800 px-2 py-0.5 text-[10px] text-slate-400">
-                    {profile.bannedCharacters.length}
-                  </span>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      </aside>
-
-      {isCreating ? (
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="border-b border-slate-700 px-6 py-4">
-            <div className="flex items-end gap-3">
-              <div className="flex-1">
-                <label className="mb-2 block text-xs font-medium text-slate-400">
-                  {t(
-                    "selection.components.settings.profilesSettings.profileName",
-                  )}
-                </label>
-
-                <input
-                  type="text"
-                  value={newProfileName}
-                  onChange={(event) => setNewProfileName(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      handleCreateProfile();
-                    }
-                  }}
-                  autoFocus
-                  placeholder={t(
-                    "selection.components.settings.profilesSettings.profileNamePlaceholder",
-                  )}
+                <span
                   className="
-                    w-full
-                    rounded-xl
-                    border
-                    border-slate-700
-                    bg-slate-900/50
-                    px-4
-                    py-2.5
-                    text-sm
-                    text-white
-                    outline-none
-                    transition-colors
-                    placeholder:text-slate-600
-                    focus:border-emerald-500/60
+                    ml-2
+                    rounded-md
+                    bg-slate-800
+                    px-1.5
+                    py-0.5
+                    text-xs
+                    text-slate-400
                   "
-                />
-              </div>
+                >
+                  {profile.bannedCharacters.length}
+                </span>
+              </button>
+            ))
+          )}
+        </div>
+      </div>
 
-              <button
-                type="button"
-                onClick={cancelCreatingProfile}
+      <div
+        className="
+          min-h-0
+          flex-1
+          overflow-y-auto
+          rounded-xl
+          border
+          border-slate-700
+          bg-slate-900/40
+          p-5
+        "
+      >
+        {isCreating ? (
+          <>
+            <div className="mb-5">
+              <label
                 className="
-                  cursor-pointer
-                  rounded-xl
+                  mb-2
+                  block
+                  text-sm
+                  font-bold
+                  text-slate-300
+                "
+              >
+                {t(
+                  "selection.components.settings.profilesSettings.profileName",
+                )}
+              </label>
+
+              <input
+                type="text"
+                value={newProfileName}
+                onChange={(event) => setNewProfileName(event.target.value)}
+                placeholder={t(
+                  "selection.components.settings.profilesSettings.profileNamePlaceholder",
+                )}
+                className="
+                  w-full
+                  rounded-lg
                   border
                   border-slate-700
-                  px-4
-                  py-2.5
-                  text-sm
-                  font-medium
-                  text-slate-400
+                  bg-slate-950
+                  px-3
+                  py-2
+                  text-white
+                  outline-none
                   transition-colors
+                  placeholder:text-slate-600
+                  focus:border-emerald-500
+                "
+              />
+            </div>
+
+            <CharacterBanList
+              characters={characters}
+              bannedCharacters={newProfileBans}
+              globalBannedCharacters={EMPTY_GLOBAL_BANS}
+              onToggle={handleToggleNewProfileBan}
+            />
+
+            <div
+              className="
+                mt-5
+                flex
+                justify-end
+                gap-3
+              "
+            >
+              <button
+                type="button"
+                onClick={handleCancelCreate}
+                className="
+                  cursor-pointer
+                  rounded-lg
+                  border
+                  border-slate-600
+                  px-4
+                  py-2
+                  text-sm
+                  font-bold
+                  text-slate-300
                   hover:bg-slate-800
-                  hover:text-white
                 "
               >
                 {t("selection.components.settings.profilesSettings.cancel")}
@@ -309,12 +496,12 @@ export function ProfilesSettings({
                 onClick={handleCreateProfile}
                 className="
                   cursor-pointer
-                  rounded-xl
+                  rounded-lg
                   bg-emerald-600
-                  px-5
-                  py-2.5
+                  px-4
+                  py-2
                   text-sm
-                  font-semibold
+                  font-bold
                   text-white
                   transition-colors
                   hover:bg-emerald-500
@@ -325,28 +512,27 @@ export function ProfilesSettings({
                 {t("selection.components.settings.profilesSettings.create")}
               </button>
             </div>
-
-            <p className="mt-3 text-xs text-slate-500">
-              {newProfileBans.size}{" "}
-              {t(
-                "selection.components.settings.profilesSettings.bannedCharacters",
-              )}
-            </p>
-          </div>
-
-          <CharacterBanList
-            characters={characters}
-            bannedCharacters={newProfileBans}
-            globalBannedCharacters={EMPTY_GLOBAL_BANS}
-            onToggle={handleToggleNewProfileBan}
-          />
-        </div>
-      ) : selectedProfile ? (
-        <div className="flex min-w-0 flex-1 flex-col">
-          <div className="border-b border-slate-700 px-6 py-4">
-            <div className="flex items-end gap-3">
+          </>
+        ) : selectedProfile ? (
+          <>
+            <div
+              className="
+                mb-5
+                flex
+                items-end
+                gap-3
+              "
+            >
               <div className="flex-1">
-                <label className="mb-2 block text-xs font-medium text-slate-400">
+                <label
+                  className="
+                    mb-2
+                    block
+                    text-sm
+                    font-bold
+                    text-slate-300
+                  "
+                >
                   {t(
                     "selection.components.settings.profilesSettings.profileName",
                   )}
@@ -360,66 +546,120 @@ export function ProfilesSettings({
                   }
                   className="
                     w-full
-                    rounded-xl
+                    rounded-lg
                     border
                     border-slate-700
-                    bg-slate-900/50
-                    px-4
-                    py-2.5
-                    text-sm
+                    bg-slate-950
+                    px-3
+                    py-2
                     text-white
                     outline-none
                     transition-colors
-                    focus:border-emerald-500/60
+                    focus:border-emerald-500
                   "
                 />
               </div>
 
               <button
                 type="button"
-                onClick={() => handleDeleteProfile(selectedProfile.id)}
+                onClick={handleExportProfile}
                 className="
                   cursor-pointer
-                  rounded-xl
+                  rounded-lg
                   border
-                  border-red-500/30
-                  bg-red-500/5
+                  border-emerald-500/40
+                  bg-emerald-500/10
                   px-4
-                  py-2.5
+                  py-2
                   text-sm
-                  font-medium
+                  font-bold
+                  text-emerald-400
+                  transition-colors
+                  hover:bg-emerald-500/20
+                "
+              >
+                {t("selection.components.settings.profilesSettings.export")}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleDeleteProfile}
+                className="
+                  cursor-pointer
+                  rounded-lg
+                  border
+                  border-red-500/40
+                  bg-red-500/10
+                  px-4
+                  py-2
+                  text-sm
+                  font-bold
                   text-red-400
                   transition-colors
-                  hover:bg-red-500/10
-                  hover:text-red-300
+                  hover:bg-red-500/20
                 "
               >
                 {t("selection.components.settings.profilesSettings.delete")}
               </button>
             </div>
 
-            <p className="mt-3 text-xs text-slate-500">
-              {selectedProfile.bannedCharacters.length}{" "}
-              {t(
-                "selection.components.settings.profilesSettings.bannedCharacters",
-              )}
-            </p>
-          </div>
+            <div
+              className="
+                mb-4
+                flex
+                items-center
+                justify-between
+              "
+            >
+              <span
+                className="
+                  text-sm
+                  text-slate-400
+                "
+              >
+                {selectedProfile.bannedCharacters.length}{" "}
+                {t(
+                  "selection.components.settings.profilesSettings.bannedCharacters",
+                )}
+              </span>
 
-          <CharacterBanList
-            characters={characters}
-            bannedCharacters={new Set(selectedProfile.bannedCharacters)}
-            globalBannedCharacters={EMPTY_GLOBAL_BANS}
-            onToggle={handleToggleProfileBan}
-          />
-        </div>
-      ) : (
-        <div className="flex flex-1 items-center justify-center">
-          <p className="text-sm text-slate-500">
+              <button
+                type="button"
+                onClick={handleOpenImport}
+                className="
+                  cursor-pointer
+                  text-sm
+                  font-semibold
+                  text-slate-400
+                  transition-colors
+                  hover:text-white
+                "
+              >
+                {t("selection.components.settings.profilesSettings.import")}
+              </button>
+            </div>
+
+            <CharacterBanList
+              characters={characters}
+              bannedCharacters={new Set(selectedProfile.bannedCharacters)}
+              globalBannedCharacters={EMPTY_GLOBAL_BANS}
+              onToggle={handleToggleProfileBan}
+            />
+          </>
+        ) : (
+          <div
+            className="
+              flex
+              h-full
+              items-center
+              justify-center
+              text-slate-500
+            "
+          >
             {t("selection.components.settings.profilesSettings.noProfiles")}
-          </p>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
