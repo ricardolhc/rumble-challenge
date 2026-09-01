@@ -6,8 +6,8 @@
       "loadingCharactersErrorDescription": "No se pudieron cargar los personajes. Inténtalo de nuevo.",
       "loadingCharacterDescription": "Cargando descripción del personaje...",
       "characterDescriptionUnavailable": "Descripción del personaje no disponible",
-      "connectedToHost": "Conectado al host — esperando la próxima selección",
-      "connectingToHost": "Preparando conexión con el host"
+      "connectedToHost": "Conectado al host — esperando el próximo sorteo",
+      "connectingToHost": "Preparando la conexión con el host"
     },
     "components": {
       "selection": {
@@ -15,14 +15,14 @@
           "title": "Configuración"
         },
         "selectionHeader": {
-          "title": "Sorteador de Equipos",
+          "title": "Sorteador de equipos",
           "subtitle": "Sortea de uno a tres personajes",
           "availableCharacters": "personajes disponibles",
           "oneCharacterPerDraw": "personaje por sorteo",
           "multipleCharactersPerDraw": "personajes por sorteo",
           "oneCharacterBanned": "bloqueado",
           "multipleCharactersBanned": "bloqueados",
-          "challengeModeEnabled": "Modo Desafío Activo"
+          "challengeModeEnabled": "Modo Desafío activo"
         },
         "drawButton": {
           "selecting": "Sorteando...",
@@ -48,15 +48,17 @@
           "normal": "Normal",
           "fast": "Rápido",
           "instant": "Instantáneo",
+          "superSlow": "Súper lento",
           "currentDraw": "Actualmente se sortearán",
           "inSpeed": "a velocidad",
           "slowSpeed": "lenta",
           "normalSpeed": "normal",
           "fastSpeed": "rápida",
+          "superSlowSpeed": "súper lenta",
           "instantSpeed": "instantánea",
           "challengeMode": "Modo Desafío",
-          "challengeModeDescription": "Los personajes sorteados no podrán ser repetidos en sorteos futuros",
-          "challengeModeActive": "Modo Desafío Activo",
+          "challengeModeDescription": "Los personajes sorteados no podrán repetirse en sorteos futuros",
+          "challengeModeActive": "Modo Desafío activo",
           "character": "personaje",
           "characters": "personajes"
         },
@@ -67,7 +69,11 @@
         "individualBansSettings": {
           "member": "Miembro",
           "clearMember": "Limpiar miembro",
-          "bannedCharacters": "personajes bloqueados en esta posición"
+          "bannedCharacters": "personajes bloqueados en esta posición",
+          "profile": "Perfil de bloqueos",
+          "profileDescription": "Aplicar un perfil sustituirá los bloqueos actuales de este miembro.",
+          "selectProfile": "Seleccionar perfil",
+          "noProfiles": "No hay perfiles disponibles"
         },
         "settingsHeader": {
           "bans": {
@@ -84,7 +90,19 @@
           },
           "draws": {
             "title": "Sorteos",
-            "description": "Define cuántos personajes serán sorteados"
+            "description": "Define cuántos personajes se sortearán"
+          },
+          "logs": {
+            "title": "Registros",
+            "description": "Consulta los registros de sorteos anteriores"
+          },
+          "sound": {
+            "title": "Sonido",
+            "description": "Configura los efectos de sonido del sorteo."
+          },
+          "profiles": {
+            "title": "Perfiles",
+            "description": "Crea perfiles de bloqueos reutilizables para tus jugadores."
           }
         },
         "settingsSidebar": {
@@ -97,20 +115,50 @@
           "repository": "Repositorio",
           "issues": "Problemas",
           "logs": "Registros",
-          "challengeMode": "Modo Desafío"
+          "challengeMode": "Modo Desafío",
+          "sound": "Sonido",
+          "profiles": "Perfiles"
         },
         "logsSettings": {
           "emptyTitle": "No se encontraron registros de sorteos",
-          "emptyDescription": "Los registros de sorteos se mostrarán aquí cuando realices sorteos. Se almacenan localmente en tu navegador y no se comparten con nadie.",
+          "emptyDescription": "Los registros de sorteos aparecerán aquí cuando realices sorteos. Se almacenan localmente en tu navegador y no se comparten con nadie",
           "draw": "Sorteo",
           "character": "Personaje",
           "characters": "Personajes"
         },
         "challengeMode": {
           "active": "Modo Desafío activo",
-          "inactive": "Modo Desafío inactivo",
-          "inactiveDescription": "Activa el Modo Desafío para aplicar automáticamente reglas especiales a los sorteos.",
-          "activeDescription": "Los personajes sorteados se convertirán en parte de los bloqueos globales."
+          "inactive": "Modo Desafío desactivado",
+          "inactiveDescription": "Activa el Modo Desafío para aplicar automáticamente sus reglas especiales a los sorteos.",
+          "activeDescription": "Los personajes sorteados pasan a formar parte de los bloqueos globales.",
+          "banMode": "Tipo de bloqueo",
+          "banModeDescription": "Elige cómo se bloquearán los personajes sorteados.",
+          "globalBan": "Bloqueo global",
+          "globalBanDescription": "Los personajes sorteados no podrán aparecer en ninguna posición en los próximos sorteos.",
+          "individualBan": "Bloqueo individual",
+          "individualBanDescription": "Cada personaje será bloqueado únicamente en la posición en la que fue sorteado."
+        },
+        "sound": {
+          "enabled": "Efectos de sonido",
+          "enabledDescription": "Activa o desactiva los efectos de sonido del sorteo.",
+          "tickVolume": "Volumen del sorteo",
+          "tickVolumeDescription": "Volumen del sonido reproducido con cada cambio de personaje.",
+          "resultVolume": "Volumen del resultado",
+          "resultVolumeDescription": "Volumen del sonido reproducido cuando se revela el resultado."
+        },
+        "profilesSettings": {
+          "newProfile": "Nuevo perfil",
+          "noProfiles": "No hay perfiles creados",
+          "profileName": "Nombre del perfil",
+          "profileNamePlaceholder": "Ej.: Ricardo, EduArfo, Gustavo, José, etc.",
+          "create": "Crear perfil",
+          "cancel": "Cancelar",
+          "delete": "Eliminar",
+          "bannedCharacters": "personajes bloqueados",
+          "import": "Importar",
+          "export": "Exportar",
+          "invalidJson": "El archivo seleccionado no contiene un JSON válido.",
+          "invalidProfile": "El archivo seleccionado no es un perfil válido."
         }
       },
       "teamModal": {
@@ -122,20 +170,20 @@
         "multipleCharactersDefined": "Tu equipo ha sido definido"
       },
       "about": {
-        "title": "Acerca de Rumble Challenge",
-        "description": "Una herramienta creada para facilitar y hacer más divertidos los sorteos de equipos de personajes, ofreciendo diferentes configuraciones, bloqueos y modos de juego.",
+        "title": "Sobre Rumble Challenge",
+        "description": "Una herramienta creada para facilitar y hacer más divertidos los sorteos de equipos de personajes, con diferentes configuraciones, bloqueos y modos de juego.",
         "close": "Cerrar",
-        "featuresTitle": "Características",
-        "featuresDescription": "Descubre las principales características disponibles.",
+        "featuresTitle": "Funciones",
+        "featuresDescription": "Conoce las principales funciones disponibles.",
         "github": "Ver en GitHub",
         "footer": "Proyecto independiente desarrollado para la comunidad.",
         "howItWorks": {
           "title": "¿Cómo funciona?",
-          "description": "Configura la cantidad de personajes, elige los bloqueos deseados y presiona el botón de sorteo. El sistema seleccionará automáticamente un equipo válido respetando todas las configuraciones."
+          "description": "Configura la cantidad de personajes, elige los bloqueos deseados y pulsa el botón de sorteo. El sistema seleccionará automáticamente un equipo válido respetando toda la configuración."
         },
         "challenge": {
           "title": "Modo Desafío",
-          "description": "En el Modo Desafío, los personajes sorteados se añaden a los banimientos globales después de cada sorteo. De esta forma, los equipos siguientes deben utilizar personajes diferentes."
+          "description": "En el Modo Desafío, los personajes sorteados se añaden a los bloqueos globales después de cada sorteo. Así, los siguientes equipos deberán usar personajes diferentes."
         },
         "features": {
           "draw": {
@@ -143,8 +191,8 @@
             "description": "Genera automáticamente equipos aleatorios entre los personajes disponibles."
           },
           "drawSettings": {
-            "title": "Configuración de sorteos",
-            "description": "Configura la cantidad de personajes y la velocidad de la animación del sorteo."
+            "title": "Configuración del sorteo",
+            "description": "Elige la cantidad de personajes y la velocidad de la animación del sorteo."
           },
           "globalBans": {
             "title": "Bloqueos globales",
@@ -152,23 +200,23 @@
           },
           "individualBans": {
             "title": "Bloqueos individuales",
-            "description": "Define qué personajes no pueden ocupar determinadas posiciones de la equipo."
+            "description": "Define qué personajes no pueden ocupar determinadas posiciones del equipo."
           },
           "challengeMode": {
             "title": "Modo Desafío",
-            "description": "Evite repetir personajes entre sorteos consecutivos adicionando automaticamente los sorteados a los banimientos."
+            "description": "Evita repetir personajes entre sorteos añadiendo automáticamente los sorteados a los bloqueos."
           },
           "history": {
-            "title": "Histórico de sorteos",
-            "description": "Consulte las equipes que fueron sorteadas anteriormente."
+            "title": "Historial de sorteos",
+            "description": "Consulta los equipos sorteados anteriormente."
           },
           "languages": {
             "title": "Múltiples idiomas",
-            "description": "Utilice la aplicación en diferentes idiomas a través del selector de idioma."
+            "description": "Utiliza la aplicación en diferentes idiomas mediante el selector de idioma."
           },
           "multiplayer": {
             "title": "Multijugador",
-            "description": "Conéctese con otros jugadores y sincronice los sorteos en tiempo real."
+            "description": "Conéctate con otros jugadores y sincroniza los sorteos en tiempo real."
           }
         }
       },
@@ -178,26 +226,26 @@
       },
       "multiplayer": {
         "multiplayer": "Multijugador",
-        "host": "Anfitrión",
+        "host": "Host",
         "participant": "Participante",
         "cannotAutoCopy": "No se pudo copiar automáticamente. Selecciona el código y cópialo manualmente.",
         "unableToGenerateCode": "No se pudo generar el código de conexión.",
         "unableToProcessParticipantCode": "No se pudo procesar el código del participante.",
-        "unableToConnectToHost": "No se pudo conectar con el anfitrión.",
+        "unableToConnectToHost": "No se pudo conectar al host.",
         "directConectionThroughBrowser": "Conexión directa entre navegadores.",
-        "unableToCompleteAction": "No se pudo completar la acción.",
+        "unableToCompleteAction": "No se pudo completar la acción",
         "howToParticipate": "¿Cómo quieres participar?",
         "chooseWhoControlsDraw": "Elige quién controlará el sorteo.",
         "createStream": "Crear transmisión",
-        "createStreamDescription": "Controla los sorteos y transmítelos en tiempo real a los demás participantes.",
-        "beTheHost": "Ser el anfitrión",
+        "createStreamDescription": "Controla los sorteos y transmite todo en tiempo real a otras personas.",
+        "beTheHost": "Ser el host",
         "participate": "Participar",
-        "accompanyDraws": "Sigue los sorteos realizados por el anfitrión.",
+        "accompanyDraws": "Sigue automáticamente los sorteos realizados por el host.",
         "preparing": "Preparando...",
         "enterAsParticipant": "Entrar como participante",
         "notNecessaryToCreateAccount": "No es necesario crear una cuenta ni una sala. La conexión se realiza directamente entre los navegadores mediante WebRTC.",
         "activeStream": "Transmisión activa",
-        "synchronizedDraws": "Los sorteos realizados desde este navegador se sincronizarán.",
+        "synchronizedDraws": "Los sorteos de este navegador se sincronizarán.",
         "connected": "Conectado",
         "connecteds": "Conectados",
         "receiveCode": "Recibir código",
@@ -205,7 +253,7 @@
         "send": "Enviar",
         "step": "Paso",
         "pasteParticipantCode": "Pega el código del participante",
-        "pasteParticipantCodeDescription": "Pide al participante que copie el código generado en su dispositivo.",
+        "pasteParticipantCodeDescription": "Pide a la persona que copie el código generado en su dispositivo.",
         "pasteCodeHere": "Pega el código aquí...",
         "generatingResponse": "Procesando código...",
         "responseReady": "Respuesta lista",
@@ -213,22 +261,22 @@
         "copyResponse": "Copiar respuesta",
         "addOtherParticipant": "Añadir otro participante",
         "doneStream": "Finalizar transmisión",
-        "connectedToHost": "Conectado al anfitrión",
-        "allReadysynchronizedDraws": "Todo está listo. Los sorteos y cambios realizados por el anfitrión se sincronizarán automáticamente en este dispositivo.",
+        "connectedToHost": "Conectado al host",
+        "allReadysynchronizedDraws": "Todo listo. Los sorteos y cambios realizados por el host se sincronizarán automáticamente en este dispositivo.",
         "syncActive": "Sincronización activa",
         "leaveStream": "Salir de la transmisión",
-        "connectToHost": "Conectarse al anfitrión",
-        "twoOnlySteps": "Solo son dos pasos.",
+        "connectToHost": "Conectar al host",
+        "twoOnlySteps": "Son solo dos pasos.",
         "sendYourCode": "Envía tu código",
-        "sendYourCodeDescription": "Genera el código, cópialo y envíalo al anfitrión.",
+        "sendYourCodeDescription": "Genera el código, cópialo y envíalo al host.",
         "generating": "Generando...",
         "generateAnother": "Generar otro",
         "generateCode": "Generar código",
-        "coppied": "¡Copiado!",
+        "copied": "¡Copiado!",
         "copy": "Copiar",
         "pasteResponse": "Pega la respuesta",
-        "pasteResponseDescription": "El anfitrión te enviará otro código. Pégalo aquí.",
-        "connectingToHost": "Conectando con el anfitrión...",
+        "pasteResponseDescription": "El host devolverá otro código. Pégalo aquí.",
+        "connectingToHost": "Conectando al host...",
         "connect": "Conectar",
         "cancel": "Cancelar"
       }

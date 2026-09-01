@@ -3,11 +3,11 @@
     "page": {
       "loadingCharacters": "Chargement des personnages...",
       "loadingCharactersError": "Erreur lors du chargement des personnages",
-      "loadingCharactersErrorDescription": "Impossible de charger les personnages. Veuillez réessayer.",
+      "loadingCharactersErrorDescription": "Impossible de charger les personnages. Réessayez.",
       "loadingCharacterDescription": "Chargement de la description du personnage...",
       "characterDescriptionUnavailable": "Description du personnage indisponible",
-      "connectedToHost": "Connecté au serveur — en attente du prochain tirage",
-      "connectingToHost": "Préparation de la connexion au serveur"
+      "connectedToHost": "Connecté à l’hôte — en attente du prochain tirage",
+      "connectingToHost": "Préparation de la connexion à l’hôte"
     },
     "components": {
       "selection": {
@@ -15,14 +15,14 @@
           "title": "Paramètres"
         },
         "selectionHeader": {
-          "title": "Tirage d'équipe",
+          "title": "Tirage d’équipes",
           "subtitle": "Tirez de un à trois personnages",
           "availableCharacters": "personnages disponibles",
           "oneCharacterPerDraw": "personnage par tirage",
           "multipleCharactersPerDraw": "personnages par tirage",
           "oneCharacterBanned": "banni",
           "multipleCharactersBanned": "bannis",
-          "challengeModeEnabled": "Mode Défi Actif"
+          "challengeModeEnabled": "Mode Défi actif"
         },
         "drawButton": {
           "selecting": "Tirage en cours...",
@@ -43,20 +43,22 @@
           "twoCharactersPerDraw": "2 personnages",
           "threeCharactersPerDraw": "3 personnages",
           "drawSpeed": "Vitesse du tirage",
-          "drawSpeedDescription": "Définissez la vitesse de l'animation pendant le tirage",
-          "slow": "Lente",
-          "normal": "Normale",
+          "drawSpeedDescription": "Définissez la vitesse de l’animation pendant le tirage",
+          "slow": "Lent",
+          "normal": "Normal",
           "fast": "Rapide",
-          "instant": "Instantanée",
-          "currentDraw": "Seront actuellement tirés",
+          "instant": "Instantané",
+          "superSlow": "Très lent",
+          "currentDraw": "Le tirage actuel comprendra",
           "inSpeed": "à vitesse",
           "slowSpeed": "lente",
           "normalSpeed": "normale",
           "fastSpeed": "rapide",
+          "superSlowSpeed": "très lente",
           "instantSpeed": "instantanée",
           "challengeMode": "Mode Défi",
-          "challengeModeDescription": "Les personnages sortés ne pourront pas être répétés dans les tirages futurs",
-          "challengeModeActive": "Mode Défi Actif",
+          "challengeModeDescription": "Les personnages tirés ne pourront pas réapparaître lors des prochains tirages",
+          "challengeModeActive": "Mode Défi actif",
           "character": "personnage",
           "characters": "personnages"
         },
@@ -67,7 +69,11 @@
         "individualBansSettings": {
           "member": "Membre",
           "clearMember": "Effacer le membre",
-          "bannedCharacters": "personnages bannis à cette position"
+          "bannedCharacters": "personnages bannis à cette position",
+          "profile": "Profil de bannissements",
+          "profileDescription": "L’application d’un profil remplacera les bannissements actuels de ce membre.",
+          "selectProfile": "Sélectionner un profil",
+          "noProfiles": "Aucun profil disponible"
         },
         "settingsHeader": {
           "bans": {
@@ -76,7 +82,7 @@
           },
           "challengeMode": {
             "title": "Mode Défi",
-            "description": "Configure les règles spéciales du Mode Défi"
+            "description": "Configurez les règles spéciales du Mode Défi"
           },
           "individualBans": {
             "title": "Bannissements individuels",
@@ -85,6 +91,18 @@
           "draws": {
             "title": "Tirages",
             "description": "Définissez combien de personnages seront tirés"
+          },
+          "logs": {
+            "title": "Historique",
+            "description": "Consultez l’historique des tirages précédents"
+          },
+          "sound": {
+            "title": "Son",
+            "description": "Configurez les effets sonores du tirage."
+          },
+          "profiles": {
+            "title": "Profils",
+            "description": "Créez des profils de bannissements réutilisables pour vos joueurs."
           }
         },
         "settingsSidebar": {
@@ -94,23 +112,53 @@
           "individualBans": "Bannissements individuels",
           "draws": "Tirages",
           "development": "Développement",
-          "repository": "Référentiel",
+          "repository": "Dépôt",
           "issues": "Problèmes",
-          "logs": "Journaux",
-          "challengeMode": "Mode Défi"
+          "logs": "Historique",
+          "challengeMode": "Mode Défi",
+          "sound": "Son",
+          "profiles": "Profils"
         },
         "logsSettings": {
-          "emptyTitle": "Aucun journal de tirage trouvé",
-          "emptyDescription": "Les journaux de tirage seront affichés ici lorsque vous effectuerez des tirages. Ils sont stockés localement dans votre navigateur et ne sont pas partagés avec personne.",
+          "emptyTitle": "Aucun historique de tirage trouvé",
+          "emptyDescription": "L’historique des tirages apparaîtra ici après vos tirages. Il est stocké localement dans votre navigateur et n’est partagé avec personne",
           "draw": "Tirage",
           "character": "Personnage",
           "characters": "Personnages"
         },
         "challengeMode": {
           "active": "Mode Défi actif",
-          "inactive": "Mode Défi inactif",
-          "inactiveDescription": "Activez le Mode Défi pour appliquer automatiquement des règles spéciales aux tirages.",
-          "activeDescription": "Les personnages sortis deviendront partie des bannissements globaux."
+          "inactive": "Mode Défi désactivé",
+          "inactiveDescription": "Activez le Mode Défi pour appliquer automatiquement ses règles spéciales aux tirages.",
+          "activeDescription": "Les personnages tirés sont ajoutés aux bannissements globaux.",
+          "banMode": "Type de bannissement",
+          "banModeDescription": "Choisissez comment les personnages tirés seront bannis.",
+          "globalBan": "Bannissement global",
+          "globalBanDescription": "Les personnages tirés ne pourront apparaître à aucune position lors des prochains tirages.",
+          "individualBan": "Bannissement individuel",
+          "individualBanDescription": "Chaque personnage sera banni uniquement de la position à laquelle il a été tiré."
+        },
+        "sound": {
+          "enabled": "Effets sonores",
+          "enabledDescription": "Active ou désactive les effets sonores du tirage.",
+          "tickVolume": "Volume du tirage",
+          "tickVolumeDescription": "Volume du son joué à chaque changement de personnage.",
+          "resultVolume": "Volume du résultat",
+          "resultVolumeDescription": "Volume du son joué lorsque le résultat est révélé."
+        },
+        "profilesSettings": {
+          "newProfile": "Nouveau profil",
+          "noProfiles": "Aucun profil créé",
+          "profileName": "Nom du profil",
+          "profileNamePlaceholder": "Ex. : Ricardo, EduArfo, Gustavo, José, etc.",
+          "create": "Créer le profil",
+          "cancel": "Annuler",
+          "delete": "Supprimer",
+          "bannedCharacters": "personnages bannis",
+          "import": "Importer",
+          "export": "Exporter",
+          "invalidJson": "Le fichier sélectionné ne contient pas de JSON valide.",
+          "invalidProfile": "Le fichier sélectionné n’est pas un profil valide."
         }
       },
       "teamModal": {
@@ -118,12 +166,12 @@
         "close": "Fermer",
         "oneCharacterDrawn": "Personnage tiré",
         "multipleCharactersDrawn": "Équipe tirée",
-        "oneCharacterDefined": "Votre personnage a été sélectionné",
-        "multipleCharactersDefined": "Votre équipe a été sélectionnée"
+        "oneCharacterDefined": "Votre personnage a été défini",
+        "multipleCharactersDefined": "Votre équipe a été définie"
       },
       "about": {
         "title": "À propos de Rumble Challenge",
-        "description": "Une tool créée pour faciliter et rendre plus amusants les tirages de équipes de personnages, en offrant différentes configurations, bannissements et modes de jeu.",
+        "description": "Un outil conçu pour faciliter et rendre plus amusants les tirages d’équipes de personnages, avec différents paramètres, bannissements et modes de jeu.",
         "close": "Fermer",
         "featuresTitle": "Fonctionnalités",
         "featuresDescription": "Découvrez les principales fonctionnalités disponibles.",
@@ -131,44 +179,44 @@
         "footer": "Projet indépendant développé pour la communauté.",
         "howItWorks": {
           "title": "Comment ça marche ?",
-          "description": "Configurez la quantité de personnages, choisissez les bannissements souhaités et appuyez sur le bouton de tirage. Le système sélectionnera automatiquement une équipe valide en respectant toutes les configurations."
+          "description": "Configurez le nombre de personnages, choisissez les bannissements souhaités et appuyez sur le bouton de tirage. Le système sélectionnera automatiquement une équipe valide en respectant tous les paramètres."
         },
         "challenge": {
           "title": "Mode Défi",
-          "description": "Dans le Mode Défi, les personnages sortis sont ajoutés aux bannissements globaux après chaque tirage. De cette façon, les équipes suivantes doivent utiliser des personnages différents."
+          "description": "En Mode Défi, les personnages tirés sont ajoutés aux bannissements globaux après chaque tirage. Les équipes suivantes doivent donc utiliser des personnages différents."
         },
         "features": {
           "draw": {
-            "title": "Tirage d'équipes",
+            "title": "Tirage d’équipes",
             "description": "Générez automatiquement des équipes aléatoires parmi les personnages disponibles."
           },
           "drawSettings": {
-            "title": "Paramètres de tirage",
-            "description": "Choisissez la quantité de personnages et la vitesse de l'animation du tirage."
+            "title": "Paramètres du tirage",
+            "description": "Choisissez le nombre de personnages et la vitesse de l’animation du tirage."
           },
           "globalBans": {
-            "title": "Banishments globaux",
-            "description": "Retirez des personnages spécifiques de tous les tirages."
+            "title": "Bannissements globaux",
+            "description": "Excluez certains personnages de tous les tirages."
           },
           "individualBans": {
-            "title": "Banishments individuels",
-            "description": "Définissez quels personnages ne peuvent pas occuper certaines positions de l'équipe."
+            "title": "Bannissements individuels",
+            "description": "Définissez quels personnages ne peuvent pas occuper certaines positions de l’équipe."
           },
           "challengeMode": {
             "title": "Mode Défi",
-            "description": "Évitez de répéter les personnages entre les tirages consécutifs en ajoutant automatiquement les personnages sortis aux bannissements."
+            "description": "Évitez les répétitions entre les tirages en ajoutant automatiquement les personnages tirés aux bannissements."
           },
           "history": {
             "title": "Historique des tirages",
-            "description": "Consultez les équipes qui ont été tirées précédemment."
+            "description": "Consultez les équipes tirées précédemment."
           },
           "languages": {
-            "title": "Multilinguisme",
-            "description": "Utilisez l'application dans différentes langues grâce au sélecteur de langue."
+            "title": "Plusieurs langues",
+            "description": "Utilisez l’application dans différentes langues grâce au sélecteur de langue."
           },
           "multiplayer": {
             "title": "Multijoueur",
-            "description": "Connectez-vous à d'autres joueurs et synchronisez les tirages en temps réel."
+            "description": "Connectez-vous à d’autres joueurs et synchronisez les tirages en temps réel."
           }
         }
       },
@@ -180,32 +228,32 @@
         "multiplayer": "Multijoueur",
         "host": "Hôte",
         "participant": "Participant",
-        "cannotAutoCopy": "Impossible de copier automatiquement. Veuillez sélectionner le code et le copier manuellement.",
+        "cannotAutoCopy": "Impossible de copier automatiquement. Sélectionnez le code et copiez-le manuellement.",
         "unableToGenerateCode": "Impossible de générer le code de connexion.",
         "unableToProcessParticipantCode": "Impossible de traiter le code du participant.",
-        "unableToConnectToHost": "Impossible de se connecter à l'hôte.",
+        "unableToConnectToHost": "Impossible de se connecter à l’hôte.",
         "directConectionThroughBrowser": "Connexion directe entre les navigateurs.",
-        "unableToCompleteAction": "Impossible de terminer l'action.",
+        "unableToCompleteAction": "Impossible de terminer l’action",
         "howToParticipate": "Comment souhaitez-vous participer ?",
         "chooseWhoControlsDraw": "Choisissez qui contrôlera le tirage.",
         "createStream": "Créer une diffusion",
-        "createStreamDescription": "Contrôlez les tirages et diffusez-les en temps réel aux autres participants.",
-        "beTheHost": "Devenir l'hôte",
+        "createStreamDescription": "Contrôlez les tirages et diffusez tout en temps réel aux autres.",
+        "beTheHost": "Être l’hôte",
         "participate": "Participer",
-        "accompanyDraws": "Suivez les tirages effectués par l'hôte.",
+        "accompanyDraws": "Suivez automatiquement les tirages effectués par l’hôte.",
         "preparing": "Préparation...",
         "enterAsParticipant": "Rejoindre en tant que participant",
-        "notNecessaryToCreateAccount": "Il n'est pas nécessaire de créer un compte ou une salle. La connexion s'effectue directement entre les navigateurs via WebRTC.",
+        "notNecessaryToCreateAccount": "Aucun compte ni salon n’est nécessaire. La connexion s’effectue directement entre les navigateurs via WebRTC.",
         "activeStream": "Diffusion active",
-        "synchronizedDraws": "Les tirages effectués depuis ce navigateur seront synchronisés.",
+        "synchronizedDraws": "Les tirages de ce navigateur seront synchronisés.",
         "connected": "Connecté",
         "connecteds": "Connectés",
         "receiveCode": "Recevoir le code",
-        "generateResponse": "Générer une réponse",
+        "generateResponse": "Générer la réponse",
         "send": "Envoyer",
         "step": "Étape",
         "pasteParticipantCode": "Collez le code du participant",
-        "pasteParticipantCodeDescription": "Demandez au participant de copier le code généré sur son appareil.",
+        "pasteParticipantCodeDescription": "Demandez à la personne de copier le code généré sur son appareil.",
         "pasteCodeHere": "Collez le code ici...",
         "generatingResponse": "Traitement du code...",
         "responseReady": "Réponse prête",
@@ -213,22 +261,22 @@
         "copyResponse": "Copier la réponse",
         "addOtherParticipant": "Ajouter un autre participant",
         "doneStream": "Terminer la diffusion",
-        "connectedToHost": "Connecté à l'hôte",
-        "allReadysynchronizedDraws": "Tout est prêt. Les tirages et les modifications effectués par l'hôte seront automatiquement synchronisés sur cet appareil.",
+        "connectedToHost": "Connecté à l’hôte",
+        "allReadysynchronizedDraws": "Tout est prêt. Les tirages et modifications effectués par l’hôte seront automatiquement synchronisés sur cet appareil.",
         "syncActive": "Synchronisation active",
         "leaveStream": "Quitter la diffusion",
-        "connectToHost": "Se connecter à l'hôte",
-        "twoOnlySteps": "Il n'y a que deux étapes.",
+        "connectToHost": "Se connecter à l’hôte",
+        "twoOnlySteps": "Seulement deux étapes.",
         "sendYourCode": "Envoyez votre code",
-        "sendYourCodeDescription": "Générez le code, copiez-le et envoyez-le à l'hôte.",
+        "sendYourCodeDescription": "Générez le code, copiez-le et envoyez-le à l’hôte.",
         "generating": "Génération...",
         "generateAnother": "En générer un autre",
         "generateCode": "Générer le code",
-        "coppied": "Copié !",
+        "copied": "Copié !",
         "copy": "Copier",
         "pasteResponse": "Collez la réponse",
-        "pasteResponseDescription": "L'hôte vous enverra un autre code. Collez-le ici.",
-        "connectingToHost": "Connexion à l'hôte...",
+        "pasteResponseDescription": "L’hôte renverra un autre code. Collez-le ici.",
+        "connectingToHost": "Connexion à l’hôte...",
         "connect": "Se connecter",
         "cancel": "Annuler"
       }

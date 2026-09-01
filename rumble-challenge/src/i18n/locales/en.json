@@ -3,11 +3,11 @@
     "page": {
       "loadingCharacters": "Loading characters...",
       "loadingCharactersError": "Error loading characters",
-      "loadingCharactersErrorDescription": "Failed to load characters. Please try again.",
+      "loadingCharactersErrorDescription": "The characters could not be loaded. Please try again.",
       "loadingCharacterDescription": "Loading character description...",
       "characterDescriptionUnavailable": "Character description unavailable",
       "connectedToHost": "Connected to host — waiting for the next draw",
-      "connectingToHost": "Preparing connection to the host"
+      "connectingToHost": "Preparing connection to host"
     },
     "components": {
       "selection": {
@@ -15,7 +15,7 @@
           "title": "Settings"
         },
         "selectionHeader": {
-          "title": "Team Randomizer",
+          "title": "Team Draw",
           "subtitle": "Draw one to three characters",
           "availableCharacters": "characters available",
           "oneCharacterPerDraw": "character per draw",
@@ -38,7 +38,7 @@
         },
         "drawSettings": {
           "drawCount": "Number of characters per draw",
-          "drawCountDescription": "Choose how many characters will be drawn at a time",
+          "drawCountDescription": "Choose how many characters are drawn at a time",
           "oneCharacterPerDraw": "1 character",
           "twoCharactersPerDraw": "2 characters",
           "threeCharactersPerDraw": "3 characters",
@@ -48,14 +48,16 @@
           "normal": "Normal",
           "fast": "Fast",
           "instant": "Instant",
+          "superSlow": "Super Slow",
           "currentDraw": "Currently drawing",
           "inSpeed": "at",
           "slowSpeed": "slow speed",
           "normalSpeed": "normal speed",
           "fastSpeed": "fast speed",
+          "superSlowSpeed": "super slow speed",
           "instantSpeed": "instant speed",
           "challengeMode": "Challenge Mode",
-          "challengeModeDescription": "The drawn characters will not be repeated in future draws",
+          "challengeModeDescription": "Drawn characters cannot be repeated in future draws",
           "challengeModeActive": "Challenge Mode Active",
           "character": "character",
           "characters": "characters"
@@ -66,8 +68,12 @@
         },
         "individualBansSettings": {
           "member": "Member",
-          "clearMember": "Clear member",
-          "bannedCharacters": "characters banned from this position"
+          "clearMember": "Clear Member",
+          "bannedCharacters": "characters banned in this position",
+          "profile": "Ban profile",
+          "profileDescription": "Applying a profile will replace this member's current bans.",
+          "selectProfile": "Select profile",
+          "noProfiles": "No profiles available"
         },
         "settingsHeader": {
           "bans": {
@@ -76,7 +82,7 @@
           },
           "challengeMode": {
             "title": "Challenge Mode",
-            "description": "Configure the special rules of Challenge Mode"
+            "description": "Configure the special Challenge Mode rules"
           },
           "individualBans": {
             "title": "Individual Bans",
@@ -85,10 +91,22 @@
           "draws": {
             "title": "Draws",
             "description": "Set how many characters will be drawn"
+          },
+          "logs": {
+            "title": "Logs",
+            "description": "View logs from previous draws"
+          },
+          "sound": {
+            "title": "Sound",
+            "description": "Configure draw sound effects."
+          },
+          "profiles": {
+            "title": "Profiles",
+            "description": "Create reusable ban profiles for your players."
           }
         },
         "settingsSidebar": {
-          "configuration": "Settings",
+          "configuration": "Configuration",
           "configurationDescription": "Customize the draw",
           "bans": "Bans",
           "individualBans": "Individual Bans",
@@ -97,20 +115,50 @@
           "repository": "Repository",
           "issues": "Issues",
           "logs": "Logs",
-          "challengeMode": "Challenge Mode"
+          "challengeMode": "Challenge Mode",
+          "sound": "Sound",
+          "profiles": "Profiles"
         },
         "logsSettings": {
           "emptyTitle": "No draw logs found",
-          "emptyDescription": "Draw logs will be displayed here when you perform draws. They are stored locally in your browser and not shared with anyone.",
+          "emptyDescription": "Draw logs will appear here after you perform draws. They are stored locally in your browser and are not shared with anyone",
           "draw": "Draw",
           "character": "Character",
           "characters": "Characters"
         },
         "challengeMode": {
           "active": "Challenge Mode active",
-          "inactive": "Challenge Mode inactive",
-          "inactiveDescription": "Activate Challenge Mode to automatically apply special rules to draws.",
-          "activeDescription": "The drawn characters will become part of the global bans."
+          "inactive": "Challenge Mode disabled",
+          "inactiveDescription": "Enable Challenge Mode to automatically apply its special rules to draws.",
+          "activeDescription": "Drawn characters become part of the global bans.",
+          "banMode": "Ban type",
+          "banModeDescription": "Choose how drawn characters will be banned.",
+          "globalBan": "Global ban",
+          "globalBanDescription": "Drawn characters cannot appear in any position in future draws.",
+          "individualBan": "Individual ban",
+          "individualBanDescription": "Each character will be banned only from the position where they were drawn."
+        },
+        "sound": {
+          "enabled": "Sound effects",
+          "enabledDescription": "Enables or disables draw sound effects.",
+          "tickVolume": "Draw volume",
+          "tickVolumeDescription": "Volume of the sound played each time the character changes.",
+          "resultVolume": "Result volume",
+          "resultVolumeDescription": "Volume of the sound played when the result is revealed."
+        },
+        "profilesSettings": {
+          "newProfile": "New profile",
+          "noProfiles": "No profiles created",
+          "profileName": "Profile name",
+          "profileNamePlaceholder": "E.g.: Ricardo, EduArfo, Gustavo, José, etc.",
+          "create": "Create profile",
+          "cancel": "Cancel",
+          "delete": "Delete",
+          "bannedCharacters": "banned characters",
+          "import": "Import",
+          "export": "Export",
+          "invalidJson": "The selected file does not contain valid JSON.",
+          "invalidProfile": "The selected file is not a valid profile."
         }
       },
       "teamModal": {
@@ -123,52 +171,52 @@
       },
       "about": {
         "title": "About Rumble Challenge",
-        "description": "A tool created to facilitate and make character team draws more fun, offering different configurations, bans, and game modes.",
+        "description": "A tool created to make character team draws easier and more fun, offering different settings, bans, and game modes.",
         "close": "Close",
         "featuresTitle": "Features",
-        "featuresDescription": "Discover the main features available.",
+        "featuresDescription": "Discover the main available features.",
         "github": "View on GitHub",
         "footer": "Independent project developed for the community.",
         "howItWorks": {
-          "title": "How it works?",
-          "description": "Configure the number of characters, choose the desired bans, and press the draw button. The system will automatically select a valid team respecting all configurations."
+          "title": "How does it work?",
+          "description": "Set the number of characters, choose the desired bans, and press the draw button. The system will automatically select a valid team while respecting all settings."
         },
         "challenge": {
           "title": "Challenge Mode",
-          "description": "In Challenge Mode, the drawn characters are added to the global bans after each draw. In this way, the following teams must use different characters."
+          "description": "In Challenge Mode, drawn characters are added to the global bans after each draw. This means subsequent teams must use different characters."
         },
         "features": {
           "draw": {
-            "title": "Team Draws",
-            "description": "Generate random teams automatically among the available characters."
+            "title": "Team draw",
+            "description": "Automatically generate random teams from the available characters."
           },
           "drawSettings": {
-            "title": "Draw Settings",
-            "description": "Choose the number of characters and the speed of the draw animation."
+            "title": "Draw settings",
+            "description": "Choose the number of characters and the draw animation speed."
           },
           "globalBans": {
-            "title": "Global Bans",
+            "title": "Global bans",
             "description": "Remove specific characters from all draws."
           },
           "individualBans": {
-            "title": "Individual Bans",
-            "description": "Define which characters cannot occupy certain positions in the team."
+            "title": "Individual bans",
+            "description": "Define which characters cannot occupy specific team positions."
           },
           "challengeMode": {
             "title": "Challenge Mode",
-            "description": "Avoid repeating characters between consecutive draws by automatically adding the drawn characters to the bans."
+            "description": "Prevent characters from repeating between draws by automatically adding drawn characters to the bans."
           },
           "history": {
-            "title": "Draw History",
-            "description": "Check the teams that were drawn previously."
+            "title": "Draw history",
+            "description": "View teams that were drawn previously."
           },
           "languages": {
-            "title": "Multiple Languages",
+            "title": "Multiple languages",
             "description": "Use the application in different languages through the language selector."
           },
           "multiplayer": {
-            "title": "Multijugador",
-            "description": "Conéctese con otros jugadores y sincronice los sorteos en tiempo real."
+            "title": "Multiplayer",
+            "description": "Connect with other players and synchronize draws in real time."
           }
         }
       },
@@ -180,33 +228,33 @@
         "multiplayer": "Multiplayer",
         "host": "Host",
         "participant": "Participant",
-        "cannotAutoCopy": "Could not copy automatically. Please select the code and copy it manually.",
-        "unableToGenerateCode": "Could not generate connection code.",
-        "unableToProcessParticipantCode": "Could not process participant code.",
-        "unableToConnectToHost": "Could not connect to host.",
+        "cannotAutoCopy": "Could not copy automatically. Select the code and copy it manually.",
+        "unableToGenerateCode": "Unable to generate the connection code.",
+        "unableToProcessParticipantCode": "Unable to process the participant code.",
+        "unableToConnectToHost": "Unable to connect to the host.",
         "directConectionThroughBrowser": "Direct connection between browsers.",
-        "unableToCompleteAction": "Could not complete the action.",
+        "unableToCompleteAction": "Unable to complete the action",
         "howToParticipate": "How do you want to participate?",
         "chooseWhoControlsDraw": "Choose who will control the draw.",
         "createStream": "Create stream",
-        "createStreamDescription": "Control the draws and stream everything in real-time to other people.",
+        "createStreamDescription": "Control the draws and stream everything to others in real time.",
         "beTheHost": "Be the host",
         "participate": "Participate",
-        "accompanyDraws": "Follow the draws made by the host.",
+        "accompanyDraws": "Automatically follow the draws performed by the host.",
         "preparing": "Preparing...",
-        "enterAsParticipant": "Enter as participant",
-        "notNecessaryToCreateAccount": "There is no need to create an account or a room. The connection is made directly between browsers using WebRTC.",
+        "enterAsParticipant": "Join as participant",
+        "notNecessaryToCreateAccount": "No account or room is required. The connection is made directly between browsers using WebRTC.",
         "activeStream": "Active stream",
-        "synchronizedDraws": "The draws from this browser will be synchronized.",
+        "synchronizedDraws": "Draws from this browser will be synchronized.",
         "connected": "Connected",
         "connecteds": "Connected",
         "receiveCode": "Receive code",
         "generateResponse": "Generate response",
         "send": "Send",
         "step": "Step",
-        "pasteParticipantCode": "Paste the participant's code",
-        "pasteParticipantCodeDescription": "Ask the participant to copy the code generated on their device.",
-        "pasteCodeHere": "Paste the code here...",
+        "pasteParticipantCode": "Paste participant code",
+        "pasteParticipantCodeDescription": "Ask the person to copy the code generated on their device.",
+        "pasteCodeHere": "Paste code here...",
         "generatingResponse": "Processing code...",
         "responseReady": "Response ready",
         "copyAndPasteToSameParticipant": "Copy and send this code to the same participant.",
@@ -214,11 +262,11 @@
         "addOtherParticipant": "Add another participant",
         "doneStream": "End stream",
         "connectedToHost": "Connected to host",
-        "allReadysynchronizedDraws": "All set. Draws and changes made by the host will be automatically synchronized on this device.",
+        "allReadysynchronizedDraws": "All set. Draws and changes made by the host will be synchronized automatically on this device.",
         "syncActive": "Synchronization active",
         "leaveStream": "Leave stream",
         "connectToHost": "Connect to host",
-        "twoOnlySteps": "There are only two steps.",
+        "twoOnlySteps": "Just two steps.",
         "sendYourCode": "Send your code",
         "sendYourCodeDescription": "Generate the code, copy it, and send it to the host.",
         "generating": "Generating...",
@@ -226,8 +274,8 @@
         "generateCode": "Generate code",
         "copied": "Copied!",
         "copy": "Copy",
-        "pasteResponse": "Paste the response",
-        "pasteResponseDescription": "The host will send you another code. Paste it here.",
+        "pasteResponse": "Paste response",
+        "pasteResponseDescription": "The host will return another code. Paste it here.",
         "connectingToHost": "Connecting to host...",
         "connect": "Connect",
         "cancel": "Cancel"

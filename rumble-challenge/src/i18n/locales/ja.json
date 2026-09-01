@@ -1,13 +1,13 @@
 {
   "selection": {
     "page": {
-      "loadingCharacters": "キャラクターを読み込み中...",
-      "loadingCharactersError": "キャラクターの読み込み中にエラーが発生しました",
-      "loadingCharactersErrorDescription": "キャラクターを読み込むことができませんでした。再度お試しください。",
-      "loadingCharacterDescription": "キャラクターの説明を読み込み中...",
-      "characterDescriptionUnavailable": "キャラクターの説明は利用できません",
+      "loadingCharacters": "キャラクターを読み込んでいます...",
+      "loadingCharactersError": "キャラクターの読み込みエラー",
+      "loadingCharactersErrorDescription": "キャラクターを読み込めませんでした。もう一度お試しください。",
+      "loadingCharacterDescription": "キャラクターの説明を読み込んでいます...",
+      "characterDescriptionUnavailable": "キャラクターの説明を利用できません",
       "connectedToHost": "ホストに接続しました — 次の抽選を待っています",
-      "connectingToHost": "ホストとの接続を準備しています"
+      "connectingToHost": "ホストへの接続を準備しています"
     },
     "components": {
       "selection": {
@@ -16,92 +16,112 @@
         },
         "selectionHeader": {
           "title": "チーム抽選",
-          "subtitle": "1～3人のキャラクターを抽選します",
+          "subtitle": "1～3人のキャラクターを抽選",
           "availableCharacters": "使用可能なキャラクター",
-          "oneCharacterPerDraw": "回の抽選につき1キャラクター",
-          "multipleCharactersPerDraw": "回の抽選につきキャラクター",
-          "oneCharacterBanned": "使用禁止",
-          "multipleCharactersBanned": "使用禁止",
+          "oneCharacterPerDraw": "抽選ごとのキャラクター",
+          "multipleCharactersPerDraw": "抽選ごとのキャラクター",
+          "oneCharacterBanned": "BAN",
+          "multipleCharactersBanned": "BAN",
           "challengeModeEnabled": "チャレンジモード有効"
         },
         "drawButton": {
           "selecting": "抽選中...",
           "draw": "チームを抽選",
           "drawOneCharacter": "キャラクターを抽選",
-          "impossibleDraw": "この設定では抽選できません"
+          "impossibleDraw": "抽選できない設定"
         }
       },
       "settings": {
         "characterBanList": {
-          "globalBanned": "全体で使用禁止",
-          "banned": "使用禁止"
+          "globalBanned": "グローバルBAN",
+          "banned": "BAN"
         },
         "drawSettings": {
-          "drawCount": "1回の抽選で選ぶキャラクター数",
-          "drawCountDescription": "一度に抽選するキャラクター数を選択してください",
+          "drawCount": "抽選ごとのキャラクター数",
+          "drawCountDescription": "一度に抽選するキャラクター数を選択します",
           "oneCharacterPerDraw": "1キャラクター",
           "twoCharactersPerDraw": "2キャラクター",
           "threeCharactersPerDraw": "3キャラクター",
           "drawSpeed": "抽選速度",
-          "drawSpeedDescription": "抽選アニメーションの速度を設定します",
+          "drawSpeedDescription": "抽選中のアニメーション速度を設定します",
           "slow": "遅い",
           "normal": "普通",
           "fast": "速い",
           "instant": "即時",
-          "currentDraw": "現在の抽選人数",
+          "superSlow": "とても遅い",
+          "currentDraw": "現在の抽選数",
           "inSpeed": "速度",
           "slowSpeed": "遅い",
           "normalSpeed": "普通",
           "fastSpeed": "速い",
+          "superSlowSpeed": "とても遅い",
           "instantSpeed": "即時",
           "challengeMode": "チャレンジモード",
-          "challengeModeDescription": "引かれたキャラクターは将来の抽選で繰り返されません",
+          "challengeModeDescription": "抽選されたキャラクターは今後の抽選で重複しません",
           "challengeModeActive": "チャレンジモード有効",
           "character": "キャラクター",
           "characters": "キャラクター"
         },
         "globalBansSettings": {
-          "bannedFrom": "中、使用禁止",
-          "cleanBans": "使用禁止をすべて解除"
+          "bannedFrom": "BAN /",
+          "cleanBans": "BANをクリア"
         },
         "individualBansSettings": {
           "member": "メンバー",
-          "clearMember": "メンバーの設定をクリア",
-          "bannedCharacters": "この位置で使用禁止のキャラクター"
+          "clearMember": "メンバーをクリア",
+          "bannedCharacters": "この位置でBANされているキャラクター",
+          "profile": "BANプロフィール",
+          "profileDescription": "プロフィールを適用すると、このメンバーの現在のBAN設定が置き換えられます。",
+          "selectProfile": "プロフィールを選択",
+          "noProfiles": "利用可能なプロフィールがありません"
         },
         "settingsHeader": {
           "bans": {
-            "title": "使用禁止",
-            "description": "使用禁止にしたキャラクターはどの位置にも登場しません"
+            "title": "BAN",
+            "description": "BANされたキャラクターはどの位置にも登場しません"
           },
           "challengeMode": {
             "title": "チャレンジモード",
-            "description": "チャレンジモードの特別なルールを設定します"
+            "description": "チャレンジモードの特別ルールを設定します"
           },
           "individualBans": {
-            "title": "個別使用禁止",
+            "title": "個別BAN",
             "description": "各位置に登場できないキャラクターを選択します"
           },
           "draws": {
             "title": "抽選",
             "description": "抽選するキャラクター数を設定します"
+          },
+          "logs": {
+            "title": "ログ",
+            "description": "過去の抽選ログを確認します"
+          },
+          "sound": {
+            "title": "サウンド",
+            "description": "抽選の効果音を設定します。"
+          },
+          "profiles": {
+            "title": "プロフィール",
+            "description": "プレイヤー用の再利用可能なBANプロフィールを作成します。"
           }
         },
         "settingsSidebar": {
           "configuration": "設定",
           "configurationDescription": "抽選をカスタマイズ",
-          "bans": "使用禁止",
-          "individualBans": "個別使用禁止",
+          "bans": "BAN",
+          "individualBans": "個別BAN",
           "draws": "抽選",
           "development": "開発",
           "repository": "リポジトリ",
-          "issues": "問題",
+          "issues": "Issues",
           "logs": "ログ",
-          "challengeMode": "チャレンジモード"
+          "challengeMode": "チャレンジモード",
+          "sound": "サウンド",
+          "profiles": "プロフィール"
         },
         "logsSettings": {
-          "emptyTitle": "抽選ログが見つかりません",
-          "emptyDescription": "抽選ログは、抽選を実行した際にここに表示されます。これらのログは、お使いのブラウザにローカルに保存され、誰とも共有されません。",
+          "emptyTitle": "抽選ログがありません",
+          "emptyDescription": "抽選を行うと、ここにログが表示されます。ログはブラウザ内にローカル保存され、他の人と共有されません",
           "draw": "抽選",
           "character": "キャラクター",
           "characters": "キャラクター"
@@ -109,8 +129,36 @@
         "challengeMode": {
           "active": "チャレンジモード有効",
           "inactive": "チャレンジモード無効",
-          "inactiveDescription": "チャレンジモードを有効にすると、自動的に特別なルールが抽選に適用されます。",
-          "activeDescription": "引かれたキャラクターは全体の使用禁止に追加されます。"
+          "inactiveDescription": "チャレンジモードを有効にすると、特別ルールが抽選に自動適用されます。",
+          "activeDescription": "抽選されたキャラクターはグローバルBANに追加されます。",
+          "banMode": "BAN方式",
+          "banModeDescription": "抽選されたキャラクターのBAN方法を選択します。",
+          "globalBan": "グローバルBAN",
+          "globalBanDescription": "抽選されたキャラクターは今後の抽選でどの位置にも登場できません。",
+          "individualBan": "個別BAN",
+          "individualBanDescription": "各キャラクターは抽選された位置でのみBANされます。"
+        },
+        "sound": {
+          "enabled": "効果音",
+          "enabledDescription": "抽選の効果音を有効または無効にします。",
+          "tickVolume": "抽選音量",
+          "tickVolumeDescription": "キャラクターが切り替わるたびに再生される音の音量です。",
+          "resultVolume": "結果音量",
+          "resultVolumeDescription": "結果が表示されたときに再生される音の音量です。"
+        },
+        "profilesSettings": {
+          "newProfile": "新しいプロフィール",
+          "noProfiles": "プロフィールがありません",
+          "profileName": "プロフィール名",
+          "profileNamePlaceholder": "例：Ricardo、EduArfo、Gustavo、José など",
+          "create": "プロフィールを作成",
+          "cancel": "キャンセル",
+          "delete": "削除",
+          "bannedCharacters": "BANされたキャラクター",
+          "import": "インポート",
+          "export": "エクスポート",
+          "invalidJson": "選択したファイルに有効なJSONが含まれていません。",
+          "invalidProfile": "選択したファイルは有効なプロフィールではありません。"
         }
       },
       "teamModal": {
@@ -118,57 +166,57 @@
         "close": "閉じる",
         "oneCharacterDrawn": "抽選されたキャラクター",
         "multipleCharactersDrawn": "抽選されたチーム",
-        "oneCharacterDefined": "キャラクターが決定しました",
-        "multipleCharactersDefined": "チームが決定しました"
+        "oneCharacterDefined": "あなたのキャラクターが決まりました",
+        "multipleCharactersDefined": "あなたのチームが決まりました"
       },
       "about": {
-        "title": "Rumble Challenge",
-        "description": "Rumble Challengeは、ランダムにチームを抽選するためのシンプルなツールです。キャラクターの数を設定し、使用禁止のキャラクターを選択して、抽選ボタンを押すだけで、すべての設定を尊重した有効なチームが自動的に選ばれます。",
+        "title": "Rumble Challengeについて",
+        "description": "キャラクターチームの抽選をより簡単で楽しくするためのツールです。さまざまな設定、BAN、ゲームモードを利用できます。",
         "close": "閉じる",
-        "featuresTitle": "主な機能",
-        "featuresDescription": "主要な機能を確認してください。",
-        "github": "GitHubで表示",
-        "footer": "コミュニティのために開発された独立したプロジェクトです。",
+        "featuresTitle": "機能",
+        "featuresDescription": "主な機能を確認できます。",
+        "github": "GitHubで見る",
+        "footer": "コミュニティ向けに開発された非公式の独立プロジェクトです。",
         "howItWorks": {
-          "title": "どのように動作しますか？",
-          "description": "キャラクターの数を設定し、希望する禁止キャラクターを選択して、抽選ボタンを押してください。システムはすべての設定を尊重した有効なチームを自動的に選択します。"
+          "title": "使い方",
+          "description": "キャラクター数とBANを設定して抽選ボタンを押すと、すべての設定に従って有効なチームが自動的に選ばれます。"
         },
         "challenge": {
           "title": "チャレンジモード",
-          "description": "チャレンジモードでは、各抽選後に抽選されたキャラクターがグローバル Bans に追加されます。このため、次のチームは異なるキャラクターを使用する必要があります。"
+          "description": "チャレンジモードでは、抽選されたキャラクターが抽選後にグローバルBANへ追加されます。そのため、次のチームは別のキャラクターを使用する必要があります。"
         },
         "features": {
           "draw": {
-            "title": "自動チーム抽選",
-            "description": "キャラクターの数を設定し、希望する禁止キャラクターを選択して、抽選ボタンを押してください。システムはすべての設定を尊重した有効なチームを自動的に選択します。"
+            "title": "チーム抽選",
+            "description": "使用可能なキャラクターからランダムなチームを自動生成します。"
           },
           "drawSettings": {
             "title": "抽選設定",
-            "description": "キャラクターの数と抽選アニメーションの速度を選択してください。"
+            "description": "キャラクター数と抽選アニメーションの速度を選択します。"
           },
           "globalBans": {
-            "title": "グローバルな禁止",
-            "description": "すべての抽選から特定のキャラクターを除外します。"
+            "title": "グローバルBAN",
+            "description": "特定のキャラクターをすべての抽選から除外します。"
           },
           "individualBans": {
-            "title": "個別使用禁止",
-            "description": "特定のキャラクターがチームの特定の位置を占めることを防ぎます。"
+            "title": "個別BAN",
+            "description": "特定のチーム位置に配置できないキャラクターを設定します。"
           },
           "challengeMode": {
             "title": "チャレンジモード",
-            "description": "連続する抽選間でキャラクターを繰り返さないように、自動的に抽選されたキャラクターを禁止リストに追加します。"
+            "description": "抽選されたキャラクターを自動的にBANへ追加し、抽選間の重複を防ぎます。"
           },
           "history": {
             "title": "抽選履歴",
-            "description": "以前に抽選されたチームを確認してください。"
+            "description": "過去に抽選されたチームを確認します。"
           },
           "languages": {
-            "title": "複数の言語",
-            "description": "言語セレクターを使用して、異なる言語でアプリケーションを使用してください。"
+            "title": "多言語",
+            "description": "言語セレクターからさまざまな言語でアプリを利用できます。"
           },
           "multiplayer": {
             "title": "マルチプレイヤー",
-            "description": "他のプレイヤーと接続し、リアルタイムで抽選を同期します。"
+            "description": "他のプレイヤーと接続し、抽選をリアルタイムで同期します。"
           }
         }
       },
@@ -177,44 +225,44 @@
         "type": "タイプ"
       },
       "multiplayer": {
-        "multiplayer": "マルチプレイ",
+        "multiplayer": "マルチプレイヤー",
         "host": "ホスト",
         "participant": "参加者",
         "cannotAutoCopy": "自動的にコピーできませんでした。コードを選択して手動でコピーしてください。",
         "unableToGenerateCode": "接続コードを生成できませんでした。",
-        "unableToProcessParticipantCode": "参加者のコードを処理できませんでした。",
+        "unableToProcessParticipantCode": "参加者コードを処理できませんでした。",
         "unableToConnectToHost": "ホストに接続できませんでした。",
-        "directConectionThroughBrowser": "ブラウザ間で直接接続します。",
-        "unableToCompleteAction": "操作を完了できませんでした。",
+        "directConectionThroughBrowser": "ブラウザ間の直接接続。",
+        "unableToCompleteAction": "操作を完了できませんでした",
         "howToParticipate": "どのように参加しますか？",
-        "chooseWhoControlsDraw": "抽選を操作する人を選択してください。",
+        "chooseWhoControlsDraw": "抽選を操作する人を選択します。",
         "createStream": "配信を作成",
-        "createStreamDescription": "抽選を操作し、その内容を他の参加者にリアルタイムで配信します。",
+        "createStreamDescription": "抽選を操作し、他の人へリアルタイムで同期します。",
         "beTheHost": "ホストになる",
         "participate": "参加する",
-        "accompanyDraws": "ホストが行う抽選を確認します。",
+        "accompanyDraws": "ホストが行う抽選を自動的に追跡します。",
         "preparing": "準備中...",
         "enterAsParticipant": "参加者として入る",
-        "notNecessaryToCreateAccount": "アカウントやルームを作成する必要はありません。WebRTCを使用してブラウザ間で直接接続されます。",
+        "notNecessaryToCreateAccount": "アカウントやルームを作成する必要はありません。WebRTCを使用してブラウザ間で直接接続します。",
         "activeStream": "配信中",
-        "synchronizedDraws": "このブラウザで行われる抽選が同期されます。",
+        "synchronizedDraws": "このブラウザの抽選が同期されます。",
         "connected": "接続済み",
-        "connecteds": "接続済み",
+        "connecteds": "接続中",
         "receiveCode": "コードを受け取る",
         "generateResponse": "応答を生成",
         "send": "送信",
         "step": "ステップ",
-        "pasteParticipantCode": "参加者のコードを貼り付け",
-        "pasteParticipantCodeDescription": "参加者のデバイスで生成されたコードをコピーしてもらってください。",
+        "pasteParticipantCode": "参加者コードを貼り付ける",
+        "pasteParticipantCodeDescription": "相手の端末で生成されたコードをコピーしてもらってください。",
         "pasteCodeHere": "ここにコードを貼り付け...",
         "generatingResponse": "コードを処理中...",
-        "responseReady": "応答の準備ができました",
-        "copyAndPasteToSameParticipant": "このコードをコピーして、同じ参加者に送信してください。",
+        "responseReady": "応答の準備完了",
+        "copyAndPasteToSameParticipant": "このコードをコピーして同じ参加者に送信してください。",
         "copyResponse": "応答をコピー",
         "addOtherParticipant": "別の参加者を追加",
         "doneStream": "配信を終了",
         "connectedToHost": "ホストに接続済み",
-        "allReadysynchronizedDraws": "準備完了です。ホストが行う抽選や変更は、このデバイスに自動的に同期されます。",
+        "allReadysynchronizedDraws": "準備完了です。ホストによる抽選や変更はこの端末に自動的に同期されます。",
         "syncActive": "同期中",
         "leaveStream": "配信から退出",
         "connectToHost": "ホストに接続",
@@ -224,10 +272,10 @@
         "generating": "生成中...",
         "generateAnother": "別のコードを生成",
         "generateCode": "コードを生成",
-        "coppied": "コピーしました！",
+        "copied": "コピーしました！",
         "copy": "コピー",
-        "pasteResponse": "応答を貼り付け",
-        "pasteResponseDescription": "ホストから別のコードが送られてきます。ここに貼り付けてください。",
+        "pasteResponse": "応答を貼り付ける",
+        "pasteResponseDescription": "ホストから別のコードが返されます。ここに貼り付けてください。",
         "connectingToHost": "ホストに接続中...",
         "connect": "接続",
         "cancel": "キャンセル"

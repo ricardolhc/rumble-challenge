@@ -3,10 +3,10 @@
     "page": {
       "loadingCharacters": "Charaktere werden geladen...",
       "loadingCharactersError": "Fehler beim Laden der Charaktere",
-      "loadingCharactersErrorDescription": "Die Charaktere konnten nicht geladen werden. Bitte versuche es erneut.",
+      "loadingCharactersErrorDescription": "Die Charaktere konnten nicht geladen werden. Versuche es erneut.",
       "loadingCharacterDescription": "Charakterbeschreibung wird geladen...",
       "characterDescriptionUnavailable": "Charakterbeschreibung nicht verfügbar",
-      "connectedToHost": "Mit dem Host verbunden — warte auf die nächste Ziehung",
+      "connectedToHost": "Mit dem Host verbunden — warte auf die nächste Auslosung",
       "connectingToHost": "Verbindung zum Host wird vorbereitet"
     },
     "components": {
@@ -18,8 +18,8 @@
           "title": "Team-Auslosung",
           "subtitle": "Ziehe ein bis drei Charaktere",
           "availableCharacters": "verfügbare Charaktere",
-          "oneCharacterPerDraw": "Charakter pro Ziehung",
-          "multipleCharactersPerDraw": "Charaktere pro Ziehung",
+          "oneCharacterPerDraw": "Charakter pro Auslosung",
+          "multipleCharactersPerDraw": "Charaktere pro Auslosung",
           "oneCharacterBanned": "gesperrt",
           "multipleCharactersBanned": "gesperrt",
           "challengeModeEnabled": "Herausforderungsmodus aktiv"
@@ -37,37 +37,43 @@
           "banned": "Gesperrt"
         },
         "drawSettings": {
-          "drawCount": "Anzahl der Charaktere pro Ziehung",
-          "drawCountDescription": "Wähle aus, wie viele Charaktere gleichzeitig gezogen werden",
+          "drawCount": "Anzahl der Charaktere pro Auslosung",
+          "drawCountDescription": "Wähle, wie viele Charaktere gleichzeitig ausgelost werden",
           "oneCharacterPerDraw": "1 Charakter",
           "twoCharactersPerDraw": "2 Charaktere",
           "threeCharactersPerDraw": "3 Charaktere",
-          "drawSpeed": "Ziehungsgeschwindigkeit",
-          "drawSpeedDescription": "Lege die Geschwindigkeit der Animation während der Ziehung fest",
+          "drawSpeed": "Auslosungsgeschwindigkeit",
+          "drawSpeedDescription": "Lege die Geschwindigkeit der Auslosungsanimation fest",
           "slow": "Langsam",
           "normal": "Normal",
           "fast": "Schnell",
           "instant": "Sofort",
+          "superSlow": "Sehr langsam",
           "currentDraw": "Aktuell werden ausgelost",
-          "inSpeed": "mit",
-          "slowSpeed": "langsamer Geschwindigkeit",
-          "normalSpeed": "normaler Geschwindigkeit",
-          "fastSpeed": "schneller Geschwindigkeit",
-          "instantSpeed": "sofortiger Geschwindigkeit",
+          "inSpeed": "mit Geschwindigkeit",
+          "slowSpeed": "langsam",
+          "normalSpeed": "normal",
+          "fastSpeed": "schnell",
+          "superSlowSpeed": "sehr langsam",
+          "instantSpeed": "sofort",
           "challengeMode": "Herausforderungsmodus",
-          "challengeModeDescription": "Die gezogenen Charaktere dürfen in zukünftigen Ziehungen nicht wiederholt werden",
+          "challengeModeDescription": "Ausgeloste Charaktere können in zukünftigen Auslosungen nicht erneut erscheinen",
           "challengeModeActive": "Herausforderungsmodus aktiv",
           "character": "Charakter",
           "characters": "Charaktere"
         },
         "globalBansSettings": {
           "bannedFrom": "gesperrt von",
-          "cleanBans": "Sperren aufheben"
+          "cleanBans": "Sperren löschen"
         },
         "individualBansSettings": {
           "member": "Mitglied",
           "clearMember": "Mitglied zurücksetzen",
-          "bannedCharacters": "Charaktere, die für diese Position gesperrt sind"
+          "bannedCharacters": "in dieser Position gesperrte Charaktere",
+          "profile": "Sperrprofil",
+          "profileDescription": "Das Anwenden eines Profils ersetzt die aktuellen Sperren dieses Mitglieds.",
+          "selectProfile": "Profil auswählen",
+          "noProfiles": "Keine Profile verfügbar"
         },
         "settingsHeader": {
           "bans": {
@@ -76,99 +82,141 @@
           },
           "challengeMode": {
             "title": "Herausforderungsmodus",
-            "description": "Konfiguriere die speziellen Regeln des Herausforderungsmodus"
+            "description": "Konfiguriere die Sonderregeln des Herausforderungsmodus"
           },
           "individualBans": {
             "title": "Individuelle Sperren",
-            "description": "Wähle aus, welche Charaktere an den jeweiligen Positionen nicht erscheinen dürfen"
+            "description": "Wähle, welche Charaktere an jeder Position nicht erscheinen dürfen"
           },
           "draws": {
-            "title": "Ziehungen",
-            "description": "Lege fest, wie viele Charaktere gezogen werden"
+            "title": "Auslosungen",
+            "description": "Lege fest, wie viele Charaktere ausgelost werden"
+          },
+          "logs": {
+            "title": "Protokolle",
+            "description": "Sieh dir die Protokolle früherer Auslosungen an"
+          },
+          "sound": {
+            "title": "Ton",
+            "description": "Konfiguriere die Soundeffekte der Auslosung."
+          },
+          "profiles": {
+            "title": "Profile",
+            "description": "Erstelle wiederverwendbare Sperrprofile für deine Spieler."
           }
         },
         "settingsSidebar": {
-          "configuration": "Einstellungen",
-          "configurationDescription": "Passe die Ziehung an",
+          "configuration": "Konfiguration",
+          "configurationDescription": "Passe die Auslosung an",
           "bans": "Sperren",
           "individualBans": "Individuelle Sperren",
-          "draws": "Ziehungen",
+          "draws": "Auslosungen",
           "development": "Entwicklung",
           "repository": "Repository",
           "issues": "Probleme",
           "logs": "Protokolle",
-          "challengeMode": "Herausforderungsmodus"
+          "challengeMode": "Herausforderungsmodus",
+          "sound": "Ton",
+          "profiles": "Profile"
         },
         "logsSettings": {
-          "emptyTitle": "Keine Ziehungsprotokolle gefunden",
-          "emptyDescription": "Ziehungsprotokolle werden hier angezeigt, wenn du Ziehungen durchführst. Sie werden lokal in deinem Browser gespeichert und nicht mit anderen geteilt.",
-          "draw": "Ziehung",
+          "emptyTitle": "Keine Auslosungsprotokolle gefunden",
+          "emptyDescription": "Auslosungsprotokolle werden hier angezeigt, nachdem du Auslosungen durchgeführt hast. Sie werden lokal in deinem Browser gespeichert und mit niemandem geteilt",
+          "draw": "Auslosung",
           "character": "Charakter",
           "characters": "Charaktere"
         },
         "challengeMode": {
           "active": "Herausforderungsmodus aktiv",
-          "inactive": "Herausforderungsmodus inaktiv",
-          "inactiveDescription": "Aktiviere den Herausforderungsmodus, um automatisch spezielle Regeln auf Ziehungen anzuwenden.",
-          "activeDescription": "Die gezogenen Charaktere werden Teil der globalen Sperren."
+          "inactive": "Herausforderungsmodus deaktiviert",
+          "inactiveDescription": "Aktiviere den Herausforderungsmodus, um die Sonderregeln automatisch auf Auslosungen anzuwenden.",
+          "activeDescription": "Ausgeloste Charaktere werden zu den globalen Sperren hinzugefügt.",
+          "banMode": "Sperrtyp",
+          "banModeDescription": "Wähle, wie ausgeloste Charaktere gesperrt werden.",
+          "globalBan": "Globale Sperre",
+          "globalBanDescription": "Ausgeloste Charaktere können bei den nächsten Auslosungen an keiner Position erscheinen.",
+          "individualBan": "Individuelle Sperre",
+          "individualBanDescription": "Jeder Charakter wird nur für die Position gesperrt, an der er ausgelost wurde."
+        },
+        "sound": {
+          "enabled": "Soundeffekte",
+          "enabledDescription": "Aktiviert oder deaktiviert die Soundeffekte der Auslosung.",
+          "tickVolume": "Auslosungslautstärke",
+          "tickVolumeDescription": "Lautstärke des Tons bei jedem Charakterwechsel.",
+          "resultVolume": "Ergebnislautstärke",
+          "resultVolumeDescription": "Lautstärke des Tons, wenn das Ergebnis angezeigt wird."
+        },
+        "profilesSettings": {
+          "newProfile": "Neues Profil",
+          "noProfiles": "Keine Profile erstellt",
+          "profileName": "Profilname",
+          "profileNamePlaceholder": "Z. B.: Ricardo, EduArfo, Gustavo, José usw.",
+          "create": "Profil erstellen",
+          "cancel": "Abbrechen",
+          "delete": "Löschen",
+          "bannedCharacters": "gesperrte Charaktere",
+          "import": "Importieren",
+          "export": "Exportieren",
+          "invalidJson": "Die ausgewählte Datei enthält kein gültiges JSON.",
+          "invalidProfile": "Die ausgewählte Datei ist kein gültiges Profil."
         }
       },
       "teamModal": {
         "member": "Mitglied",
         "close": "Schließen",
-        "oneCharacterDrawn": "Gezogener Charakter",
-        "multipleCharactersDrawn": "Gezogenes Team",
-        "oneCharacterDefined": "Dein Charakter wurde ausgewählt",
-        "multipleCharactersDefined": "Dein Team wurde ausgewählt"
+        "oneCharacterDrawn": "Ausgeloster Charakter",
+        "multipleCharactersDrawn": "Ausgelostes Team",
+        "oneCharacterDefined": "Dein Charakter wurde festgelegt",
+        "multipleCharactersDefined": "Dein Team wurde festgelegt"
       },
       "about": {
         "title": "Über Rumble Challenge",
-        "description": "Ein Tool, das erstellt wurde, um das Zeichnen von Charakterteams zu erleichtern und es spaßiger zu machen, mit verschiedenen Konfigurationen, Sperren und Spielmodi.",
+        "description": "Ein Tool, das Team-Auslosungen für Charaktere einfacher und unterhaltsamer macht und verschiedene Einstellungen, Sperren und Spielmodi bietet.",
         "close": "Schließen",
         "featuresTitle": "Funktionen",
         "featuresDescription": "Entdecke die wichtigsten verfügbaren Funktionen.",
         "github": "Auf GitHub ansehen",
-        "footer": "Unabhängiges Projekt, das für die Community entwickelt wurde.",
+        "footer": "Unabhängiges Projekt, entwickelt für die Community.",
         "howItWorks": {
           "title": "Wie funktioniert es?",
-          "description": "Konfiguriere die Anzahl der Charaktere, wähle die gewünschten Sperren aus und drücke die Ziehungstaste. Das System wählt automatisch ein gültiges Team aus, das alle Konfigurationen respektiert."
+          "description": "Lege die Anzahl der Charaktere fest, wähle die gewünschten Sperren und drücke die Auslosungstaste. Das System wählt automatisch ein gültiges Team unter Berücksichtigung aller Einstellungen aus."
         },
         "challenge": {
           "title": "Herausforderungsmodus",
-          "description": "Im Herausforderungsmodus werden die gezogenen Charaktere nach jeder Ziehung zu den globalen Sperren hinzugefügt. Auf diese Weise müssen die folgenden Teams unterschiedliche Charaktere verwenden."
+          "description": "Im Herausforderungsmodus werden ausgeloste Charaktere nach jeder Auslosung zu den globalen Sperren hinzugefügt. Dadurch müssen nachfolgende Teams andere Charaktere verwenden."
         },
         "features": {
           "draw": {
-            "title": "Team-Ziehungen",
+            "title": "Team-Auslosung",
             "description": "Erstelle automatisch zufällige Teams aus den verfügbaren Charakteren."
           },
           "drawSettings": {
-            "title": "Ziehungs-Einstellungen",
-            "description": "Wähle die Anzahl der Charaktere und die Geschwindigkeit der Ziehungsanimation."
+            "title": "Auslosungseinstellungen",
+            "description": "Wähle die Anzahl der Charaktere und die Geschwindigkeit der Auslosungsanimation."
           },
           "globalBans": {
             "title": "Globale Sperren",
-            "description": "Entferne bestimmte Charaktere aus allen Ziehungen."
+            "description": "Entferne bestimmte Charaktere aus allen Auslosungen."
           },
           "individualBans": {
             "title": "Individuelle Sperren",
-            "description": "Definiere, welche Charaktere bestimmte Positionen in der Mannschaft nicht einnehmen dürfen."
+            "description": "Lege fest, welche Charaktere bestimmte Teampositionen nicht einnehmen dürfen."
           },
           "challengeMode": {
             "title": "Herausforderungsmodus",
-            "description": "Vermeide das Wiederholen von Charakteren zwischen aufeinanderfolgenden Ziehungen, indem die gezogenen Charaktere automatisch zu den Sperren hinzugefügt werden."
+            "description": "Verhindere Wiederholungen zwischen Auslosungen, indem ausgeloste Charaktere automatisch gesperrt werden."
           },
           "history": {
-            "title": "Ziehungs-Historie",
-            "description": "Prüfe die zuvor gezogenen Teams."
+            "title": "Auslosungsverlauf",
+            "description": "Sieh dir zuvor ausgeloste Teams an."
           },
           "languages": {
             "title": "Mehrere Sprachen",
-            "description": "Verwende die Anwendung in verschiedenen Sprachen über den Sprachauswahldialog."
+            "description": "Verwende die Anwendung über die Sprachauswahl in verschiedenen Sprachen."
           },
           "multiplayer": {
             "title": "Mehrspieler",
-            "description": "Verbinde dich mit anderen Spielern und synchronisiere die Ziehungen in Echtzeit."
+            "description": "Verbinde dich mit anderen Spielern und synchronisiere Auslosungen in Echtzeit."
           }
         }
       },
@@ -180,54 +228,54 @@
         "multiplayer": "Mehrspieler",
         "host": "Host",
         "participant": "Teilnehmer",
-        "cannotAutoCopy": "Der Code konnte nicht automatisch kopiert werden. Bitte wähle ihn aus und kopiere ihn manuell.",
+        "cannotAutoCopy": "Automatisches Kopieren war nicht möglich. Wähle den Code aus und kopiere ihn manuell.",
         "unableToGenerateCode": "Der Verbindungscode konnte nicht erstellt werden.",
-        "unableToProcessParticipantCode": "Der Code des Teilnehmers konnte nicht verarbeitet werden.",
-        "unableToConnectToHost": "Die Verbindung zum Host konnte nicht hergestellt werden.",
-        "directConectionThroughBrowser": "Direkte Verbindung zwischen den Browsern.",
-        "unableToCompleteAction": "Die Aktion konnte nicht abgeschlossen werden.",
+        "unableToProcessParticipantCode": "Der Teilnehmercode konnte nicht verarbeitet werden.",
+        "unableToConnectToHost": "Verbindung zum Host nicht möglich.",
+        "directConectionThroughBrowser": "Direkte Verbindung zwischen Browsern.",
+        "unableToCompleteAction": "Aktion konnte nicht abgeschlossen werden",
         "howToParticipate": "Wie möchtest du teilnehmen?",
-        "chooseWhoControlsDraw": "Wähle aus, wer die Ziehung steuern soll.",
+        "chooseWhoControlsDraw": "Wähle, wer die Auslosung steuert.",
         "createStream": "Übertragung erstellen",
-        "createStreamDescription": "Steuere die Ziehungen und übertrage sie in Echtzeit an die anderen Teilnehmer.",
-        "beTheHost": "Host werden",
+        "createStreamDescription": "Steuere die Auslosungen und übertrage alles in Echtzeit an andere.",
+        "beTheHost": "Host sein",
         "participate": "Teilnehmen",
-        "accompanyDraws": "Verfolge die vom Host durchgeführten Ziehungen.",
+        "accompanyDraws": "Verfolge automatisch die vom Host durchgeführten Auslosungen.",
         "preparing": "Wird vorbereitet...",
         "enterAsParticipant": "Als Teilnehmer beitreten",
-        "notNecessaryToCreateAccount": "Es ist nicht notwendig, ein Konto oder einen Raum zu erstellen. Die Verbindung wird über WebRTC direkt zwischen den Browsern hergestellt.",
+        "notNecessaryToCreateAccount": "Es ist kein Konto und kein Raum erforderlich. Die Verbindung erfolgt über WebRTC direkt zwischen den Browsern.",
         "activeStream": "Aktive Übertragung",
-        "synchronizedDraws": "Die Ziehungen dieses Browsers werden synchronisiert.",
+        "synchronizedDraws": "Die Auslosungen dieses Browsers werden synchronisiert.",
         "connected": "Verbunden",
         "connecteds": "Verbunden",
         "receiveCode": "Code empfangen",
         "generateResponse": "Antwort erstellen",
         "send": "Senden",
         "step": "Schritt",
-        "pasteParticipantCode": "Code des Teilnehmers einfügen",
-        "pasteParticipantCodeDescription": "Bitte den Teilnehmer, den auf seinem Gerät erstellten Code zu kopieren.",
+        "pasteParticipantCode": "Teilnehmercode einfügen",
+        "pasteParticipantCodeDescription": "Bitte die Person, den auf ihrem Gerät generierten Code zu kopieren.",
         "pasteCodeHere": "Code hier einfügen...",
         "generatingResponse": "Code wird verarbeitet...",
-        "responseReady": "Antwort ist bereit",
+        "responseReady": "Antwort bereit",
         "copyAndPasteToSameParticipant": "Kopiere diesen Code und sende ihn an denselben Teilnehmer.",
         "copyResponse": "Antwort kopieren",
         "addOtherParticipant": "Weiteren Teilnehmer hinzufügen",
         "doneStream": "Übertragung beenden",
         "connectedToHost": "Mit dem Host verbunden",
-        "allReadysynchronizedDraws": "Alles ist bereit. Ziehungen und Änderungen des Hosts werden automatisch mit diesem Gerät synchronisiert.",
+        "allReadysynchronizedDraws": "Alles bereit. Auslosungen und Änderungen des Hosts werden auf diesem Gerät automatisch synchronisiert.",
         "syncActive": "Synchronisierung aktiv",
         "leaveStream": "Übertragung verlassen",
         "connectToHost": "Mit Host verbinden",
-        "twoOnlySteps": "Es sind nur zwei Schritte.",
+        "twoOnlySteps": "Nur zwei Schritte.",
         "sendYourCode": "Sende deinen Code",
         "sendYourCodeDescription": "Erstelle den Code, kopiere ihn und sende ihn an den Host.",
         "generating": "Wird erstellt...",
-        "generateAnother": "Neuen Code erstellen",
+        "generateAnother": "Neuen erstellen",
         "generateCode": "Code erstellen",
-        "coppied": "Kopiert!",
+        "copied": "Kopiert!",
         "copy": "Kopieren",
         "pasteResponse": "Antwort einfügen",
-        "pasteResponseDescription": "Der Host sendet dir einen weiteren Code. Füge ihn hier ein.",
+        "pasteResponseDescription": "Der Host sendet einen weiteren Code zurück. Füge ihn hier ein.",
         "connectingToHost": "Verbindung zum Host wird hergestellt...",
         "connect": "Verbinden",
         "cancel": "Abbrechen"
