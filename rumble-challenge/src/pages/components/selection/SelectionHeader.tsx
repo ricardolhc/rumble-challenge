@@ -32,11 +32,7 @@ export function SelectionHeader({
         {t("selection.components.selection.selectionHeader.title")}
       </h1>
 
-      <p className="mt-1 max-w-2xl text-sm text-slate-400">
-        {t("selection.components.selection.selectionHeader.subtitle")}
-      </p>
-
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
         <Badge>
           {availableCharactersCount}{" "}
           {t(
