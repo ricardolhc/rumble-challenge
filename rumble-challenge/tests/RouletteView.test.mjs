@@ -20,7 +20,7 @@ test("the wheel displays photos only for its eligible characters", () => {
   assert.ok(html.includes('href="hero-0.png"'));
   assert.ok(html.includes('href="hero-2.png"'));
   assert.ok(!html.includes('href="hero-1.png"'));
-  assert.ok(html.includes("Roleta de personagens"));
+  assert.ok(!html.includes("<h2>Roleta de personagens"));
   assert.ok(!html.includes("NaN"));
 });
 
@@ -36,11 +36,25 @@ test("two selected characters launch two balls without the lateral member panel"
   assert.ok(!html.includes("Membro 2"));
 });
 
-test("member bans retain their explanation without the removed roulette captions", () => {
+test("roulette omits the removed captions and ban explanation", () => {
   const html = render({ drawCount: 3, hasIndividualBans: true, challengeMode: true });
-  assert.ok(html.includes("Cada bolinha respeita os banimentos do seu membro"));
+  assert.ok(!html.includes("Cada bolinha respeita os banimentos do seu membro"));
   assert.ok(!html.includes("3 bolinhas, 3 personagens"));
   assert.ok(!html.includes("O Modo Desafio aplica os banimentos após o giro"));
+});
+
+test("the branded center is the launch button and displays the configured ball count", () => {
+  const html = render({ drawCount: 3, hasAvailableTeam: true, onDraw: () => {} });
+  assert.ok(html.includes('<button type="button" class="roulette__hub"'));
+  assert.ok(html.includes('aria-label="Lançar 3 bolinhas"'));
+  assert.ok(html.includes("3 bolas"));
+  assert.ok(html.includes("favicon-rumble.png"));
+  assert.ok(html.includes("CHALLENGE"));
+  assert.ok(!html.includes('disabled=""'));
+  for (const props of [{ isSelecting: true }, { hasAvailableTeam: false }, { onDraw: undefined }]) {
+    assert.ok(render({ hasAvailableTeam: true, onDraw: () => {}, ...props }).includes('disabled=""'));
+  }
+  assert.ok(render({ drawCount: 1 }).includes("1 bola"));
 });
 
 test("an empty wheel does not fabricate pockets or results", () => {

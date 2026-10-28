@@ -165,11 +165,12 @@ interface RouletteProps {
   drawCount: DrawCount;
   frame: RouletteFrame | null;
   isSelecting: boolean;
-  hasIndividualBans: boolean;
+  hasAvailableTeam?: boolean;
+  onDraw?: () => void;
   infos: CharacterNames;
 }
 
-export function Roulette({ characters, entries, drawCount, frame: previousFrame, isSelecting, hasIndividualBans, infos }: RouletteProps) {
+export function Roulette({ characters, entries, drawCount, frame: previousFrame, isSelecting, hasAvailableTeam = false, onDraw, infos }: RouletteProps) {
   const { t } = useTranslation();
   const eligible = new Set(entries);
   const sameEntries = previousFrame?.animation.entries.length === entries.length &&
@@ -178,12 +179,15 @@ export function Roulette({ characters, entries, drawCount, frame: previousFrame,
     (isSelecting || sameEntries)
     ? previousFrame : null;
   const visibleEntries = frame?.animation.entries ?? entries;
+  const disabled = isSelecting || !hasAvailableTeam || !onDraw;
+  const launchLabel = isSelecting
+    ? t("selection.components.selection.drawButton.selecting")
+    : !onDraw ? t("selection.components.selection.roulette.title")
+    : !hasAvailableTeam ? t("selection.components.selection.drawButton.impossibleDraw")
+    : t("selection.components.selection.roulette.launch", { count: drawCount });
 
   return (
     <section className="roulette" aria-label={t("selection.components.selection.roulette.title")}>
-      <header className="roulette__header">
-        <h2>{t("selection.components.selection.roulette.title")}</h2>
-      </header>
       <div className="roulette__body">
         <div className="roulette__stage">
           <svg className="roulette__rim" viewBox="0 0 600 600" aria-hidden="true">
@@ -196,14 +200,14 @@ export function Roulette({ characters, entries, drawCount, frame: previousFrame,
           ) : (
             <div className="roulette__rotor"><WheelArt entries={entries} characters={characters} infos={infos} /></div>
           )}
-          <div className="roulette__hub" aria-hidden="true">
+          <button type="button" className="roulette__hub" disabled={disabled} onClick={onDraw} aria-label={launchLabel} aria-busy={isSelecting} title={launchLabel}>
             <img src={`${import.meta.env?.BASE_URL ?? "/"}favicon-rumble.png`} alt="" draggable={false} />
             <small>RUMBLE<br />CHALLENGE</small>
-          </div>
+            <span className="roulette__quantity">{t("selection.components.selection.roulette.balls", { count: drawCount })}</span>
+          </button>
         </div>
       </div>
       {visibleEntries.length === 0 && <p className="roulette__note">{t("selection.components.selection.roulette.empty")}</p>}
-      {hasIndividualBans && <p className="roulette__note">{t("selection.components.selection.roulette.individualBans")}</p>}
     </section>
   );
 }

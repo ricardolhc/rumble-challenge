@@ -605,8 +605,8 @@ export function SelectionPage() {
                 drawCount={displayedDrawCount}
                 frame={displayedRouletteFrame}
                 isSelecting={displayedIsSelecting}
-                hasIndividualBans={Array.from({ length: displayedDrawCount }, (_, slot) =>
-                  displayedIndividualBans[(slot + 1) as MemberSlot].size > 0).some(Boolean)}
+                hasAvailableTeam={hasAvailableTeam}
+                onDraw={isGuest ? undefined : handleSelectCharacters}
                 infos={infos}
               />
             ) : (
@@ -620,11 +620,8 @@ export function SelectionPage() {
               />
             )}
 
-            {!isGuest && displayedDrawMode !== "slot-machine" && (
+            {!isGuest && displayedDrawMode === "classic" && (
               <DrawButton
-                drawLabel={displayedDrawMode === "roulette"
-                  ? t("selection.components.selection.roulette.launch", { count: drawCount })
-                  : undefined}
                 drawCount={drawCount}
                 isSelecting={isSelecting}
                 hasAvailableTeam={hasAvailableTeam}

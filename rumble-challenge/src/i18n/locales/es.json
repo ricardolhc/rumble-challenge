@@ -48,7 +48,9 @@
           "rolling": "Bola en movimiento…",
           "empty": "No hay personajes disponibles para esta configuración.",
           "individualBans": "Cada bola respeta los bloqueos de su miembro. La rueda reúne personajes permitidos para al menos un miembro.",
-          "challenge": "El Modo Desafío aplica los bloqueos después del giro."
+          "challenge": "El Modo Desafío aplica los bloqueos después del giro.",
+          "balls_one": "{{count}} bola",
+          "balls_other": "{{count}} bolas"
         }
       },
       "settings": {

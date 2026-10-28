@@ -199,11 +199,6 @@ export function SlotMachine({
         aria-label={t("selection.components.selection.slotMachine.title")}
       >
         <SlotMachineLights />
-        <header className="slot-machine__header">
-          <div>
-            <h2>{t("selection.components.selection.slotMachine.title")}</h2>
-          </div>
-        </header>
         <div className="slot-machine__body">
           <div
             className="slot-machine__reels"

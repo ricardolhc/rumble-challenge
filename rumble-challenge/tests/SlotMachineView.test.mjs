@@ -27,9 +27,9 @@ test("before the first draw the reels already display characters without marking
   assert.ok(!html.includes("slot-machine__reel--locked"));
 });
 
-test("the header shows its title without the explanatory subtitle", () => {
+test("the machine omits the visible mode title and explanatory subtitle", () => {
   const html = render({});
-  assert.ok(html.includes("Caça-níquel"));
+  assert.ok(!html.includes("<h2>Caça-níquel"));
   assert.ok(!html.includes("Os rolos param um de cada vez."));
 });
 

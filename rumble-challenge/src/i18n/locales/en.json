@@ -48,7 +48,9 @@
           "rolling": "Ball in motion…",
           "empty": "No characters are available for these settings.",
           "individualBans": "Each ball respects its member’s bans. The wheel contains characters allowed for at least one member.",
-          "challenge": "Challenge Mode applies bans after the spin."
+          "challenge": "Challenge Mode applies bans after the spin.",
+          "balls_one": "{{count}} ball",
+          "balls_other": "{{count}} balls"
         }
       },
       "settings": {

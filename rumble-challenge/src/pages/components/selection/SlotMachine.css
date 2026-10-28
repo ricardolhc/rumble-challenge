@@ -311,22 +311,6 @@
   to { transform: rotateX(0deg); }
 }
 
-.slot-machine__header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 22px;
-  text-align: center;
-}
-
-.slot-machine__header h2 {
-  color: #fff;
-  font-size: 24px;
-  font-weight: 800;
-}
-
 .slot-machine__reels {
   min-width: 0;
   display: grid;

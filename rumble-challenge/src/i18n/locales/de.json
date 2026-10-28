@@ -48,7 +48,9 @@
           "rolling": "Kugel in Bewegung…",
           "empty": "Mit diesen Einstellungen sind keine Charaktere verfügbar.",
           "individualBans": "Jede Kugel beachtet die Sperren ihres Mitglieds. Das Rad zeigt Charaktere, die für mindestens ein Mitglied erlaubt sind.",
-          "challenge": "Der Herausforderungsmodus wendet Sperren nach der Drehung an."
+          "challenge": "Der Herausforderungsmodus wendet Sperren nach der Drehung an.",
+          "balls_one": "{{count}} Kugel",
+          "balls_other": "{{count}} Kugeln"
         }
       },
       "settings": {

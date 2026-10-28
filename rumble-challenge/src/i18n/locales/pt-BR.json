@@ -48,7 +48,9 @@
           "rolling": "Bolinha em movimento…",
           "empty": "Nenhum personagem disponível para esta configuração.",
           "individualBans": "Cada bolinha respeita os banimentos do seu membro. A roda reúne as opções permitidas para pelo menos um membro.",
-          "challenge": "O Modo Desafio aplica os banimentos após o giro."
+          "challenge": "O Modo Desafio aplica os banimentos após o giro.",
+          "balls_one": "{{count}} bola",
+          "balls_other": "{{count}} bolas"
         }
       },
       "settings": {

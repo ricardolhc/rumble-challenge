@@ -8,17 +8,6 @@
   box-shadow: 0 20px 50px #0005;
 }
 
-.roulette__header {
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.roulette__header h2 {
-  color: #fff;
-  font-size: 26px;
-  font-weight: 800;
-}
-
 .roulette__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -98,11 +87,27 @@
   border-radius: 50%;
   background: radial-gradient(circle at 40% 30%, #54645c, #26382f 48%, #111b17);
   box-shadow: inset 0 0 0 3px #141b17, inset 0 2px 8px #ffffff20, 0 8px 14px #0008;
-  pointer-events: none;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
+.roulette__hub:not(:disabled):hover,
+.roulette__hub:focus-visible {
+  border-color: #f1d28b;
+  outline: 2px solid #f1d28b;
+  outline-offset: 3px;
+  box-shadow: inset 0 0 15px #d8b66530, 0 0 20px #d8b66540;
+}
+
+.roulette__hub:not(:disabled):active {
+  transform: translate(-50%, -50%) scale(0.97);
+}
+
+.roulette__hub:disabled { cursor: default; }
+
 .roulette__hub img {
-  width: 42%;
+  width: 36%;
   aspect-ratio: 1;
   object-fit: contain;
   filter: drop-shadow(0 2px 3px #0008);
@@ -114,6 +119,12 @@
   font: 700 clamp(5px, 1.55cqw, 9px)/1.25 sans-serif;
   text-align: center;
   letter-spacing: 0.12em;
+}
+
+.roulette__quantity {
+  margin-top: 3px;
+  color: #f1dfb2;
+  font: 700 clamp(7px, 1.8cqw, 12px)/1.2 sans-serif;
 }
 
 .roulette__note {

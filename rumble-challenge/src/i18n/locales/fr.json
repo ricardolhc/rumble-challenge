@@ -48,7 +48,9 @@
           "rolling": "Bille en mouvement…",
           "empty": "Aucun personnage disponible avec ces paramètres.",
           "individualBans": "Chaque bille respecte les exclusions de son membre. La roue contient les personnages autorisés pour au moins un membre.",
-          "challenge": "Le mode Défi applique les exclusions après le tour."
+          "challenge": "Le mode Défi applique les exclusions après le tour.",
+          "balls_one": "{{count}} bille",
+          "balls_other": "{{count}} billes"
         }
       },
       "settings": {
