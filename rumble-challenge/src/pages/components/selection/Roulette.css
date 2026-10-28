@@ -101,17 +101,18 @@
   pointer-events: none;
 }
 
-.roulette__hub span {
-  color: #d9c48c;
-  font-family: "byk_font", sans-serif;
-  font-size: clamp(24px, 9cqw, 54px);
-  line-height: 1;
+.roulette__hub img {
+  width: 42%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px #0008);
 }
 
 .roulette__hub small {
-  margin-top: 5px;
+  margin-top: 3px;
   color: #b9ac88;
-  font: 700 clamp(6px, 1.6cqw, 10px)/1 sans-serif;
+  font: 700 clamp(5px, 1.55cqw, 9px)/1.25 sans-serif;
+  text-align: center;
   letter-spacing: 0.12em;
 }
 

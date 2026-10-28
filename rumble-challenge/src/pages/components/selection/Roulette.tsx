@@ -196,7 +196,10 @@ export function Roulette({ characters, entries, drawCount, frame: previousFrame,
           ) : (
             <div className="roulette__rotor"><WheelArt entries={entries} characters={characters} infos={infos} /></div>
           )}
-          <div className="roulette__hub" aria-hidden="true"><span>R</span><small>RUMBLE</small></div>
+          <div className="roulette__hub" aria-hidden="true">
+            <img src={`${import.meta.env?.BASE_URL ?? "/"}favicon-rumble.png`} alt="" draggable={false} />
+            <small>RUMBLE<br />CHALLENGE</small>
+          </div>
         </div>
       </div>
       {visibleEntries.length === 0 && <p className="roulette__note">{t("selection.components.selection.roulette.empty")}</p>}
