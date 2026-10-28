@@ -37,6 +37,18 @@
           "spinning": "Spinning…",
           "ready": "Ready to draw",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "Character roulette",
+          "description_one": "{{count}} ball, {{count}} character.",
+          "description_other": "{{count}} balls, {{count}} characters.",
+          "launch_one": "Launch {{count}} ball",
+          "launch_other": "Launch {{count}} balls",
+          "ready": "Waiting to launch",
+          "rolling": "Ball in motion…",
+          "empty": "No characters are available for these settings.",
+          "individualBans": "Each ball respects its member’s bans. The wheel contains characters allowed for at least one member.",
+          "challenge": "Challenge Mode applies bans after the spin."
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "Draw mode",
           "drawModeDescription": "Choose how the characters are revealed.",
           "classicMode": "Classic (grid)",
-          "slotMachineMode": "Slot machine"
+          "slotMachineMode": "Slot machine",
+          "rouletteMode": "Roulette"
         },
         "globalBansSettings": {
           "bannedFrom": "banned out of",

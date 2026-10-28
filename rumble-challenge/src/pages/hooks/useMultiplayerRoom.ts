@@ -8,7 +8,7 @@ import type {
   MultiplayerRole,
   MultiplayerStatus,
 } from "../multiplayer.types";
-import type { CharacterType, SlotMachineFrame } from "../selection.types";
+import type { CharacterType, RouletteFrame, SlotMachineFrame } from "../selection.types";
 import {
   decodeAnswerSignal,
   decodeOfferSignal,
@@ -37,7 +37,7 @@ type MultiplayerRoomMessage =
 
 interface UseMultiplayerRoomOptions {
   onDrawStart?: (mode?: DrawMode, count?: DrawCount) => void;
-  onDrawFrame?: (indexes: number[], frame?: SlotMachineFrame) => void;
+  onDrawFrame?: (indexes: number[], frame?: SlotMachineFrame, roulette?: RouletteFrame) => void;
   onDrawResult?: (team: CharacterType[]) => void;
   onDrawClose?: () => void;
   onRoomState?: (state: MultiplayerRoomState) => void;
@@ -154,7 +154,7 @@ export function useMultiplayerRoom({
           break;
 
         case "draw:frame":
-          callbacksRef.current.onDrawFrame?.(message.indexes, message.slotMachineFrame);
+          callbacksRef.current.onDrawFrame?.(message.indexes, message.slotMachineFrame, message.rouletteFrame);
           break;
 
         case "draw:result":
@@ -594,11 +594,12 @@ export function useMultiplayerRoom({
   }, [broadcastMessage]);
 
   const broadcastDrawFrame = useCallback(
-    (indexes: number[], slotMachineFrame?: SlotMachineFrame) => {
+    (indexes: number[], slotMachineFrame?: SlotMachineFrame, rouletteFrame?: RouletteFrame) => {
       broadcastMessage({
         type: "draw:frame",
         indexes,
         slotMachineFrame,
+        rouletteFrame,
       });
     },
     [broadcastMessage],

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 interface DrawButtonProps {
   appearance?: "button" | "lever";
+  drawLabel?: string;
   onPullingChange?: (pulling: boolean) => void;
   drawCount: DrawCount;
   isSelecting: boolean;
@@ -13,6 +14,7 @@ interface DrawButtonProps {
 
 export function DrawButton({
   appearance = "button",
+  drawLabel,
   onPullingChange,
   drawCount,
   isSelecting,
@@ -26,7 +28,7 @@ export function DrawButton({
     ? t("selection.components.selection.drawButton.selecting")
     : !hasAvailableTeam
       ? t("selection.components.selection.drawButton.impossibleDraw")
-      : drawCount === 1
+      : drawLabel ? drawLabel : drawCount === 1
         ? t("selection.components.selection.drawButton.drawOneCharacter")
         : t("selection.components.selection.drawButton.draw");
 

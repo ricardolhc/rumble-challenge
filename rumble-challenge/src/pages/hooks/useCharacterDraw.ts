@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { CharacterType, SlotMachineFrame } from "../selection.types";
+import type { CharacterType, RouletteFrame, SlotMachineFrame } from "../selection.types";
 import type {
   DrawCount,
   DrawMode,
@@ -7,6 +7,7 @@ import type {
   MemberSlot,
 } from "../components/settings/settings.types";
 import { getCharacterKey } from "../utils/selection.utils";
+import { createRouletteFrames, getRouletteEntries } from "../utils/roulette.utils";
 import { createSlotMachineFrames } from "../utils/slotMachine.utils";
 
 interface CharacterWithIndex {
@@ -89,6 +90,7 @@ export function useCharacterDraw({
   const isSelectingRef = useRef(false);
 
   const [slotMachineFrame, setSlotMachineFrame] = useState<SlotMachineFrame | null>(null);
+  const [rouletteFrame, setRouletteFrame] = useState<RouletteFrame | null>(null);
   const drawAbortRef = useRef<AbortController | null>(null);
 
   useEffect(() => () => drawAbortRef.current?.abort(), []);
@@ -281,11 +283,31 @@ export function useCharacterDraw({
     setIsSelecting(true);
     setSelectedTeam(null);
     setSlotMachineFrame(null);
+    setRouletteFrame(null);
 
     try {
       let finalTeam = initialTeam;
 
-      if (drawMode === "slot-machine") {
+      if (drawMode === "roulette") {
+        const frames = createRouletteFrames({
+          team: initialTeam,
+          entries: getRouletteEntries({
+            characters: charactersWithIndex,
+            members: getMemberSlots(),
+            bannedCharacters,
+            individualBans,
+          }),
+          speed: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant" : drawSpeed,
+        });
+        const startedAt = performance.now();
+        for (const frame of frames) {
+          setRouletteFrame(frame);
+          setHighlightedIndexes(frame.indexes);
+          await wait(Math.max(0, startedAt + frame.elapsed + frame.delay - performance.now()));
+          if (signal.aborted) return;
+        }
+      } else if (drawMode === "slot-machine") {
         const frames = createSlotMachineFrames({
           team: initialTeam,
           candidatesByMember: getMemberSlots().map(member =>
@@ -346,6 +368,7 @@ export function useCharacterDraw({
   return {
     highlightedIndexes,
     slotMachineFrame,
+    rouletteFrame,
     isSelecting,
     selectedTeam,
     hasAvailableTeam,

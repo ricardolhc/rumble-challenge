@@ -38,6 +38,10 @@ test("the saved slot machine preference is restored", () => {
   assert.equal(loadSettings({ drawMode: "slot-machine" }).drawMode, "slot-machine");
 });
 
+test("the saved roulette preference is restored", () => {
+  assert.equal(loadSettings({ drawMode: "roulette" }).drawMode, "roulette");
+});
+
 test("fresh settings and unknown animation modes safely use classic mode", () => {
   assert.equal(loadSettings(null).drawMode, "classic");
   assert.equal(loadSettings({ drawMode: "unknown" }).drawMode, "classic");

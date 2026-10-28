@@ -37,6 +37,18 @@
           "spinning": "En cours…",
           "ready": "Prêt pour le tirage",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "Roulette des personnages",
+          "description_one": "{{count}} bille, {{count}} personnage.",
+          "description_other": "{{count}} billes, {{count}} personnages.",
+          "launch_one": "Lancer {{count}} bille",
+          "launch_other": "Lancer {{count}} billes",
+          "ready": "En attente du lancer",
+          "rolling": "Bille en mouvement…",
+          "empty": "Aucun personnage disponible avec ces paramètres.",
+          "individualBans": "Chaque bille respecte les exclusions de son membre. La roue contient les personnages autorisés pour au moins un membre.",
+          "challenge": "Le mode Défi applique les exclusions après le tour."
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "Mode de tirage",
           "drawModeDescription": "Choisissez comment révéler les personnages.",
           "classicMode": "Classique (grille)",
-          "slotMachineMode": "Machine à sous"
+          "slotMachineMode": "Machine à sous",
+          "rouletteMode": "Roulette"
         },
         "globalBansSettings": {
           "bannedFrom": "bannis sur",

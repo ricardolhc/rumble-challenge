@@ -37,6 +37,18 @@
           "spinning": "Girando…",
           "ready": "Pronto para sortear",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "Roleta de personagens",
+          "description_one": "{{count}} bolinha, {{count}} personagem.",
+          "description_other": "{{count}} bolinhas, {{count}} personagens.",
+          "launch_one": "Lançar {{count}} bolinha",
+          "launch_other": "Lançar {{count}} bolinhas",
+          "ready": "Aguardando lançamento",
+          "rolling": "Bolinha em movimento…",
+          "empty": "Nenhum personagem disponível para esta configuração.",
+          "individualBans": "Cada bolinha respeita os banimentos do seu membro. A roda reúne as opções permitidas para pelo menos um membro.",
+          "challenge": "O Modo Desafio aplica os banimentos após o giro."
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "Modo de sorteio",
           "drawModeDescription": "Escolha como os personagens serão revelados.",
           "classicMode": "Clássico (grade)",
-          "slotMachineMode": "Caça-níquel"
+          "slotMachineMode": "Caça-níquel",
+          "rouletteMode": "Roleta"
         },
         "globalBansSettings": {
           "bannedFrom": "banidos de",

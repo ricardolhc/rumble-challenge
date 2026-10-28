@@ -50,7 +50,9 @@ export function useSelectionSettings() {
   );
 
   const [drawMode, setDrawMode] = useState<DrawMode>(
-    savedSettings?.drawMode === "slot-machine" ? "slot-machine" : "classic",
+    savedSettings?.drawMode === "roulette"
+      ? "roulette"
+      : savedSettings?.drawMode === "slot-machine" ? "slot-machine" : "classic",
   );
 
   const [bannedCharacters, setBannedCharacters] = useState<Set<string>>(

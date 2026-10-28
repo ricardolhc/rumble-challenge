@@ -7,19 +7,21 @@ import { CharacterModal } from "./components/CharacterModal";
 import { HelpButton } from "./components/HelpButton";
 import { LanguageSelector } from "./components/LanguageSelector";
 import { CharacterGrid } from "./components/selection/CharacterGrid";
+import { Roulette } from "./components/selection/Roulette";
+import { getRouletteEntries } from "./utils/roulette.utils";
 import { SlotMachine } from "./components/selection/SlotMachine";
 import { DrawButton } from "./components/selection/DrawButton";
 import { SelectionHeader } from "./components/selection/SelectionHeader";
 import { SettingsButton } from "./components/selection/SettingsButton";
 import { SettingsModal } from "./components/settings/SettingsModal";
-import type { DrawCount, DrawMode, DrawLog } from "./components/settings/settings.types";
+import type { DrawCount, DrawMode, DrawLog, MemberSlot } from "./components/settings/settings.types";
 import { TeamModal } from "./components/TeamModal";
 import { addDrawLog, getDrawLogs } from "./components/utils/drawLogs.utils";
 import { useSoundSettings } from "./hooks/useSoundSettings";
 
 import { useCharacterDraw } from "./hooks/useCharacterDraw";
 import { useSelectionSettings } from "./hooks/useSelectionSettings";
-import type { CharacterType, SlotMachineFrame } from "./selection.types";
+import type { CharacterType, RouletteFrame, SlotMachineFrame } from "./selection.types";
 import { getCharacterKey } from "./utils/selection.utils";
 import { MultiplayerButton } from "./components/multiplayer/MultiplayerButton";
 import { MultiplayerModal } from "./components/multiplayer/MultiplayerModal";
@@ -55,6 +57,8 @@ export function SelectionPage() {
   const [remoteDrawMode, setRemoteDrawMode] = useState<DrawMode>("classic");
   const [remoteDrawCount, setRemoteDrawCount] = useState<DrawCount>(3);
   const [remoteSlotMachineFrame, setRemoteSlotMachineFrame] = useState<SlotMachineFrame | null>(null);
+  const [remoteRouletteFrame, setRemoteRouletteFrame] = useState<RouletteFrame | null>(null);
+  const [remoteIndividualBans, setRemoteIndividualBans] = useState<Record<MemberSlot, Set<string>>>(() => ({ 1: new Set(), 2: new Set(), 3: new Set() }));
   const [remoteIsSelecting, setRemoteIsSelecting] = useState(false);
   const [remoteBannedCharacters, setRemoteBannedCharacters] = useState<
     Set<string>
@@ -125,14 +129,16 @@ export function SelectionPage() {
     setRemoteDrawMode(mode);
     setRemoteDrawCount(count);
     setRemoteSlotMachineFrame(null);
+    setRemoteRouletteFrame(null);
     setRemoteSelectedTeam(null);
     setRemoteHighlightedIndexes([]);
     setRemoteIsSelecting(true);
   }, []);
 
-  const handleRemoteDrawFrame = useCallback((indexes: number[], frame?: SlotMachineFrame) => {
+  const handleRemoteDrawFrame = useCallback((indexes: number[], frame?: SlotMachineFrame, roulette?: RouletteFrame) => {
     setRemoteHighlightedIndexes(indexes);
     setRemoteSlotMachineFrame(frame ?? null);
+    setRemoteRouletteFrame(roulette ?? null);
   }, []);
 
   const handleRemoteDrawResult = useCallback((team: CharacterType[]) => {
@@ -152,6 +158,11 @@ export function SelectionPage() {
       setRemoteDrawMode(state.drawMode ?? "classic");
       setRemoteDrawCount(state.drawCount ?? 3);
       setRemoteBannedCharacters(new Set(state.bannedCharacters));
+      setRemoteIndividualBans({
+        1: new Set(state.individualBans?.[1] ?? []),
+        2: new Set(state.individualBans?.[2] ?? []),
+        3: new Set(state.individualBans?.[3] ?? []),
+      });
       setRemoteChallengeMode(state.challengeMode);
     },
     [],
@@ -272,6 +283,7 @@ export function SelectionPage() {
   const {
     highlightedIndexes,
     slotMachineFrame,
+    rouletteFrame,
     isSelecting,
     selectedTeam,
     hasAvailableTeam,
@@ -292,8 +304,8 @@ export function SelectionPage() {
       return;
     }
 
-    broadcastDrawFrame(highlightedIndexes, slotMachineFrame ?? undefined);
-  }, [highlightedIndexes, slotMachineFrame, isSelecting, isHost, broadcastDrawFrame]);
+    broadcastDrawFrame(highlightedIndexes, slotMachineFrame ?? undefined, rouletteFrame ?? undefined);
+  }, [highlightedIndexes, slotMachineFrame, rouletteFrame, isSelecting, isHost, broadcastDrawFrame]);
 
   useEffect(() => {
     if (!isHost || !selectedTeam) {
@@ -387,7 +399,9 @@ export function SelectionPage() {
     setRemoteIsSelecting(false);
     setRemoteBannedCharacters(new Set());
     setRemoteChallengeMode(false);
+    setRemoteIndividualBans({ 1: new Set(), 2: new Set(), 3: new Set() });
     setRemoteSlotMachineFrame(null);
+    setRemoteRouletteFrame(null);
     setRemoteDrawMode("classic");
     setRemoteDrawCount(3);
   }
@@ -402,6 +416,7 @@ export function SelectionPage() {
 
   const displayedDrawMode = isGuest ? remoteDrawMode : drawMode;
   const displayedDrawCount = isGuest ? remoteDrawCount : drawCount;
+  const displayedRouletteFrame = isGuest ? remoteRouletteFrame : rouletteFrame;
   const displayedSlotMachineFrame = isGuest ? remoteSlotMachineFrame : slotMachineFrame;
 
   const displayedTeam = isGuest ? remoteSelectedTeam : selectedTeam;
@@ -410,7 +425,9 @@ export function SelectionPage() {
     if (
       !soundEnabled ||
       !displayedIsSelecting ||
-      displayedHighlightedIndexes.length === 0
+      (displayedHighlightedIndexes.length === 0 &&
+        !(displayedDrawMode === "roulette" && displayedRouletteFrame &&
+          displayedRouletteFrame.settledCount < displayedRouletteFrame.animation.balls.length))
     ) {
       return;
     }
@@ -433,6 +450,8 @@ export function SelectionPage() {
     });
   }, [
     displayedHighlightedIndexes,
+    displayedRouletteFrame,
+    displayedDrawMode,
     displayedIsSelecting,
     soundEnabled,
     tickVolume,
@@ -466,6 +485,14 @@ export function SelectionPage() {
     : bannedCharacters;
 
   const displayedChallengeMode = isGuest ? remoteChallengeMode : challengeMode;
+
+  const displayedIndividualBans = isGuest ? remoteIndividualBans : individualBans;
+  const rouletteEntries = useMemo(() => getRouletteEntries({
+    characters: characters.map((character, index) => ({ character, index })),
+    members: Array.from({ length: displayedDrawCount }, (_, slot) => (slot + 1) as MemberSlot),
+    bannedCharacters: displayedBannedCharacters,
+    individualBans: displayedIndividualBans,
+  }).map(item => item.index), [characters, displayedDrawCount, displayedBannedCharacters, displayedIndividualBans]);
 
   const displayedAvailableCharactersCount = useMemo(
     () =>
@@ -571,6 +598,17 @@ export function SelectionPage() {
                   />
                 )}
               </SlotMachine>
+            ) : displayedDrawMode === "roulette" ? (
+              <Roulette
+                characters={characters}
+                entries={rouletteEntries}
+                drawCount={displayedDrawCount}
+                frame={displayedRouletteFrame}
+                isSelecting={displayedIsSelecting}
+                hasIndividualBans={Array.from({ length: displayedDrawCount }, (_, slot) =>
+                  displayedIndividualBans[(slot + 1) as MemberSlot].size > 0).some(Boolean)}
+                infos={infos}
+              />
             ) : (
               <CharacterGrid
                 characters={characters}
@@ -584,6 +622,9 @@ export function SelectionPage() {
 
             {!isGuest && displayedDrawMode !== "slot-machine" && (
               <DrawButton
+                drawLabel={displayedDrawMode === "roulette"
+                  ? t("selection.components.selection.roulette.launch", { count: drawCount })
+                  : undefined}
                 drawCount={drawCount}
                 isSelecting={isSelecting}
                 hasAvailableTeam={hasAvailableTeam}

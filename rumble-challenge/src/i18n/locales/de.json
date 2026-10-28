@@ -37,6 +37,18 @@
           "spinning": "Dreht sich…",
           "ready": "Bereit zur Auslosung",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "Charakter-Roulette",
+          "description_one": "{{count}} Kugel, {{count}} Charakter.",
+          "description_other": "{{count}} Kugeln, {{count}} Charaktere.",
+          "launch_one": "{{count}} Kugel starten",
+          "launch_other": "{{count}} Kugeln starten",
+          "ready": "Wartet auf den Start",
+          "rolling": "Kugel in Bewegung…",
+          "empty": "Mit diesen Einstellungen sind keine Charaktere verfügbar.",
+          "individualBans": "Jede Kugel beachtet die Sperren ihres Mitglieds. Das Rad zeigt Charaktere, die für mindestens ein Mitglied erlaubt sind.",
+          "challenge": "Der Herausforderungsmodus wendet Sperren nach der Drehung an."
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "Auslosungsmodus",
           "drawModeDescription": "Wähle, wie die Charaktere aufgedeckt werden.",
           "classicMode": "Klassisch (Raster)",
-          "slotMachineMode": "Spielautomat"
+          "slotMachineMode": "Spielautomat",
+          "rouletteMode": "Roulette"
         },
         "globalBansSettings": {
           "bannedFrom": "gesperrt von",

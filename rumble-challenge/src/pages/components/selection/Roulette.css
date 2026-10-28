@@ -1,0 +1,135 @@
+.roulette {
+  width: min(100%, 1000px);
+  margin: auto;
+  padding: clamp(16px, 3vw, 30px);
+  border: 1px solid #4e493b;
+  border-radius: 18px;
+  background: #151922;
+  box-shadow: 0 20px 50px #0005;
+}
+
+.roulette__header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.roulette__header h2 {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.roulette__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+
+.roulette__stage {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, 640px);
+  aspect-ratio: 1;
+  margin: auto;
+  isolation: isolate;
+  /* Rotating square layers must not change the page's scrollable bounds. */
+  overflow: clip;
+  border-radius: 50%;
+  box-shadow: 0 18px 35px #0008;
+}
+
+.roulette__rim,
+.roulette__rotor,
+.roulette__orbit,
+.roulette__disc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.roulette__rotor,
+.roulette__orbit {
+  transform-origin: center;
+  will-change: transform;
+}
+
+.roulette__orbit {
+  z-index: 5;
+  pointer-events: none;
+}
+
+.roulette__ball {
+  display: grid;
+  place-items: center;
+  border: 1px solid #9b9a8b;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 24%, #fff, #ece9d9 55%, #9f9d8e);
+  color: #20252a;
+  font-family: sans-serif;
+  font-weight: 800;
+}
+
+.roulette__ball {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(10px, 2.7cqw, 17px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) translateY(-45.333333cqw);
+  will-change: transform;
+  box-shadow: 2px 3px 4px #000b;
+  font-size: clamp(7px, 1.8cqw, 10px);
+}
+
+.roulette__hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 3px solid #8f7c4f;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 30%, #54645c, #26382f 48%, #111b17);
+  box-shadow: inset 0 0 0 3px #141b17, inset 0 2px 8px #ffffff20, 0 8px 14px #0008;
+  pointer-events: none;
+}
+
+.roulette__hub span {
+  color: #d9c48c;
+  font-family: "byk_font", sans-serif;
+  font-size: clamp(24px, 9cqw, 54px);
+  line-height: 1;
+}
+
+.roulette__hub small {
+  margin-top: 5px;
+  color: #b9ac88;
+  font: 700 clamp(6px, 1.6cqw, 10px)/1 sans-serif;
+  letter-spacing: 0.12em;
+}
+
+.roulette__note {
+  margin-top: 14px;
+  color: #b6c1cd;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roulette__orbit:not([data-settled="true"]) {
+    visibility: hidden;
+  }
+
+  .roulette__rotor,
+  .roulette__orbit,
+  .roulette__ball {
+    will-change: auto;
+  }
+}

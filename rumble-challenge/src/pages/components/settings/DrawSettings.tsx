@@ -49,6 +49,9 @@ export function DrawSettings({
           <option value="slot-machine">
             {t("selection.components.settings.drawSettings.slotMachineMode")}
           </option>
+          <option value="roulette">
+            {t("selection.components.settings.drawSettings.rouletteMode")}
+          </option>
         </select>
         <div className="my-5 h-px bg-slate-700/70" />
 

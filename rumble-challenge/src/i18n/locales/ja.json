@@ -37,6 +37,18 @@
           "spinning": "回転中…",
           "ready": "抽選待機中",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "キャラクタールーレット",
+          "description_one": "ボール{{count}}個でキャラクター{{count}}体を抽選。",
+          "description_other": "ボール{{count}}個でキャラクター{{count}}体を抽選。",
+          "launch_one": "ボールを{{count}}個発射",
+          "launch_other": "ボールを{{count}}個発射",
+          "ready": "発射待機中",
+          "rolling": "ボール回転中…",
+          "empty": "現在の設定で選べるキャラクターがいません。",
+          "individualBans": "各ボールは対応するメンバーの禁止設定に従います。少なくとも1人のメンバーが使用できるキャラクターが盤面に表示されます。",
+          "challenge": "チャレンジモードの禁止設定は回転終了後に適用されます。"
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "抽選モード",
           "drawModeDescription": "キャラクターの表示方法を選択します。",
           "classicMode": "クラシック（グリッド）",
-          "slotMachineMode": "スロット"
+          "slotMachineMode": "スロット",
+          "rouletteMode": "ルーレット"
         },
         "globalBansSettings": {
           "bannedFrom": "BAN /",

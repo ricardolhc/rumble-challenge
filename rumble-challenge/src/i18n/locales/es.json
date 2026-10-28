@@ -37,6 +37,18 @@
           "spinning": "Girando…",
           "ready": "Listo para sortear",
           "progress": "{{count}} / {{total}}"
+        },
+        "roulette": {
+          "title": "Ruleta de personajes",
+          "description_one": "{{count}} bola, {{count}} personaje.",
+          "description_other": "{{count}} bolas, {{count}} personajes.",
+          "launch_one": "Lanzar {{count}} bola",
+          "launch_other": "Lanzar {{count}} bolas",
+          "ready": "Esperando el lanzamiento",
+          "rolling": "Bola en movimiento…",
+          "empty": "No hay personajes disponibles para esta configuración.",
+          "individualBans": "Cada bola respeta los bloqueos de su miembro. La rueda reúne personajes permitidos para al menos un miembro.",
+          "challenge": "El Modo Desafío aplica los bloqueos después del giro."
         }
       },
       "settings": {
@@ -72,7 +84,8 @@
           "drawMode": "Modo de sorteo",
           "drawModeDescription": "Elige cómo se revelan los personajes.",
           "classicMode": "Clásico (cuadrícula)",
-          "slotMachineMode": "Tragamonedas"
+          "slotMachineMode": "Tragamonedas",
+          "rouletteMode": "Ruleta"
         },
         "globalBansSettings": {
           "bannedFrom": "bloqueados de",
