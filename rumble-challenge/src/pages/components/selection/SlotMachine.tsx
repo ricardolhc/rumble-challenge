@@ -20,6 +20,7 @@ interface SlotMachineProps {
 function ReelCharacter({ character, name }: { character: CharacterType; name: string }) {
   return (
     <CharacterCardContents
+      alignment={character.alignment}
       name={name}
       image={character.image}
       symbol={character.symbol}

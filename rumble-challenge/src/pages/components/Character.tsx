@@ -1,10 +1,12 @@
 import { CharacterCardContents } from "./CharacterCardContents";
+import type { CharacterAlignment } from "../selection.types";
 
 interface CharacterProps {
   name: string;
   image: string;
   symbol?: string;
   background?: string;
+  alignment?: CharacterAlignment;
   isHighlighted?: boolean;
   isFocused?: boolean;
   imageWidth: number;
@@ -17,6 +19,7 @@ export function Character({
   name,
   image,
   background,
+  alignment,
   symbol,
   imageWidth,
   imageHeight,
@@ -27,6 +30,7 @@ export function Character({
 }: CharacterProps) {
   return (
     <div
+      data-alignment={alignment}
       className={`
         character-card character-card--compact
         relative
@@ -78,6 +82,7 @@ export function Character({
       `}
     >
       <CharacterCardContents
+        alignment={alignment}
         name={name}
         image={image}
         symbol={symbol}

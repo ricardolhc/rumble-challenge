@@ -203,6 +203,7 @@ export function CharacterModal({
             {/* Card */}
             <div className="flex justify-center lg:justify-start">
               <TeamCharacter
+                alignment={character.alignment}
                 name={character.name}
                 image={character.image}
                 symbol={character.symbol}

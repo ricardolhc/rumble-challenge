@@ -148,6 +148,7 @@ export function CharacterGrid({
             `}
           >
             <Character
+              alignment={character.alignment}
               name={infos[character.id]?.name ?? character.name}
               image={character.image}
               symbol={character.symbol}

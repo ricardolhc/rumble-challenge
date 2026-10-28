@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { CharacterAlignment } from "../selection.types";
 import "./CharacterCard.css";
 
 interface CharacterCardContentsProps {
@@ -6,6 +7,7 @@ interface CharacterCardContentsProps {
   image: string;
   symbol?: string;
   background?: string;
+  alignment?: CharacterAlignment;
   imageWidth: number;
   imageHeight: number;
   portraitReferenceWidth?: number;
@@ -19,6 +21,7 @@ export function CharacterCardContents({
   image,
   symbol,
   background,
+  alignment,
   imageWidth,
   imageHeight,
   portraitReferenceWidth,
@@ -31,6 +34,7 @@ export function CharacterCardContents({
 
   return (
     <div
+      data-alignment={alignment}
       className={`character-card__contents${showName ? "" : " character-card__contents--art-only"}`}
     >
       <div
@@ -51,6 +55,7 @@ export function CharacterCardContents({
               : imageHeight * portraitScale,
           }}
         />
+        {alignment && <span className="character-card__alignment-effect" aria-hidden="true" />}
         {children}
         {symbol && (
           <img

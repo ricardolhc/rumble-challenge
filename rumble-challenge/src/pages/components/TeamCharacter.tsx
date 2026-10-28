@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { CharacterCardContents } from "./CharacterCardContents";
 import type { MouseEvent } from "react";
+import type { CharacterAlignment } from "../selection.types";
 
 interface TeamCharacterProps {
   name: string;
   image: string;
   symbol?: string;
   background?: string;
+  alignment?: CharacterAlignment;
   imageWidthTeam: number;
   imageHeightTeam: number;
   showName?: boolean;
@@ -20,6 +22,7 @@ export function TeamCharacter({
   image,
   symbol,
   background,
+  alignment,
   imageWidthTeam,
   imageHeightTeam,
   isNew = false,
@@ -71,6 +74,7 @@ export function TeamCharacter({
       }}
     >
       <div
+        data-alignment={alignment}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -103,6 +107,7 @@ export function TeamCharacter({
         }}
       >
         <CharacterCardContents
+          alignment={alignment}
           name={name}
           image={image}
           symbol={symbol}

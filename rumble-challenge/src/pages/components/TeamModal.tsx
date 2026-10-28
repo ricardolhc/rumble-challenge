@@ -214,6 +214,7 @@ export function TeamModal({ team, onClose }: TeamModalProps) {
               )}
 
               <TeamCharacter
+                alignment={personagem.alignment}
                 name={personagem.name}
                 image={personagem.image}
                 symbol={personagem.symbol}

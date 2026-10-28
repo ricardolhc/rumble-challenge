@@ -1,8 +1,11 @@
+export type CharacterAlignment = "hero" | "villain" | "neutral";
+
 export interface CharacterType {
   id: string;
   name: string;
   image: string;
   type: string;
+  alignment?: CharacterAlignment;
   symbol?: string;
   background?: string;
   imageWidth: number;
