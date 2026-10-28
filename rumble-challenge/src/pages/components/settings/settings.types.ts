@@ -1,7 +1,7 @@
 import type { CharacterType } from "../../selection.types";
 
 export type MemberSlot = 1 | 2 | 3;
-export type DrawMode = "classic" | "slot-machine";
+export type DrawMode = "classic" | "slot-machine" | "roulette";
 export type DrawCount = 1 | 2 | 3;
 export type DrawSpeed = "fast" | "medium" | "slow" | "instant" | "super-slow";
 export type ChallengeBanMode = "global" | "individual";

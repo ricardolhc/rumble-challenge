@@ -40,3 +40,29 @@ export interface SlotMachineAnimation {
   id: string;
   reels: SlotMachineReel[];
 }
+
+export interface RouletteBall {
+  member: 1 | 2 | 3;
+  targetIndex: number;
+  startAngle: number;
+  endAngle: number;
+  dropTime: number;
+  /** Time at which the ball is captured; it then follows the moving wheel. */
+  duration: number;
+}
+
+export interface RouletteAnimation {
+  id: string;
+  entries: number[];
+  wheelRotation: number;
+  wheelDuration: number;
+  balls: RouletteBall[];
+}
+
+export interface RouletteFrame {
+  indexes: number[];
+  settledCount: number;
+  elapsed: number;
+  delay: number;
+  animation: RouletteAnimation;
+}
