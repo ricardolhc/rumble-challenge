@@ -29,6 +29,14 @@
           "draw": "チームを抽選",
           "drawOneCharacter": "キャラクターを抽選",
           "impossibleDraw": "抽選できない設定"
+        },
+        "slotMachine": {
+          "title": "スロット",
+          "description": "リールが1つずつ止まります。",
+          "locked": "確定",
+          "spinning": "回転中…",
+          "ready": "抽選待機中",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "抽選されたキャラクターは今後の抽選で重複しません",
           "challengeModeActive": "チャレンジモード有効",
           "character": "キャラクター",
-          "characters": "キャラクター"
+          "characters": "キャラクター",
+          "drawMode": "抽選モード",
+          "drawModeDescription": "キャラクターの表示方法を選択します。",
+          "classicMode": "クラシック（グリッド）",
+          "slotMachineMode": "スロット"
         },
         "globalBansSettings": {
           "bannedFrom": "BAN /",

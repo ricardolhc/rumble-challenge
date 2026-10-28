@@ -29,6 +29,14 @@
           "draw": "Draw team",
           "drawOneCharacter": "Draw character",
           "impossibleDraw": "Impossible configuration"
+        },
+        "slotMachine": {
+          "title": "Slot machine",
+          "description": "The reels stop one at a time.",
+          "locked": "Locked in",
+          "spinning": "Spinning…",
+          "ready": "Ready to draw",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "Drawn characters cannot be repeated in future draws",
           "challengeModeActive": "Challenge Mode Active",
           "character": "character",
-          "characters": "characters"
+          "characters": "characters",
+          "drawMode": "Draw mode",
+          "drawModeDescription": "Choose how the characters are revealed.",
+          "classicMode": "Classic (grid)",
+          "slotMachineMode": "Slot machine"
         },
         "globalBansSettings": {
           "bannedFrom": "banned out of",

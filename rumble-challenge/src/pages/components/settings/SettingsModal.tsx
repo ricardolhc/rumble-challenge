@@ -28,6 +28,7 @@ import type {
   BanProfile,
   ChallengeBanMode,
   DrawCount,
+  DrawMode,
   DrawLog,
   DrawSpeed,
   MemberSlot,
@@ -37,6 +38,7 @@ import type {
 export type {
   ChallengeBanMode,
   DrawCount,
+  DrawMode,
   DrawSpeed,
   MemberSlot,
 } from "./settings.types";
@@ -52,6 +54,8 @@ interface SettingsModalProps {
 
   drawSpeed: DrawSpeed;
 
+  drawMode: DrawMode;
+
   challengeMode: boolean;
 
   challengeBanMode: ChallengeBanMode;
@@ -63,6 +67,8 @@ interface SettingsModalProps {
   resultVolume: number;
 
   onDrawCountChange: (count: DrawCount) => void;
+
+  onDrawModeChange: (mode: DrawMode) => void;
 
   onDrawSpeedChange: (speed: DrawSpeed) => void;
 
@@ -98,6 +104,7 @@ export function SettingsModal({
   individualBans,
   drawCount,
   drawSpeed,
+  drawMode,
   challengeMode,
   challengeBanMode,
   soundEnabled,
@@ -105,6 +112,7 @@ export function SettingsModal({
   resultVolume,
   onDrawCountChange,
   onDrawSpeedChange,
+  onDrawModeChange,
   onChallengeModeChange,
   onChallengeBanModeChange,
   onSoundEnabledChange,
@@ -232,6 +240,8 @@ export function SettingsModal({
             <DrawSettings
               drawCount={drawCount}
               drawSpeed={drawSpeed}
+              drawMode={drawMode}
+              onDrawModeChange={onDrawModeChange}
               onDrawCountChange={onDrawCountChange}
               onDrawSpeedChange={onDrawSpeedChange}
             />

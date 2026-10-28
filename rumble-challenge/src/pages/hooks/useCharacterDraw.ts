@@ -1,11 +1,13 @@
-import { useMemo, useRef, useState } from "react";
-import type { CharacterType } from "../selection.types";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { CharacterType, SlotMachineFrame } from "../selection.types";
 import type {
   DrawCount,
+  DrawMode,
   DrawSpeed,
   MemberSlot,
 } from "../components/settings/settings.types";
 import { getCharacterKey } from "../utils/selection.utils";
+import { createSlotMachineFrames } from "../utils/slotMachine.utils";
 
 interface CharacterWithIndex {
   character: CharacterType;
@@ -16,6 +18,7 @@ interface UseCharacterDrawParams {
   characters: CharacterType[];
   drawCount: DrawCount;
   drawSpeed: DrawSpeed;
+  drawMode: DrawMode;
   bannedCharacters: Set<string>;
   individualBans: Record<MemberSlot, Set<string>>;
   onTeamDrawn?: (team: CharacterType[]) => void;
@@ -70,6 +73,7 @@ export function useCharacterDraw({
   characters,
   drawCount,
   drawSpeed,
+  drawMode,
   bannedCharacters,
   individualBans,
   onTeamDrawn,
@@ -83,6 +87,11 @@ export function useCharacterDraw({
   );
 
   const isSelectingRef = useRef(false);
+
+  const [slotMachineFrame, setSlotMachineFrame] = useState<SlotMachineFrame | null>(null);
+  const drawAbortRef = useRef<AbortController | null>(null);
+
+  useEffect(() => () => drawAbortRef.current?.abort(), []);
 
   const charactersWithIndex = useMemo<CharacterWithIndex[]>(
     () =>
@@ -245,66 +254,88 @@ export function useCharacterDraw({
   ]);
 
   async function selectCharacters() {
-    if (isSelectingRef.current || !hasAvailableTeam) {
-      return;
-    }
+    if (isSelectingRef.current || !hasAvailableTeam) return;
 
     const initialTeam = findValidTeam(true);
+    if (!initialTeam) return;
 
-    if (!initialTeam) {
-      return;
+    const controller = new AbortController();
+    drawAbortRef.current = controller;
+    const { signal } = controller;
+
+    function wait(delay: number) {
+      return new Promise<void>((resolve) => {
+        const timer = window.setTimeout(() => {
+          signal.removeEventListener("abort", cancel);
+          resolve();
+        }, delay);
+        function cancel() {
+          window.clearTimeout(timer);
+          resolve();
+        }
+        signal.addEventListener("abort", cancel, { once: true });
+      });
     }
 
     isSelectingRef.current = true;
-
     setIsSelecting(true);
     setSelectedTeam(null);
+    setSlotMachineFrame(null);
 
     try {
-      const totalDraws = 10;
-
       let finalTeam = initialTeam;
 
-      for (let i = 0; i < totalDraws; i++) {
-        const randomTeam = findValidTeam(true);
-
-        if (!randomTeam) {
-          break;
-        }
-
-        finalTeam = randomTeam;
-
-        setHighlightedIndexes(randomTeam.map(({ index }) => index));
-
-        const { base, increment } = DRAW_SPEED_CONFIG[drawSpeed];
-
-        const delay = base + i * increment;
-
-        await new Promise<void>((resolve) => {
-          window.setTimeout(resolve, delay);
+      if (drawMode === "slot-machine") {
+        const frames = createSlotMachineFrames({
+          team: initialTeam,
+          candidatesByMember: getMemberSlots().map(member =>
+            charactersWithIndex.filter(({ character }) =>
+              isCharacterAvailableForMember(character, member),
+            ),
+          ),
+          speed: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant"
+            : drawSpeed,
         });
 
-        if (i === totalDraws - 2) {
-          await new Promise<void>((resolve) => {
-            window.setTimeout(resolve, delay);
-          });
+        const startedAt = performance.now();
+        for (const frame of frames) {
+          setSlotMachineFrame(frame);
+          setHighlightedIndexes(frame.indexes);
+          const nextFrameAt = (frame.elapsed ?? 0) + frame.delay;
+          await wait(Math.max(0, startedAt + nextFrameAt - performance.now()));
+          if (signal.aborted) return;
+        }
+      } else {
+        const totalDraws = 10;
+        for (let i = 0; i < totalDraws; i++) {
+          const randomTeam = findValidTeam(true);
+          if (!randomTeam) break;
+
+          finalTeam = randomTeam;
+          setHighlightedIndexes(randomTeam.map(({ index }) => index));
+          const { base, increment } = DRAW_SPEED_CONFIG[drawSpeed];
+          const delay = base + i * increment;
+          await wait(delay);
+          if (signal.aborted) return;
+
+          if (i === totalDraws - 2) {
+            await wait(delay);
+            if (signal.aborted) return;
+          }
         }
       }
 
       const team = finalTeam.map(({ character }) => character);
-
-      await new Promise<void>((resolve) => {
-        window.setTimeout(resolve, 500);
-      });
+      await wait(500);
+      if (signal.aborted) return;
 
       onTeamDrawn?.(team);
-
       setSelectedTeam(team);
       setHighlightedIndexes([]);
     } finally {
       isSelectingRef.current = false;
-
-      setIsSelecting(false);
+      if (!signal.aborted) setIsSelecting(false);
     }
   }
 
@@ -314,6 +345,7 @@ export function useCharacterDraw({
 
   return {
     highlightedIndexes,
+    slotMachineFrame,
     isSelecting,
     selectedTeam,
     hasAvailableTeam,

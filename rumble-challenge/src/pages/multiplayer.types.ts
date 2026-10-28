@@ -1,4 +1,5 @@
-import type { CharacterType } from "./selection.types";
+import type { DrawCount, DrawMode } from "./components/settings/settings.types";
+import type { CharacterType, SlotMachineFrame } from "./selection.types";
 
 export type MultiplayerRole = "host" | "guest" | null;
 
@@ -14,10 +15,13 @@ export type MultiplayerStatus =
 export type MultiplayerDrawMessage =
   | {
       type: "draw:start";
+      drawMode?: DrawMode;
+      drawCount?: DrawCount;
     }
   | {
       type: "draw:frame";
       indexes: number[];
+      slotMachineFrame?: SlotMachineFrame;
     }
   | {
       type: "draw:result";

@@ -1,3 +1,4 @@
+import type { DrawCount, DrawMode } from "../components/settings/settings.types";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type {
@@ -7,7 +8,7 @@ import type {
   MultiplayerRole,
   MultiplayerStatus,
 } from "../multiplayer.types";
-import type { CharacterType } from "../selection.types";
+import type { CharacterType, SlotMachineFrame } from "../selection.types";
 import {
   decodeAnswerSignal,
   decodeOfferSignal,
@@ -15,6 +16,8 @@ import {
 } from "../utils/multiplayer.utils";
 
 export interface MultiplayerRoomState {
+  drawMode?: DrawMode;
+  drawCount?: DrawCount;
   bannedCharacters: string[];
   individualBans?: {
     1: string[];
@@ -33,8 +36,8 @@ type MultiplayerRoomMessage =
     };
 
 interface UseMultiplayerRoomOptions {
-  onDrawStart?: () => void;
-  onDrawFrame?: (indexes: number[]) => void;
+  onDrawStart?: (mode?: DrawMode, count?: DrawCount) => void;
+  onDrawFrame?: (indexes: number[], frame?: SlotMachineFrame) => void;
   onDrawResult?: (team: CharacterType[]) => void;
   onDrawClose?: () => void;
   onRoomState?: (state: MultiplayerRoomState) => void;
@@ -147,11 +150,11 @@ export function useMultiplayerRoom({
 
       switch (message.type) {
         case "draw:start":
-          callbacksRef.current.onDrawStart?.();
+          callbacksRef.current.onDrawStart?.(message.drawMode, message.drawCount);
           break;
 
         case "draw:frame":
-          callbacksRef.current.onDrawFrame?.(message.indexes);
+          callbacksRef.current.onDrawFrame?.(message.indexes, message.slotMachineFrame);
           break;
 
         case "draw:result":
@@ -582,17 +585,20 @@ export function useMultiplayerRoom({
     }
   }, []);
 
-  const broadcastDrawStart = useCallback(() => {
+  const broadcastDrawStart = useCallback((drawMode: DrawMode = "classic", drawCount: DrawCount = 3) => {
     broadcastMessage({
       type: "draw:start",
+      drawMode,
+      drawCount,
     });
   }, [broadcastMessage]);
 
   const broadcastDrawFrame = useCallback(
-    (indexes: number[]) => {
+    (indexes: number[], slotMachineFrame?: SlotMachineFrame) => {
       broadcastMessage({
         type: "draw:frame",
         indexes,
+        slotMachineFrame,
       });
     },
     [broadcastMessage],

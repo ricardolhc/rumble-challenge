@@ -8,6 +8,7 @@ interface CharacterCardContentsProps {
   background?: string;
   imageWidth: number;
   imageHeight: number;
+  portraitReferenceWidth?: number;
   isNew?: boolean;
   showName?: boolean;
   children?: ReactNode;
@@ -20,6 +21,7 @@ export function CharacterCardContents({
   background,
   imageWidth,
   imageHeight,
+  portraitReferenceWidth,
   isNew = false,
   showName = true,
   children,
@@ -41,8 +43,12 @@ export function CharacterCardContents({
           draggable={false}
           className="character-card__portrait"
           style={{
-            width: imageWidth * portraitScale,
-            height: imageHeight * portraitScale,
+            width: portraitReferenceWidth
+              ? `${(imageWidth * portraitScale / portraitReferenceWidth) * 100}cqw`
+              : imageWidth * portraitScale,
+            height: portraitReferenceWidth
+              ? `${(imageHeight * portraitScale / portraitReferenceWidth) * 100}cqw`
+              : imageHeight * portraitScale,
           }}
         />
         {children}

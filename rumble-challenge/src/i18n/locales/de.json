@@ -29,6 +29,14 @@
           "draw": "Team auslosen",
           "drawOneCharacter": "Charakter auslosen",
           "impossibleDraw": "Ungültige Konfiguration"
+        },
+        "slotMachine": {
+          "title": "Spielautomat",
+          "description": "Die Walzen halten nacheinander an.",
+          "locked": "Festgelegt",
+          "spinning": "Dreht sich…",
+          "ready": "Bereit zur Auslosung",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "Ausgeloste Charaktere können in zukünftigen Auslosungen nicht erneut erscheinen",
           "challengeModeActive": "Herausforderungsmodus aktiv",
           "character": "Charakter",
-          "characters": "Charaktere"
+          "characters": "Charaktere",
+          "drawMode": "Auslosungsmodus",
+          "drawModeDescription": "Wähle, wie die Charaktere aufgedeckt werden.",
+          "classicMode": "Klassisch (Raster)",
+          "slotMachineMode": "Spielautomat"
         },
         "globalBansSettings": {
           "bannedFrom": "gesperrt von",

@@ -1,7 +1,10 @@
+import { SlotMachineLever } from "./SlotMachineLever";
 import type { DrawCount } from "../settings/settings.types";
 import { useTranslation } from "react-i18next";
 
 interface DrawButtonProps {
+  appearance?: "button" | "lever";
+  onPullingChange?: (pulling: boolean) => void;
   drawCount: DrawCount;
   isSelecting: boolean;
   hasAvailableTeam: boolean;
@@ -9,6 +12,8 @@ interface DrawButtonProps {
 }
 
 export function DrawButton({
+  appearance = "button",
+  onPullingChange,
   drawCount,
   isSelecting,
   hasAvailableTeam,
@@ -24,6 +29,19 @@ export function DrawButton({
       : drawCount === 1
         ? t("selection.components.selection.drawButton.drawOneCharacter")
         : t("selection.components.selection.drawButton.draw");
+
+  if (appearance === "lever") {
+    return (
+      <SlotMachineLever
+        disabled={isDisabled}
+        isSelecting={isSelecting}
+        label={label}
+        selectingLabel={t("selection.components.selection.drawButton.selecting")}
+        onDraw={onClick}
+        onPullingChange={onPullingChange}
+      />
+    );
+  }
 
   return (
     <div className="mt-auto flex w-full justify-center pt-5 pb-2">

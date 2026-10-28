@@ -29,6 +29,14 @@
           "draw": "Tirer une équipe",
           "drawOneCharacter": "Tirer un personnage",
           "impossibleDraw": "Configuration impossible"
+        },
+        "slotMachine": {
+          "title": "Machine à sous",
+          "description": "Les rouleaux s’arrêtent un par un.",
+          "locked": "Confirmé",
+          "spinning": "En cours…",
+          "ready": "Prêt pour le tirage",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "Les personnages tirés ne pourront pas réapparaître lors des prochains tirages",
           "challengeModeActive": "Mode Défi actif",
           "character": "personnage",
-          "characters": "personnages"
+          "characters": "personnages",
+          "drawMode": "Mode de tirage",
+          "drawModeDescription": "Choisissez comment révéler les personnages.",
+          "classicMode": "Classique (grille)",
+          "slotMachineMode": "Machine à sous"
         },
         "globalBansSettings": {
           "bannedFrom": "bannis sur",

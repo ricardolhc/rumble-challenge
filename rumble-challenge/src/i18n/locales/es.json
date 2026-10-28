@@ -29,6 +29,14 @@
           "draw": "Sortear equipo",
           "drawOneCharacter": "Sortear personaje",
           "impossibleDraw": "Configuración imposible"
+        },
+        "slotMachine": {
+          "title": "Tragamonedas",
+          "description": "Los rodillos se detienen uno a uno.",
+          "locked": "Confirmado",
+          "spinning": "Girando…",
+          "ready": "Listo para sortear",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "Los personajes sorteados no podrán repetirse en sorteos futuros",
           "challengeModeActive": "Modo Desafío activo",
           "character": "personaje",
-          "characters": "personajes"
+          "characters": "personajes",
+          "drawMode": "Modo de sorteo",
+          "drawModeDescription": "Elige cómo se revelan los personajes.",
+          "classicMode": "Clásico (cuadrícula)",
+          "slotMachineMode": "Tragamonedas"
         },
         "globalBansSettings": {
           "bannedFrom": "bloqueados de",

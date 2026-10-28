@@ -29,6 +29,14 @@
           "draw": "Sortear time",
           "drawOneCharacter": "Sortear personagem",
           "impossibleDraw": "Configuração impossível"
+        },
+        "slotMachine": {
+          "title": "Caça-níquel",
+          "description": "Os rolos param um de cada vez.",
+          "locked": "Definido",
+          "spinning": "Girando…",
+          "ready": "Pronto para sortear",
+          "progress": "{{count}} / {{total}}"
         }
       },
       "settings": {
@@ -60,7 +68,11 @@
           "challengeModeDescription": "Os personagens sorteados não poderão ser repetidos em sorteios futuros",
           "challengeModeActive": "Modo Desafio Ativo",
           "character": "personagem",
-          "characters": "personagens"
+          "characters": "personagens",
+          "drawMode": "Modo de sorteio",
+          "drawModeDescription": "Escolha como os personagens serão revelados.",
+          "classicMode": "Clássico (grade)",
+          "slotMachineMode": "Caça-níquel"
         },
         "globalBansSettings": {
           "bannedFrom": "banidos de",

@@ -5,6 +5,7 @@ import type { CharacterType } from "../selection.types";
 import type {
   ChallengeBanMode,
   DrawCount,
+  DrawMode,
   DrawSpeed,
   MemberSlot,
 } from "../components/settings/settings.types";
@@ -14,6 +15,7 @@ import { getCharacterKey } from "../utils/selection.utils";
 interface SavedSettings {
   drawCount: DrawCount;
   drawSpeed: DrawSpeed;
+  drawMode?: DrawMode;
   bannedCharacters: string[];
   individualBans: Record<MemberSlot, string[]>;
   challengeMode: boolean;
@@ -45,6 +47,10 @@ export function useSelectionSettings() {
 
   const [drawSpeed, setDrawSpeed] = useState<DrawSpeed>(
     savedSettings?.drawSpeed ?? "medium",
+  );
+
+  const [drawMode, setDrawMode] = useState<DrawMode>(
+    savedSettings?.drawMode === "slot-machine" ? "slot-machine" : "classic",
   );
 
   const [bannedCharacters, setBannedCharacters] = useState<Set<string>>(
@@ -225,6 +231,7 @@ export function useSelectionSettings() {
     const settings: SavedSettings = {
       drawCount,
       drawSpeed,
+      drawMode,
 
       bannedCharacters: Array.from(bannedCharacters),
 
@@ -242,6 +249,7 @@ export function useSelectionSettings() {
   }, [
     drawCount,
     drawSpeed,
+    drawMode,
     bannedCharacters,
     individualBans,
     challengeMode,
@@ -254,6 +262,9 @@ export function useSelectionSettings() {
 
     drawSpeed,
     setDrawSpeed,
+
+    drawMode,
+    setDrawMode,
 
     bannedCharacters,
 

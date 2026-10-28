@@ -2,11 +2,13 @@ import type { ChangeEvent } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import type { DrawCount, DrawSpeed } from "./settings.types";
+import type { DrawCount, DrawMode, DrawSpeed } from "./settings.types";
 
 interface DrawSettingsProps {
   drawCount: DrawCount;
   drawSpeed: DrawSpeed;
+  drawMode: DrawMode;
+  onDrawModeChange: (mode: DrawMode) => void;
   onDrawCountChange: (count: DrawCount) => void;
   onDrawSpeedChange: (speed: DrawSpeed) => void;
 }
@@ -14,6 +16,8 @@ interface DrawSettingsProps {
 export function DrawSettings({
   drawCount,
   drawSpeed,
+  drawMode,
+  onDrawModeChange,
   onDrawCountChange,
   onDrawSpeedChange,
 }: DrawSettingsProps) {
@@ -22,6 +26,32 @@ export function DrawSettings({
   return (
     <div className="p-6">
       <div className="max-w-[500px] rounded-2xl border border-slate-700 bg-slate-800/30 p-5">
+        <label
+          htmlFor="draw-mode"
+          className="mb-2 block text-sm font-semibold text-slate-200"
+        >
+          {t("selection.components.settings.drawSettings.drawMode")}
+        </label>
+        <p className="mb-4 text-xs text-slate-500">
+          {t("selection.components.settings.drawSettings.drawModeDescription")}
+        </p>
+        <select
+          id="draw-mode"
+          value={drawMode}
+          onChange={(event: ChangeEvent<HTMLSelectElement>) =>
+            onDrawModeChange(event.target.value as DrawMode)
+          }
+          className="w-full cursor-pointer rounded-xl border border-slate-700 bg-[#11151d] px-4 py-3 text-sm font-medium text-white outline-none transition-colors focus:border-emerald-500"
+        >
+          <option value="classic">
+            {t("selection.components.settings.drawSettings.classicMode")}
+          </option>
+          <option value="slot-machine">
+            {t("selection.components.settings.drawSettings.slotMachineMode")}
+          </option>
+        </select>
+        <div className="my-5 h-px bg-slate-700/70" />
+
         <label
           htmlFor="draw-count"
           className="mb-2 block text-sm font-semibold text-slate-200"
