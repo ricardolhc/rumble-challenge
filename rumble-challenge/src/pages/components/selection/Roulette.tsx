@@ -34,7 +34,14 @@ const WheelArt = memo(function WheelArt({ entries, characters, infos, winners = 
       <circle cx="300" cy="300" r="259" fill={`url(#${id}-bowl)`} />
       {Array.from({ length: 12 }, (_, spoke) => {
         const point = roulettePoint(174, spoke * 30);
-        return <path key={spoke} d={`M 300 300 L ${point.x} ${point.y}`} stroke="#c3ac6930" strokeWidth="2" />;
+        return <path
+          key={spoke}
+          className="roulette__spoke roulette__spoke--flash"
+          style={{ animationDelay: `${-spoke * 0.17}s` }}
+          d={`M 300 300 L ${point.x} ${point.y}`}
+          stroke="#c3ac6930"
+          strokeWidth="2"
+        />;
       })}
       <circle cx="300" cy="300" r="170" fill="none" stroke="#a18b53" strokeWidth="3" />
       {entries.map((index, position) => {
@@ -58,7 +65,14 @@ const WheelArt = memo(function WheelArt({ entries, characters, infos, winners = 
                 transform={`rotate(${angle} ${point.x} ${point.y})`}
               />
             </g>
-            <path d={path} fill="none" stroke={winners.includes(index) ? "#6ee7b7" : "#bda66b80"} strokeWidth={winners.includes(index) ? 4 : 1.5} />
+            <path
+              className={!winners.includes(index) && position % 2 === 0 ? "roulette__pocket-flash" : undefined}
+              style={{ animationDelay: `${-position * 0.09}s` }}
+              d={path}
+              fill="none"
+              stroke={winners.includes(index) ? "#6ee7b7" : "#bda66b80"}
+              strokeWidth={winners.includes(index) ? 4 : 1.5}
+            />
           </g>
         );
       })}
@@ -189,7 +203,7 @@ export function Roulette({ characters, entries, drawCount, frame: previousFrame,
   return (
     <section className="roulette" aria-label={t("selection.components.selection.roulette.title")}>
       <div className="roulette__body">
-        <div className="roulette__stage">
+        <div className="roulette__stage" data-spinning={isSelecting}>
           <svg className="roulette__rim" viewBox="0 0 600 600" aria-hidden="true">
             <circle cx="300" cy="300" r="292" fill="#171b1e" stroke="#8d794a" strokeWidth="10" />
             <circle cx="300" cy="300" r="278" fill="none" stroke="#bda66c" strokeWidth="2" />

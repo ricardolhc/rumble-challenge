@@ -134,7 +134,30 @@
   line-height: 1.5;
 }
 
+.roulette__stage[data-spinning="true"] .roulette__spoke--flash {
+  animation: roulette-line-spark 1.4s ease-in-out infinite;
+}
+
+.roulette__stage[data-spinning="true"] .roulette__pocket-flash {
+  animation: roulette-pocket-spark 1.6s ease-in-out infinite;
+}
+
+@keyframes roulette-line-spark {
+  0%, 100% { stroke: #c3ac6950; stroke-width: 2; filter: none; }
+  35%, 65% { stroke: #fff2c4; stroke-width: 4; filter: drop-shadow(0 0 5px #ffc85c); }
+}
+
+@keyframes roulette-pocket-spark {
+  0%, 100% { stroke: #bda66b80; stroke-width: 1.5; filter: none; }
+  35%, 65% { stroke: #ffe5a1; stroke-width: 3; filter: drop-shadow(0 0 4px #ffc85c); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .roulette__stage[data-spinning="true"] .roulette__spoke--flash,
+  .roulette__stage[data-spinning="true"] .roulette__pocket-flash {
+    animation: none;
+  }
+
   .roulette__orbit:not([data-settled="true"]) {
     visibility: hidden;
   }
