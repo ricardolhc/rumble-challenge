@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "byk_font";
+  src: url("/fonts/byk_font.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.character-card {
+  border: 4px solid #090a0d;
+  border-radius: 0;
+}
+
+.character-card--compact {
+  border-width: 3px;
+}
+
+.character-card__contents {
+  overflow: hidden;
+  border: 1px solid #101114;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #0008;
+}
+
+.character-card__contents {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: 78% 22%;
+  width: 100%;
+  height: 100%;
+}
+
+.character-card__contents--art-only {
+  grid-template-rows: 100%;
+}
+
+.character-card__art {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background-repeat: repeat;
+  background-size: 80px 80px;
+}
+
+.character-card--team .character-card__art {
+  background-size: 100px 100px;
+}
+
+.character-card__portrait {
+  position: absolute;
+  bottom: -6cqw;
+  left: 50%;
+  z-index: 10;
+  max-width: none;
+  transform: translateX(-50%);
+  object-fit: contain;
+  object-position: bottom;
+  pointer-events: none;
+  user-select: none;
+}
+
+.character-card__symbol {
+  --ink: #090a0d;
+  position: absolute;
+  right: 4.7cqw;
+  bottom: 4.7cqw;
+  z-index: 30;
+  width: 19.872cqw;
+  height: 19.872cqw;
+  object-fit: contain;
+  filter: drop-shadow(2px 2px 0 var(--ink));
+  pointer-events: none;
+  user-select: none;
+}
+
+.character-card__new {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  padding: 1.8cqw 6cqw 1.8cqw 2.5cqw;
+  background: #f32643;
+  color: #fff;
+  font: normal 900 clamp(9px, 8cqw, 20px)/1 sans-serif;
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.character-card__new > span {
+  display: block;
+}
+
+.character-card__footer {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 5.8cqw;
+  background: #18191e;
+}
+
+.character-card__name {
+  margin: 0;
+  color: #fff;
+  font-family: "byk_font";
+  font-size: clamp(10px, 11.5cqw, 30px);
+  font-weight: 400;
+  font-synthesis: none;
+  font-style: normal;
+  line-height: 0.95;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.character-card--compact .character-card__contents {
+  grid-template-rows: minmax(0, 1fr) 28px;
+}
+
+.character-card--compact .character-card__footer {
+  padding-inline: 4px;
+}
+
+.character-card--compact .character-card__name {
+  font-size: 12px;
+  line-height: 1.1;
+}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CharacterCardContents } from "./CharacterCardContents";
 import type { MouseEvent } from "react";
 
 interface TeamCharacterProps {
@@ -64,7 +65,7 @@ export function TeamCharacter({
 
   return (
     <div
-      className="relative"
+      className="relative w-[264px] max-w-full"
       style={{
         perspective: "1000px",
       }}
@@ -74,19 +75,16 @@ export function TeamCharacter({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="
+          character-card character-card--team
           relative
           h-[350px]
-          w-[275px]
+          w-full
           shrink-0
           cursor-pointer
           overflow-hidden
-          rounded-2xl
           bg-repeat
         "
         style={{
-          backgroundImage: background ? `url(${background})` : undefined,
-          backgroundSize: "100px 100px",
-
           transform: `
             rotateX(${rotation.x}deg)
             rotateY(${rotation.y}deg)
@@ -104,117 +102,37 @@ export function TeamCharacter({
           willChange: "transform",
         }}
       >
-        {/* Símbolo */}
-        {symbol && (
-          <img
-            src={symbol}
-            alt=""
-            draggable={false}
-            className="
-              pointer-events-none
-              absolute
-              left-2
-              top-2
-              z-20
-              h-12
-              w-12
-              select-none
-              object-contain
-              drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
-            "
-          />
-        )}
-
-        {/* NEW */}
-        {isNew && (
-          <img
-            src="https://ultrarumble.com/assets/icons/newicon.png"
-            alt="New"
-            draggable={false}
-            className="
-              pointer-events-none
-              absolute
-              right-3
-              top-3
-              z-40
-              h-[26px]
-              w-[62px]
-              select-none
-              object-contain
-              animate-[isNewBounce_1s_ease-in-out_infinite]
-            "
-          />
-        )}
-
-        {/* Personagem */}
-        <img
-          src={image}
-          alt={name}
-          draggable={false}
-          className="
-            pointer-events-none
-            absolute
-            bottom-0
-            left-1/2
-            max-w-none
-            -translate-x-1/2
-            select-none
-            object-contain
-          "
-          style={{
-            width: `${imageWidthTeam}px`,
-            height: `${imageHeightTeam}px`,
-          }}
-        />
-
-        {/* Brilho do hover */}
-        <div
-          className="
-            pointer-events-none
-            absolute
-            inset-0
-            z-20
-            rounded-2xl
-          "
-          style={{
-            background: `
-              linear-gradient(
-                ${135 + rotation.y * 2}deg,
-                rgba(255,255,255,${isHovering ? 0.1 : 0}),
-                transparent 45%,
-                rgba(0,0,0,${isHovering ? 0.08 : 0})
-              )
-            `,
-            transition: "background 150ms ease",
-          }}
-        />
-
-        {/* Nome */}
-        {showName && (
+        <CharacterCardContents
+          name={name}
+          image={image}
+          symbol={symbol}
+          background={background}
+          imageWidth={imageWidthTeam}
+          imageHeight={imageHeightTeam}
+          isNew={isNew}
+          showName={showName}
+        >
+          {/* Brilho do hover */}
           <div
             className="
               pointer-events-none
               absolute
-              bottom-3
-              left-1/2
-              z-30
-              -translate-x-1/2
-              whitespace-nowrap
-              rounded-lg
-              bg-black/75
-              px-4
-              py-1.5
-              text-center
-              text-xl
-              font-black
-              text-white
-              shadow-lg
-              backdrop-blur-sm
-            "
-          >
-            {name}
-          </div>
-        )}
+              inset-0
+              z-20
+              "
+            style={{
+              background: `
+                linear-gradient(
+                  ${135 + rotation.y * 2}deg,
+                  rgba(255,255,255,${isHovering ? 0.1 : 0}),
+                  transparent 45%,
+                  rgba(0,0,0,${isHovering ? 0.08 : 0})
+                )
+              `,
+              transition: "background 150ms ease",
+            }}
+          />
+        </CharacterCardContents>
       </div>
     </div>
   );

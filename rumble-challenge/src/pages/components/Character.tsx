@@ -1,3 +1,5 @@
+import { CharacterCardContents } from "./CharacterCardContents";
+
 interface CharacterProps {
   name: string;
   image: string;
@@ -26,9 +28,10 @@ export function Character({
   return (
     <div
       className={`
+        character-card character-card--compact
         relative
-        h-[100px]
-        w-[100px]
+        h-[108px]
+        w-[96px]
         shrink-0
         overflow-hidden
         bg-repeat
@@ -57,8 +60,6 @@ export function Character({
               `
               : `
                 z-10
-                border
-                border-black
               `
         }
 
@@ -75,110 +76,16 @@ export function Character({
             : ""
         }
       `}
-      style={{
-        backgroundImage: background ? `url(${background})` : undefined,
-        backgroundSize: "80px 80px",
-      }}
     >
-      {/* Personagem */}
-      <img
-        src={image}
-        alt={name}
-        draggable={false}
-        className="
-          pointer-events-none
-          absolute
-          bottom-0
-          left-1/2
-          z-10
-          max-w-none
-          -translate-x-1/2
-          select-none
-          object-contain
-          object-bottom
-        "
-        style={{
-          width: `${imageWidth}px`,
-          height: `${imageHeight}px`,
-        }}
+      <CharacterCardContents
+        name={name}
+        image={image}
+        symbol={symbol}
+        background={background}
+        imageWidth={imageWidth}
+        imageHeight={imageHeight}
+        isNew={isNew}
       />
-
-      {/* Símbolo */}
-      {symbol && (
-        <img
-          src={symbol}
-          alt=""
-          draggable={false}
-          className="
-            pointer-events-none
-            absolute
-            left-0
-            top-0
-            z-30
-            h-[26px]
-            w-[26px]
-            select-none
-            object-contain
-          "
-        />
-      )}
-
-      {/* NEW */}
-      {isNew && (
-        <img
-          src="https://ultrarumble.com/assets/icons/newicon.png"
-          alt="New"
-          draggable={false}
-          className="
-            pointer-events-none
-            absolute
-            right-[2px]
-            top-[2px]
-            z-40
-            h-[16px]
-            w-[38px]
-            select-none
-            object-contain
-            animate-[isNewBounce_1s_ease-in-out_infinite]
-          "
-        />
-      )}
-
-      {/* Nome */}
-      <div
-        className="
-          absolute
-          bottom-0
-          left-0
-          z-30
-          flex
-          h-[19px]
-          w-full
-          items-center
-          justify-center
-          bg-black/70
-          px-[2px]
-        "
-      >
-        <h2
-          className="
-            character-name
-            max-w-full
-            overflow-hidden
-            text-ellipsis
-            whitespace-nowrap
-            text-center
-            text-[10px]
-            font-bold
-            leading-none
-            text-white
-            drop-shadow-[0_1px_2px_rgba(0,0,0,1)]
-          "
-          title={name}
-        >
-          {name}
-        </h2>
-      </div>
     </div>
   );
 }
