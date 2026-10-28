@@ -144,7 +144,7 @@ export function LogsSettings({ logs }: LogsSettingsProps) {
                       bg-slate-800
                     "
                     style={{
-                      backgroundImage: `url(${character.background})`,
+                      backgroundImage: character.background ? `url(${character.background})` : undefined,
                       backgroundSize: "45px 45px",
                     }}
                   >
@@ -161,18 +161,20 @@ export function LogsSettings({ logs }: LogsSettingsProps) {
                       "
                     />
 
-                    <img
-                      src={character.symbol}
-                      alt=""
-                      className="
-                        absolute
-                        top-0.5
-                        left-0.5
-                        h-3.5
-                        w-3.5
-                        object-contain
-                      "
-                    />
+                    {character.symbol && (
+                      <img
+                        src={character.symbol}
+                        alt=""
+                        className="
+                          absolute
+                          top-0.5
+                          left-0.5
+                          h-3.5
+                          w-3.5
+                          object-contain
+                        "
+                      />
+                    )}
                   </div>
 
                   <div className="min-w-0">

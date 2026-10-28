@@ -1,8 +1,8 @@
 interface CharacterProps {
   name: string;
   image: string;
-  symbol: string;
-  background: string;
+  symbol?: string;
+  background?: string;
   isHighlighted?: boolean;
   isFocused?: boolean;
   imageWidth: number;
@@ -76,7 +76,7 @@ export function Character({
         }
       `}
       style={{
-        backgroundImage: `url(${background})`,
+        backgroundImage: background ? `url(${background})` : undefined,
         backgroundSize: "80px 80px",
       }}
     >
@@ -104,22 +104,24 @@ export function Character({
       />
 
       {/* Símbolo */}
-      <img
-        src={symbol}
-        alt=""
-        draggable={false}
-        className="
-          pointer-events-none
-          absolute
-          left-0
-          top-0
-          z-30
-          h-[26px]
-          w-[26px]
-          select-none
-          object-contain
-        "
-      />
+      {symbol && (
+        <img
+          src={symbol}
+          alt=""
+          draggable={false}
+          className="
+            pointer-events-none
+            absolute
+            left-0
+            top-0
+            z-30
+            h-[26px]
+            w-[26px]
+            select-none
+            object-contain
+          "
+        />
+      )}
 
       {/* NEW */}
       {isNew && (

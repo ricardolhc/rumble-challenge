@@ -4,8 +4,8 @@ import type { MouseEvent } from "react";
 interface TeamCharacterProps {
   name: string;
   image: string;
-  symbol: string;
-  background: string;
+  symbol?: string;
+  background?: string;
   imageWidthTeam: number;
   imageHeightTeam: number;
   showName?: boolean;
@@ -84,7 +84,7 @@ export function TeamCharacter({
           bg-repeat
         "
         style={{
-          backgroundImage: `url(${background})`,
+          backgroundImage: background ? `url(${background})` : undefined,
           backgroundSize: "100px 100px",
 
           transform: `
@@ -105,23 +105,25 @@ export function TeamCharacter({
         }}
       >
         {/* Símbolo */}
-        <img
-          src={symbol}
-          alt=""
-          draggable={false}
-          className="
-            pointer-events-none
-            absolute
-            left-2
-            top-2
-            z-20
-            h-12
-            w-12
-            select-none
-            object-contain
-            drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
-          "
-        />
+        {symbol && (
+          <img
+            src={symbol}
+            alt=""
+            draggable={false}
+            className="
+              pointer-events-none
+              absolute
+              left-2
+              top-2
+              z-20
+              h-12
+              w-12
+              select-none
+              object-contain
+              drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]
+            "
+          />
+        )}
 
         {/* NEW */}
         {isNew && (

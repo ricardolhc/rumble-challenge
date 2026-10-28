@@ -61,7 +61,7 @@ export function CharacterBanList({
                 bg-slate-900
               "
               style={{
-                backgroundImage: `url(${character.background})`,
+                backgroundImage: character.background ? `url(${character.background})` : undefined,
                 backgroundSize: "48px 48px",
               }}
             >
